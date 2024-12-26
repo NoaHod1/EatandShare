@@ -1,10 +1,10 @@
-package com.noa.eatandshare.model;
+package com.noa.eatandshare.models;
 
 public class User {
     String id;
     String fname, lname, phone,email, password,city;
 
-    public User() {
+    public User(String uid, String email, String password, String fName, String lName, String phone) {
     }
 
 

@@ -1,4 +1,4 @@
-package com.noa.eatandshare;
+package com.noa.eatandshare.screens;
 
 import android.os.Bundle;
 
@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.noa.eatandshare.R;
 
 public class HomePage extends AppCompatActivity {
 

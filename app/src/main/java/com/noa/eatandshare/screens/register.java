@@ -1,4 +1,4 @@
-package com.noa.eatandshare;
+package com.noa.eatandshare.screens;
 
 
 
@@ -27,7 +27,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.noa.eatandshare.model.User;
+import com.noa.eatandshare.R;
+import com.noa.eatandshare.models.User;
 
 public class register extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 

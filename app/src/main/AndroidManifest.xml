@@ -13,19 +13,19 @@
         android:theme="@style/Theme.EatandShare"
         tools:targetApi="31">
         <activity
-            android:name=".OdotPage"
+            android:name=".screens.OdotPage"
             android:exported="false" />
         <activity
-            android:name=".HomePage"
+            android:name=".screens.HomePage"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".screens.Login"
             android:exported="false" />
         <activity
-            android:name=".register"
+            android:name=".screens.register"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".screens.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

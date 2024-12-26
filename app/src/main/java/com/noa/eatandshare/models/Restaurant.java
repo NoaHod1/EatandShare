@@ -1,4 +1,4 @@
-package com.noa.eatandshare.model;
+package com.noa.eatandshare.models;
 
 public class Restaurant {
 
