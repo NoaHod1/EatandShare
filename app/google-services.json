@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "972422206502",
+    "project_id": "eat-and-share-789b5",
+    "storage_bucket": "eat-and-share-789b5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:972422206502:android:e61041d2fccc061e7402e7",
+        "android_client_info": {
+          "package_name": "com.noa.eatandshare"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAr8MdesErdhYCMn3JY9r0VQ8D19pqYfBw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
