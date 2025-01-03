@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#8EC5F4"
+    tools:context=".screens.MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="315dp"
+        android:gravity="center"
+        android:text="Eat \n &amp; \n Share"
+        android:textSize="70dp"
+        app:layout_constraintBottom_toTopOf="@+id/Odot1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnLogin1"
+        android:layout_width="111dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="79dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="#7EAEF6"
+        android:onClick=""
+        android:text="התחברות"
+        app:layout_constraintBottom_toTopOf="@+id/Odot1"
+        app:layout_constraintEnd_toStartOf="@+id/btnreg1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:ignore="OnClick" />
+
+    <Button
+        android:id="@+id/btnreg1"
+        android:layout_width="115dp"
+        android:layout_height="46dp"
+        android:layout_marginEnd="95dp"
+        android:layout_marginBottom="4dp"
+        android:backgroundTint="#7EAEF6"
+        android:text="הרשמה"
+        app:layout_constraintBottom_toTopOf="@+id/Odot1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnLogin1"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <Button
+        android:id="@+id/Odot1"
+        android:layout_width="114dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginEnd="69dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#7EAEF6"
+        android:text="אודות"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnreg1"
+        app:layout_constraintStart_toStartOf="@+id/btnLogin1"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="888dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnreg1"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:srcCompat="@drawable/pic11"
+        tools:layout_editor_absoluteX="-239dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="126dp"
+        android:layout_height="137dp"
+        android:layout_marginStart="79dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="79dp"
+        android:layout_marginBottom="194dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/btnreg1"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pic22" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
