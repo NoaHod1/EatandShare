@@ -8,6 +8,14 @@
     tools:context=".screens.AddRestaurantActivity">
 
 
+    <TextView
+        android:id="@+id/etTitelRes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="הוספת מסעדה"
+        tools:layout_editor_absoluteX="177dp"
+        tools:layout_editor_absoluteY="35dp" />
+
     <EditText
         android:id="@+id/etRestaurantName"
         android:layout_width="197dp"
@@ -15,95 +23,82 @@
         android:ems="10"
         android:hint="שם המסעדה"
         android:inputType="text"
-        tools:layout_editor_absoluteX="198dp"
-        tools:layout_editor_absoluteY="89dp" />
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="91dp" />
+
+    <Spinner
+        android:id="@+id/spResType"
+        android:layout_width="196dp"
+        android:layout_height="46dp"
+        tools:layout_editor_absoluteX="143dp"
+        tools:layout_editor_absoluteY="152dp" />
+
+    <Switch
+        android:id="@+id/swIsKosher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="כשר"
+        tools:layout_editor_absoluteX="265dp"
+        tools:layout_editor_absoluteY="212dp" />
+
+    <Spinner
+        android:id="@+id/spCity"
+        android:layout_width="171dp"
+        android:layout_height="37dp"
+        tools:layout_editor_absoluteX="168dp"
+        tools:layout_editor_absoluteY="265dp" />
 
     <EditText
-        android:id="@+id/etRestaurantAddress"
+        android:id="@+id/etRestaurantstreet"
         android:layout_width="196dp"
         android:layout_height="45dp"
         android:ems="10"
         android:hint="כתובת המסעדה"
         android:inputType="text"
-        tools:layout_editor_absoluteX="199dp"
-        tools:layout_editor_absoluteY="264dp" />
+        tools:layout_editor_absoluteX="143dp"
+        tools:layout_editor_absoluteY="320dp" />
 
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="83dp"
-        tools:layout_editor_absoluteY="536dp" />
-
-    <Switch
-        android:id="@+id/IsKosher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="כשר"
-        tools:layout_editor_absoluteX="264dp"
-        tools:layout_editor_absoluteY="328dp" />
-
-    <Spinner
-        android:id="@+id/spCity"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="399dp" />
-
-    <Spinner
-        android:id="@+id/spResType"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="453dp" />
-
-    <TextView
-        android:id="@+id/etTitelRes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="כותרת"
-        tools:layout_editor_absoluteX="177dp"
-        tools:layout_editor_absoluteY="35dp" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="624dp" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="134dp"
-        tools:layout_editor_absoluteY="624dp" />
-
-    <TextView
-        android:id="@+id/etTitelRate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="דרגו אותי!"
-        tools:layout_editor_absoluteX="336dp"
-        tools:layout_editor_absoluteY="550dp" />
+    <EditText
+        android:id="@+id/etRestaurantDetails"
+        android:layout_width="224dp"
+        android:layout_height="101dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        tools:layout_editor_absoluteX="93dp"
+        tools:layout_editor_absoluteY="381dp" />
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="157dp"
-        android:layout_height="218dp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="122dp"
+        android:id="@+id/ivRes"
+        android:layout_width="134dp"
+        android:layout_height="149dp"
+        tools:layout_editor_absoluteX="54dp"
+        tools:layout_editor_absoluteY="500dp"
         tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/textView11"
++
+    <Button
+        android:id="@+id/btnGallery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="264dp"
-        tools:layout_editor_absoluteY="175dp" />
+        android:text="Button"
+        tools:layout_editor_absoluteX="248dp"
+        tools:layout_editor_absoluteY="520dp" />
+
+    <Button
+        android:id="@+id/btnCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="248dp"
+        tools:layout_editor_absoluteY="587dp" />
+
+    <Button
+        android:id="@+id/btnAddRestaurant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteY="677dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

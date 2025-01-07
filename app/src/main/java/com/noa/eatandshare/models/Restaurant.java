@@ -4,21 +4,23 @@ public class Restaurant {
 
     String id, name, city, street, type;
 
-    int streetNumber,numberOfRating;
+    int numberOfRating;
     boolean kosher;
     double rate, sumRating;
 
-    public Restaurant(String id, String name, String city, String street, String type, int streetNumber, int numberOfRating, boolean kosher, double rate, double sumRating) {
+    protected  String domain;
+
+    public Restaurant(String id, String name, String city, String street, String type, int numberOfRating, boolean kosher, double rate, double sumRating, String domain) {
         this.id = id;
         this.name = name;
         this.city = city;
         this.street = street;
         this.type = type;
-        this.streetNumber = streetNumber;
         this.numberOfRating = numberOfRating;
         this.kosher = kosher;
         this.rate = rate;
         this.sumRating = sumRating;
+        this.domain = domain;
     }
 
     public String getId() {
@@ -61,14 +63,6 @@ public class Restaurant {
         this.type = type;
     }
 
-    public int getStreetNumber() {
-        return streetNumber;
-    }
-
-    public void setStreetNumber(int streetNumber) {
-        this.streetNumber = streetNumber;
-    }
-
     public int getNumberOfRating() {
         return numberOfRating;
     }
@@ -101,6 +95,14 @@ public class Restaurant {
         this.sumRating = sumRating;
     }
 
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
     @Override
     public String toString() {
         return "Restaurant{" +
@@ -109,11 +111,11 @@ public class Restaurant {
                 ", city='" + city + '\'' +
                 ", street='" + street + '\'' +
                 ", type='" + type + '\'' +
-                ", streetNumber=" + streetNumber +
                 ", numberOfRating=" + numberOfRating +
                 ", kosher=" + kosher +
                 ", rate=" + rate +
                 ", sumRating=" + sumRating +
+                ", domain='" + domain + '\'' +
                 '}';
     }
 }
