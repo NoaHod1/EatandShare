@@ -46,7 +46,7 @@
         android:layout_width="171dp"
         android:layout_height="37dp"
         tools:layout_editor_absoluteX="168dp"
-        tools:layout_editor_absoluteY="265dp" />
+        tools:layout_editor_absoluteY="264dp" />
 
     <EditText
         android:id="@+id/etRestaurantstreet"
@@ -58,6 +58,8 @@
         tools:layout_editor_absoluteX="143dp"
         tools:layout_editor_absoluteY="320dp" />
 
+    +
+
     <EditText
         android:id="@+id/etRestaurantDetails"
         android:layout_width="224dp"
@@ -66,16 +68,16 @@
         android:gravity="start|top"
         android:inputType="textMultiLine"
         tools:layout_editor_absoluteX="93dp"
-        tools:layout_editor_absoluteY="381dp" />
+        tools:layout_editor_absoluteY="379dp" />
 
     <ImageView
         android:id="@+id/ivRes"
         android:layout_width="134dp"
         android:layout_height="149dp"
-        tools:layout_editor_absoluteX="54dp"
+        tools:layout_editor_absoluteX="51dp"
         tools:layout_editor_absoluteY="500dp"
         tools:srcCompat="@tools:sample/avatars" />
-+
+
     <Button
         android:id="@+id/btnGallery"
         android:layout_width="wrap_content"
