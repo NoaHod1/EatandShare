@@ -74,8 +74,8 @@
         android:id="@+id/ivRes"
         android:layout_width="134dp"
         android:layout_height="149dp"
-        tools:layout_editor_absoluteX="51dp"
-        tools:layout_editor_absoluteY="500dp"
+        tools:layout_editor_absoluteX="58dp"
+        tools:layout_editor_absoluteY="486dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button

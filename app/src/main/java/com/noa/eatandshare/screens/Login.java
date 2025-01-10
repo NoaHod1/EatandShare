@@ -33,6 +33,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     SharedPreferences sharedpreferences;
 
+    String admin="noa272007@gmail.com";
+    String passadmin="272007";
+
+
+    public static boolean isAdmin=false;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +84,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onCompleted(String id) {
                 Log.d("TAG", "signInWithEmail:success");
+                if(email.equals(admin)&& pass.equals(passadmin)){
+                    Intent golog =new Intent(getApplicationContext(), AdminPage.class);
+                    isAdmin=true;
+                    startActivity(golog);
+                } else{
+                    Intent go =new Intent(getApplicationContext(), HomePage.class);
+                    startActivity(go);
+                }
+
+
 
                 databaseService.getUser(id, new DatabaseService.DatabaseCallback<User>() {
                     @Override
@@ -86,10 +103,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         startActivity(go);
                     }
 
+
                     @Override
                     public void onFailed(Exception e) {
 
                     }
+
+
                 });
             }
 
@@ -99,6 +119,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 Toast.makeText(getApplicationContext(), "Authentication failed.",
                         Toast.LENGTH_SHORT).show();
             }
+
+
         });
 
 

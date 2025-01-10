@@ -1,19 +1,27 @@
 package com.noa.eatandshare.screens;
 
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.appcompat.view.menu.MenuBuilder;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.noa.eatandshare.R;
 
-public class AfterLogIn extends AppCompatActivity {
+public class AfterLogIn extends AppCompatActivity implements View.OnClickListener{
 
     TextView tvHello;
-    Button btnGoStore2, btnGoAddItem2, btnGoWishList, btnGoPersonal, btnGoDonation
+    Button btnGoStore2, btnGoAddRes2, btnGoWishList, btnGoPersonal, btnGoDonation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +38,10 @@ public class AfterLogIn extends AppCompatActivity {
         //   if(Login.theUser != null)
         //     tvHello.setText(" שלום "+Login.theUser.getfName());
 
-        btnGoStore2.setOnClickListener(this);
+        btnGoStore2.setOnClickListener((View.OnClickListener) this);
 
-        btnGoWishList.setOnClickListener(this);
-        btnGoPersonal.setOnClickListener(this);
+        btnGoWishList.setOnClickListener((View.OnClickListener) this);
+        btnGoPersonal.setOnClickListener((View.OnClickListener) this);
 
         startService(new Intent(this, MyService.class));
 
@@ -44,7 +52,7 @@ public class AfterLogIn extends AppCompatActivity {
         if(view==btnGoStore2){
             stopService(new Intent(this, MyService.class));
 
-            Intent goStore=new Intent(this, SearchItem.class);
+            Intent goStore=new Intent(this, GoSearchPage.class);
             startActivity(goStore);
         }
         //  if(view==btnGoAddItem2){
@@ -71,7 +79,7 @@ public class AfterLogIn extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem menuitem) {
         int itemid = menuitem.getItemId();
         if (itemid == R.id.menuGoStore) {
-            Intent goadmin = new Intent(AfterLogin.this, SearchItem.class);
+            Intent goadmin = new Intent(AfterLogIn.this, SearchRes.class);
             startActivity(goadmin);
         }
         //   if (itemid == R.id.menuGoMyItems) {
@@ -79,34 +87,34 @@ public class AfterLogIn extends AppCompatActivity {
         //      startActivity(goadmin);
         //  }
         if (itemid == R.id.menuGoMyCart) {
-            Intent goadmin = new Intent(AfterLogin.this, Mycart.class);
+            Intent goadmin = new Intent(AfterLogIn.this, Mycart.class);
             startActivity(goadmin);
         }
         if (itemid == R.id.menuGoPersonal) {
-            Intent goadmin = new Intent(AfterLogin.this, UserProfile.class);
+            Intent goadmin = new Intent(AfterLogIn.this, UserProfile.class);
             startActivity(goadmin);
         }
-        if (itemid == R.id.menuGoAfterLogin) {
-            Intent goadmin = new Intent(AfterLogin.this, AfterLogin.class);
+        if (itemid == R.id.menuGoAfterLogIn) {
+            Intent goadmin = new Intent(AfterLogIn.this, AfterLogIn.class);
             startActivity(goadmin);
         }
 
         if (itemid == R.id.menuGoAdminPage) {
             if(FirebaseAuth.getInstance().getCurrentUser().getEmail().equals("golanaf@gmail.com")){
-                Intent go = new Intent(AfterLogin.this, AdminPage.class);
+                Intent go = new Intent(AfterLogIn.this, AdminPage.class);
                 startActivity(go);
             }
             else{
-                Toast.makeText(AfterLogin.this,"עמוד זה למנהלים בלבד!", Toast.LENGTH_LONG).show();
+                Toast.makeText(AfterLogIn.this,"עמוד זה למנהלים בלבד!", Toast.LENGTH_LONG).show();
             }
 
             if (itemid == R.id.menuGoAllOrders) {
                 if(FirebaseAuth.getInstance().getCurrentUser().getEmail().equals("golanaf@gmail.com")){
-                    Intent go = new Intent(AfterLogin.this, AllOrders.class);
+                    Intent go = new Intent(AfterLogInn.this, AllOrders.class);
                     startActivity(go);
                 }
                 else{
-                    Toast.makeText(AfterLogin.this,"עמוד זה למנהלים בלבד!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AfterLogIn.this,"עמוד זה למנהלים בלבד!", Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -115,7 +123,7 @@ public class AfterLogIn extends AppCompatActivity {
 
 
         if (itemid == R.id.menuGoLogOut) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(AfterLogin.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(AfterLogIn.this);
             builder.setTitle("התנתקות");
             builder.setMessage("אתה בטוח שאתה רוצה להתנתק?");
             builder.setCancelable(true);
@@ -127,20 +135,20 @@ public class AfterLogIn extends AppCompatActivity {
         }
 
         if (itemid == R.id.menuGoAfterLogin) {
-            Intent go = new Intent(AfterLogin.this, AfterLogin.class);
+            Intent go = new Intent(AfterLogIn.this, AfterLogIn.class);
             startActivity(go);
         }
 
         return true;
 
     }
-    private class HandleAlertDialogListener2 implements DialogInterface.OnClickListener{
+    private class HandleAlertDialogListener2 implements DialogInterface.OnClickListener, com.noa.eatandshare.screens.HandleAlertDialogListener2 {
         @Override
         public void onClick(DialogInterface dialog, int which){
             if(which==-1) //user wants to log out
             {
                 FirebaseAuth.getInstance().signOut();
-                Intent go = new Intent(AfterLogin.this, MainActivity.class);
+                Intent go = new Intent(AfterLogIn.this, MainActivity.class);
                 startActivity(go);
             }
         }

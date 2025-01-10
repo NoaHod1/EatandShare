@@ -1,16 +1,26 @@
 package com.noa.eatandshare.screens;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.noa.eatandshare.R;
 
-public class AdminPage extends AppCompatActivity {
+public class AdminPage extends AppCompatActivity implements View.OnClickListener{
+
+
+    Button btnGoSearchPage, btnAddRes2, btnGoAfterLogin, btnGoAllOrders;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,87 +32,48 @@ public class AdminPage extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
+        btnAddRes2 = findViewById(R.id.btnAddRestaurant2);
+        btnGoAllOrders = findViewById(R.id.btnGoAllOrders);
+
+        btnGoSearchPage.setOnClickListener((View.OnClickListener) this);
+
+        btnGoAfterLogin.setOnClickListener((View.OnClickListener) this);
+        btnGoAllOrders.setOnClickListener((View.OnClickListener) this);
+
+        btnAddRes2.setOnClickListener((View.OnClickListener) this);
     }
 
-    btnAddItem=findViewById(R.id.btnAddItem);
-    btnGoAllOrders=findViewById(R.id.btnGoAllOrders);
-
-        btnGoSearchPage.setOnClickListener(this);
-
-        btnGoAfterLoginM.setOnClickListener(this);
-        btnGoAllOrders.setOnClickListener(this);
-
-        btnAddItem.setOnClickListener(this);
-}
 
     @Override
     public void onClick(View view) {
-        if(view==btnGoSearchPage){
-            Intent go=new Intent(this, SearchPage.class);
+        if (view == btnGoSearchPage) {
+            Intent go = new Intent(this, GoSearchPage.class);
             startActivity(go);
         }
         //  if(view==btnGoAddDonationPlace){
         //     Intent go=new Intent(this, AddDonationPlace.class);
         //      startActivity(go);
         // }
-        if(view==btnGoAfterLoginM){
-            Intent go=new Intent(this, AfterLogin.class);
+        if (view == btnGoAfterLogin) {
+            Intent go = new Intent(this, AfterLogIn.class);
             startActivity(go);
         }
 
-        if(view==btnAddItem){
-            Intent go=new Intent(this,AddItem.class);
+        if (view == btnAddRes2) {
+            Intent go = new Intent(this, AddRestaurantActivity.class);
             startActivity(go);
         }
-        if(view==btnGoAllOrders){
-            Intent go=new Intent(this,AllOrders.class);
+        if (view == btnGoAllOrders) {
+            Intent go = new Intent(this, GoAllOrders.class);
             startActivity(go);
         }
     }
 
-    public boolean onOptionsItemSelected(MenuItem menuitem) {
-        int itemid = menuitem.getItemId();
-        if (itemid == R.id.menuGoStore) {
-            Intent goadmin = new Intent(AdminPage.this, SearchItem.class);
-            startActivity(goadmin);
-        }
-        if (itemid == R.id.menuGoPersonal) {
-            Intent goadmin = new Intent(AdminPage.this, UserProfile.class);
-            startActivity(goadmin);
-        }
-        if (itemid == R.id.menuGoMyCart) {
-            Intent goadmin = new Intent(AdminPage.this, Mycart.class);
-            startActivity(goadmin);
-        }
-        if (itemid == R.id.menuGoAboutUs) {
-            Intent goadmin = new Intent(AdminPage.this, AboutUs.class);
-            startActivity(goadmin);
-        }
-        if (itemid == R.id.menuGoAllOrders) {
-            Intent goadmin = new Intent(AdminPage.this, AllOrders.class);
-            startActivity(goadmin);
-        }
-        if (itemid == R.id.menuGoAfterLogin) {
-            Intent goadmin = new Intent(AdminPage.this, AfterLogin.class);
-            startActivity(goadmin);
-        }
 
 
 
-        return super.onOptionsItemSelected(menuitem);
-    }
-
-
-
-    @SuppressLint("RestrictedApi")
-    public boolean onCreateOptionsMenu (Menu menu){
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        if (menu instanceof MenuBuilder) {
-            MenuBuilder m = (MenuBuilder) menu;
-            m.setOptionalIconsVisible(true);
-        }
-        return true;
-    }
 
 
 }

@@ -1,5 +1,6 @@
 package com.noa.eatandshare.screens;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -20,11 +22,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.Firebase;
 import com.noa.eatandshare.R;
 
 import java.io.IOException;
 
-public class AddRestaurantActivity extends AppCompatActivity {
+public class AddRestaurantActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     EditText etRestaurantName1,etRestaurantstreet1,etRestaurantDetails1;
@@ -35,6 +38,8 @@ public class AddRestaurantActivity extends AppCompatActivity {
     String RestaurantName, Restaurantstreet, etRestaurantDetails;
     String imageRef;
     String dedc;
+
+
 
     Bitmap bitmap;
 
@@ -67,8 +72,14 @@ public class AddRestaurantActivity extends AppCompatActivity {
 
 
         btnAddRestaurant1=findViewById(R.id.btnAddRestaurant);
+        btnAddRestaurant.setOnClickListener(this);
+
         btnGallery1=findViewById(R.id.btnGallery);
+        btnGallery.setOnClickListener(this);
+
         btnCamera1=findViewById(R.id.btnCamera);
+        btnCamera.setOnClickListener(this);
+
 
         etRestaurantstreet1=findViewById(R.id.etRestaurantstreet);
 
@@ -80,19 +91,20 @@ public class AddRestaurantActivity extends AppCompatActivity {
         ivRes1=findViewById(R.id.ivRes);
 
 
+
         spResType1=findViewById(R.id.spResType);
         spCity1=findViewById(R.id.spCity);
 
 
         /// register the activity result launcher for capturing image from camera
-        captureImageLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                        Bitmap bitmap = (Bitmap) result.getData().getExtras().get("data");
-                        foodImageView.setImageBitmap(bitmap);
-                    }
-                });
+        //captureImageLauncher = registerForActivityResult(
+           //     new ActivityResultContracts.StartActivityForResult(),
+              //  result -> {
+               //     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+               //         Bitmap bitmap = (Bitmap) result.getData().getExtras().get("data");
+                 //       ImageView.setImageBitmap(bitmap);
+               //     }
+              //  });
 
 
     }
@@ -103,56 +115,101 @@ public class AddRestaurantActivity extends AppCompatActivity {
 
         if(view==btnCamera1)
         {
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            captureImageLauncher.launch(takePictureIntent);
+
 
         }
-        if(view==btnGallery1) {
+       if(view==btnGallery1) {
 
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            selectImageLauncher.launch(intent);
+            //Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            //selectImageLauncher.launch(intent);
         }
         if(view==btnAddRestaurant1)
         {
 
-            type=spResType1.getSelectedItem().toString();
+//
+//
+//          //  String stStreet = etRestaurantstreet1.getText().toString();
+//
+//
+//
+//           // if (bitmap != null) {
+//
+//                //  uid ="thisisUid"; //FirebaseAuth.getInstance().getCurrentUser().getUid();
+//
+//                String itemid=myRef.getKey().toString();
+//                imageRef="gs://macroorder-508b4.appspot.com/"+itemid;
+//
+//                Item newItem= new Item(itemid,itemName,type,imageRef);
+//
+//
+//
+//                //  item1.setImageRef("gs://who-needed.appspot.com\n"+item1.getItemKey()+"");
+//                myRef.setValue(newItem);
+//
+//               // HandleImage.LoadImageFile(bitmap, AddRestaurantActivity.this, Itemid);
+//                //startActivity(intent2);
+//
+//                Intent go=new Intent(this,AdminPage.class);
+//                startActivity(go);
 
-
-            dedc=etRestaurantDetails1.getText().toString();
-
-
-            itemName=etRestaurantName1.getText()+"";
-
-            stStreet=etRestaurantstreet1.getText().toString();
-
-
-
-            if (bitmap != null) {
-
-                //  uid ="thisisUid"; //FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-                String itemid=myRef.getKey().toString();
-                imageRef="gs://macroorder-508b4.appspot.com/"+itemid;
-
-                Item newItem= new Item(itemid,itemName,type,imageRef, dedc,price);
-
-
-
-                //  item1.setImageRef("gs://who-needed.appspot.com\n"+item1.getItemKey()+"");
-                myRef.setValue(newItem);
-
-                HandleImage.LoadImageFile(bitmap, AddItem.this, itemid);
-                //startActivity(intent2);
-
-                Intent go=new Intent(this,AdminPage.class);
-                startActivity(go);
-
-            } else {
-                Toast.makeText(AddItem.this, "Please take pic!", Toast.LENGTH_SHORT).show();
-            }
+        }
+        else {
+            Toast.makeText(AddRestaurantActivity.this, "Please take pic!", Toast.LENGTH_SHORT).show();
         }
 
+
+        if(view==btnCamera1)
+        {
+
+
+        }
+        if(view==btnGallery1) {
+
+            //Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            //selectImageLauncher.launch(intent);
+        }
+        if(view==btnAddRestaurant1)
+        {
+
+
+
+            //  String stStreet = etRestaurantstreet1.getText().toString();
+
+
+
+            // if (bitmap != null) {
+
+            //  uid ="thisisUid"; //FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+//            String itemid=myRef.getKey().toString();
+//            imageRef="gs://macroorder-508b4.appspot.com/"+itemid;
+
+//            Item newItem= new Item(itemid,itemName,type,imageRef);
+
+
+
+            //  item1.setImageRef("gs://who-needed.appspot.com\n"+item1.getItemKey()+"");
+//            myRef.setValue(newItem);
+
+            // HandleImage.LoadImageFile(bitmap, AddRestaurantActivity.this, Itemid);
+            //startActivity(intent2);
+
+//            Intent go=new Intent(this,AdminPage.class);
+//            startActivity(go);
+
+ //       } else {
+//            Toast.makeText(AddRestaurantActivity.this, "Please take pic!", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
 }
+
+
+
+
+
+
+
+
+
