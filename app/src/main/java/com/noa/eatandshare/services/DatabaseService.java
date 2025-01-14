@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.noa.eatandshare.models.Restaurant;
 import com.noa.eatandshare.models.User;
 
 import org.jetbrains.annotations.NotNull;
@@ -151,4 +152,138 @@ public class DatabaseService {
     }
 
 
+    /// create a new restaurant in the database
+    /// @param restaurant the restaurant object to create
+    /// @param callback the callback to call when the operation is completed
+    ///              the callback will receive void
+    ///             if the operation fails, the callback will receive an exception
+    /// @return void
+    /// @see DatabaseCallback
+    /// @see Restaurant
+    public void createNewRestaurant(@NotNull final Restaurant restaurant, @Nullable final DatabaseCallback<Void> callback) {
+        writeData("restaurants/" + restaurant.getId(), restaurant, callback);
+    }
+
+    /// create a new cart in the database
+    /// @param cart the cart object to create
+    /// @param callback the callback to call when the operation is completed
+    ///               the callback will receive void
+    ///              if the operation fails, the callback will receive an exception
+    /// @return void
+    /// @see DatabaseCallback
+    /// @see Cart
+ //   public void createNewCart(@NotNull final Cart cart, @Nullable final DatabaseCallback<Void> callback) {
+ //       writeData("carts/" + cart.getId(), cart, callback);
+ //   }
+
+
+    /// get a user from the database
+    /// @param uid the id of the user to get
+    /// @param callback the callback to call when the operation is completed
+    ///               the callback will receive the user object
+    ///             if the operation fails, the callback will receive an exception
+    /// @return void
+    /// @see DatabaseCallback
+    /// @see User
+  
+
+
+    /// get a restaurant from the database
+    /// @param restaurantId the id of the restaurant to get
+    /// @param callback the callback to call when the operation is completed
+    ///               the callback will receive the restaurant object
+    ///              if the operation fails, the callback will receive an exception
+    /// @return void
+    /// @see DatabaseCallback
+    /// @see Restaurant
+    public void getRestaurant(@NotNull final String restaurantId, @NotNull final DatabaseCallback<Restaurant> callback) {
+        getData("restaurants/" + restaurantId, Restaurant.class, callback);
+    }
+
+    /// get a cart from the database
+    /// @param cartId the id of the cart to get
+    /// @param callback the callback to call when the operation is completed
+    ///                the callback will receive the cart object
+    ///               if the operation fails, the callback will receive an exception
+    /// @return void
+    /// @see DatabaseCallback
+    /// @see Cart
+ //   public void getCart(@NotNull final String cartId, @NotNull final DatabaseCallback<Cart> callback) {
+ //       getData("carts/" + cartId, Cart.class, callback);
+ //   }
+
+    /// generate a new id for a new restaurant in the database
+    /// @return a new id for the restaurant
+    /// @see #generateNewId(String)
+    /// @see Restaurant
+    public String generateRestaurantId() {
+        return generateNewId("restaurants");
+    }
+
+    /// generate a new id for a new cart in the database
+    /// @return a new id for the cart
+    /// @see #generateNewId(String)
+    /// @see Cart
+    public String generateCartId() {
+        return generateNewId("carts");
+    }
+
+    /// get all the restaurants from the database
+    /// @param callback the callback to call when the operation is completed
+    ///              the callback will receive a list of restaurant objects
+    ///            if the operation fails, the callback will receive an exception
+    /// @return void
+    /// @see DatabaseCallback
+    /// @see List
+    /// @see Restaurant
+    /// @see #getData(String, Class, DatabaseCallback)
+    public void getRestaurants(@NotNull final DatabaseCallback<List<Restaurant>> callback) {
+        readData("restaurants").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e(TAG, "Error getting data", task.getException());
+                callback.onFailed(task.getException());
+                return;
+            }
+            List<Restaurant> restaurants = new ArrayList<>();
+            task.getResult().getChildren().forEach(dataSnapshot -> {
+                Restaurant restaurant = dataSnapshot.getValue(Restaurant.class);
+                Log.d(TAG, "Got restaurant: " + restaurant);
+                restaurants.add(restaurant);
+            });
+
+            callback.onCompleted(restaurants);
+        });
+    }
+
+    /// get all the users from the database
+    /// @param callback the callback to call when the operation is completed
+    ///              the callback will receive a list of restaurant objects
+    ///            if the operation fails, the callback will receive an exception
+    /// @return void
+    /// @see DatabaseCallback
+    /// @see List
+    /// @see Restaurant
+    /// @see #getData(String, Class, DatabaseCallback)
+    public void getUsers(@NotNull final DatabaseCallback<List<User>> callback) {
+        readData("Users").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e(TAG, "Error getting data", task.getException());
+                callback.onFailed(task.getException());
+                return;
+            }
+            List<User> users = new ArrayList<>();
+            task.getResult().getChildren().forEach(dataSnapshot -> {
+                User user = dataSnapshot.getValue(User.class);
+                Log.d(TAG, "Got user: " + user);
+                users.add(user);
+            });
+
+            callback.onCompleted(users);
+        });
+    }
+
+
 }
+
+
+

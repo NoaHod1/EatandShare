@@ -12,95 +12,135 @@
         android:id="@+id/etTitelRes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="37dp"
         android:text="הוספת מסעדה"
-        tools:layout_editor_absoluteX="177dp"
-        tools:layout_editor_absoluteY="35dp" />
+        app:layout_constraintBottom_toTopOf="@+id/etRestaurantName"
+        app:layout_constraintStart_toStartOf="@+id/etRestaurantName"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/etRestaurantName"
-        android:layout_width="197dp"
-        android:layout_height="45dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginBottom="16dp"
         android:ems="10"
         android:hint="שם המסעדה"
         android:inputType="text"
-        tools:layout_editor_absoluteX="142dp"
-        tools:layout_editor_absoluteY="91dp" />
+        app:layout_constraintBottom_toTopOf="@+id/spResType"
+        app:layout_constraintEnd_toEndOf="@+id/spCity"
+        app:layout_constraintStart_toStartOf="@+id/spResType"
+        app:layout_constraintTop_toBottomOf="@+id/etTitelRes" />
 
     <Spinner
         android:id="@+id/spResType"
         android:layout_width="196dp"
-        android:layout_height="46dp"
-        tools:layout_editor_absoluteX="143dp"
-        tools:layout_editor_absoluteY="152dp" />
+        android:layout_height="0dp"
+        android:layout_marginEnd="74dp"
+        android:layout_marginBottom="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/swIsKosher"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etRestaurantName" />
 
     <Switch
         android:id="@+id/swIsKosher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
         android:text="כשר"
-        tools:layout_editor_absoluteX="265dp"
-        tools:layout_editor_absoluteY="212dp" />
+        app:layout_constraintBottom_toTopOf="@+id/spCity"
+        app:layout_constraintEnd_toEndOf="@+id/spResType"
+        app:layout_constraintTop_toBottomOf="@+id/spResType" />
 
     <Spinner
         android:id="@+id/spCity"
-        android:layout_width="171dp"
-        android:layout_height="37dp"
-        tools:layout_editor_absoluteX="168dp"
-        tools:layout_editor_absoluteY="264dp" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="19dp"
+        app:layout_constraintBottom_toTopOf="@+id/etRestaurantstreet"
+        app:layout_constraintEnd_toEndOf="@+id/btnCamera"
+        app:layout_constraintStart_toStartOf="@+id/etRestaurantstreet"
+        app:layout_constraintTop_toBottomOf="@+id/swIsKosher" />
 
     <EditText
         android:id="@+id/etRestaurantstreet"
         android:layout_width="196dp"
-        android:layout_height="45dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="14dp"
         android:ems="10"
         android:hint="כתובת המסעדה"
         android:inputType="text"
-        tools:layout_editor_absoluteX="143dp"
-        tools:layout_editor_absoluteY="320dp" />
+        app:layout_constraintBottom_toTopOf="@+id/etRestaurantDetails"
+        app:layout_constraintStart_toStartOf="@+id/etRestaurantDetails"
+        app:layout_constraintTop_toBottomOf="@+id/spCity" />
 
     +
 
     <EditText
         android:id="@+id/etRestaurantDetails"
         android:layout_width="224dp"
-        android:layout_height="101dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="6dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        tools:layout_editor_absoluteX="93dp"
-        tools:layout_editor_absoluteY="379dp" />
+        app:layout_constraintBottom_toTopOf="@+id/ivRes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etRestaurantstreet" />
 
     <ImageView
         android:id="@+id/ivRes"
-        android:layout_width="134dp"
-        android:layout_height="149dp"
-        tools:layout_editor_absoluteX="58dp"
-        tools:layout_editor_absoluteY="486dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginEnd="56dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnCamera"
+        app:layout_constraintEnd_toStartOf="@+id/btnGallery"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etRestaurantDetails"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
         android:id="@+id/btnGallery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="248dp"
-        tools:layout_editor_absoluteY="520dp" />
+        android:layout_marginEnd="75dp"
+        android:layout_marginBottom="19dp"
+        android:text="גלריה"
+        app:layout_constraintBottom_toTopOf="@+id/btnCamera"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivRes" />
 
     <Button
         android:id="@+id/btnCamera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="248dp"
-        tools:layout_editor_absoluteY="587dp" />
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="42dp"
+        android:text="צלם תמונה"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddRestaurant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivRes"
+        app:layout_constraintTop_toBottomOf="@+id/ivRes" />
 
     <Button
         android:id="@+id/btnAddRestaurant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="160dp"
-        tools:layout_editor_absoluteY="677dp" />
+        android:layout_marginStart="67dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginBottom="6dp"
+        android:text="הוספת מסעדה"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnCamera"
+        app:layout_constraintStart_toStartOf="@+id/etRestaurantDetails"
+        app:layout_constraintTop_toBottomOf="@+id/btnCamera" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

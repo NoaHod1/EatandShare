@@ -4,18 +4,18 @@ public class User {
     String id;
     String fname, lname, phone,email, password,city;
 
-    public User(String uid, String email, String password, String fName, String lName, String phone) {
+
+    public User() {
     }
 
-
-    public User(String id, String fname, String lname, String phone, String email, String password, String city) {
+    public User(String id, String fname, String lname, String phone, String email, String password) {
         this.id = id;
         this.fname = fname;
         this.lname = lname;
         this.phone = phone;
         this.email = email;
         this.password = password;
-        this.city=city;
+
     }
 
 
@@ -67,13 +67,7 @@ public class User {
         this.password = password;
     }
 
-    public String getCity() {
-        return city;
-    }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
 
     @Override
     public String toString() {
@@ -84,7 +78,7 @@ public class User {
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", city='" + city + '\'' +
+
                 '}';
     }
 }

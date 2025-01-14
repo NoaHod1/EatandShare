@@ -1,13 +1,20 @@
 package com.noa.eatandshare.screens;
 
+import static android.opengl.ETC1.isValid;
+
 import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -24,185 +31,175 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.Firebase;
 import com.noa.eatandshare.R;
+import com.noa.eatandshare.models.Restaurant;
+import com.noa.eatandshare.services.DatabaseService;
+import com.noa.eatandshare.utils.ImageUtil;
 
 import java.io.IOException;
 
-public class AddRestaurantActivity extends AppCompatActivity implements View.OnClickListener {
 
+public class AddRestaurantActivity extends AppCompatActivity {
 
-    EditText etRestaurantName1,etRestaurantstreet1,etRestaurantDetails1;
-    Button btnGallery1,btnCamera1,btnAddRestaurant1;
-    ImageView ivRes1;
-    Spinner spResType1,spCity1;
-    Switch swIsKosher;
-    String RestaurantName, Restaurantstreet, etRestaurantDetails;
-    String imageRef;
-    String dedc;
-
-
-
-    Bitmap bitmap;
-
-
-
-    Button btnGallery,btnCamera, btnAddRestaurant;
-    ImageView iv;
-    public static final int GALLERY_INTENT=2;
-
-
-    /// Activity result launcher for capturing image from camera
-    private ActivityResultLauncher<Intent> captureImageLauncher;
+    private EditText etRestaurantName, etRestaurantstreet, etRestaurantDetails;
+    private Spinner spResType, spCity;
+    private Switch swIsKosher;
+    private Button btnAddRestaurant, btnGallery, btnCamera;
+    private ImageView ivRes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_restaurant);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        // אתחול כל אחד מהאלמנטים ב-UI
+        etRestaurantName = findViewById(R.id.etRestaurantName);
+        etRestaurantstreet = findViewById(R.id.etRestaurantstreet);
+        etRestaurantDetails = findViewById(R.id.etRestaurantDetails);
+        spResType = findViewById(R.id.spResType);
+        spCity = findViewById(R.id.spCity);
+        swIsKosher = findViewById(R.id.swIsKosher);
+        btnAddRestaurant = findViewById(R.id.btnAddRestaurant);
+        ivRes = findViewById(R.id.ivRes);
+        btnGallery = findViewById(R.id.btnGallery);
+        btnCamera = findViewById(R.id.btnCamera);
+
+        // יצירת ArrayAdapter עבור סוגי המסעדות
+        ArrayAdapter<CharSequence> resTypeAdapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.restaurant_types,
+                android.R.layout.simple_spinner_item
+        );
+        resTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spResType.setAdapter(resTypeAdapter);
+
+        // יצירת ArrayAdapter עבור הערים
+        ArrayAdapter<CharSequence> cityAdapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.cityArr,
+                android.R.layout.simple_spinner_item
+        );
+        cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spCity.setAdapter(cityAdapter);
+
+        // פעולה כשנבחר סוג המסעדה
+        spResType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // פעולה כשנבחרת אפשרות חדשה בסוג המסעדה
+                String selectedType = spResType.getSelectedItem().toString();
+                Toast.makeText(AddRestaurantActivity.this, "בחרת סוג: " + selectedType, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // פעולה כשאין בחירה
+            }
         });
 
+        // פעולה כשנבחרה עיר
+        spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // פעולה כשנבחרת עיר
+                String selectedCity = spCity.getSelectedItem().toString();
+                Toast.makeText(AddRestaurantActivity.this, "בחרת עיר: " + selectedCity, Toast.LENGTH_SHORT).show();
+            }
 
-    }
-    private void initViews() {
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // פעולה כשאין בחירה
+            }
+        });
 
+        // פעולה כשנלחץ כפתור "הוספת מסעדה"
+        btnAddRestaurant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addRestaurant();
+            }
+        });
 
+        // פעולה כשנלחץ כפתור "גלריה"
+        btnGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGallery();
+            }
+        });
 
-
-        btnAddRestaurant1=findViewById(R.id.btnAddRestaurant);
-        btnAddRestaurant.setOnClickListener(this);
-
-        btnGallery1=findViewById(R.id.btnGallery);
-        btnGallery.setOnClickListener(this);
-
-        btnCamera1=findViewById(R.id.btnCamera);
-        btnCamera.setOnClickListener(this);
-
-
-        etRestaurantstreet1=findViewById(R.id.etRestaurantstreet);
-
-        etRestaurantDetails1=findViewById(R.id.etRestaurantDetails);
-
-        etRestaurantName1=findViewById(R.id.etRestaurantName);
-
-
-        ivRes1=findViewById(R.id.ivRes);
-
-
-
-        spResType1=findViewById(R.id.spResType);
-        spCity1=findViewById(R.id.spCity);
-
-
-        /// register the activity result launcher for capturing image from camera
-        //captureImageLauncher = registerForActivityResult(
-           //     new ActivityResultContracts.StartActivityForResult(),
-              //  result -> {
-               //     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-               //         Bitmap bitmap = (Bitmap) result.getData().getExtras().get("data");
-                 //       ImageView.setImageBitmap(bitmap);
-               //     }
-              //  });
-
-
+        // פעולה כשנלחץ כפתור "צלם תמונה"
+        btnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCamera();
+            }
+        });
     }
 
+    // פונקציה להוספת מסעדה
+    private void addRestaurant() {
+        // קריאת נתונים מהשדות
+        String restaurantName = etRestaurantName.getText().toString().trim();
+        String restaurantStreet = etRestaurantstreet.getText().toString().trim();
+        String restaurantDetails = etRestaurantDetails.getText().toString().trim();
 
+        // בחירת סוג המסעדה (Spinner)
+        String resType = spResType.getSelectedItem().toString();
+
+        // בחירת עיר (Spinner)
+        String city = spCity.getSelectedItem().toString();
+
+        // ערך של ה-Switch כשר
+        boolean isKosher = swIsKosher.isChecked();
+
+        // אם יש נתונים חסרים, הצג הודעת שגיאה
+        if (restaurantName.isEmpty() || restaurantStreet.isEmpty() || restaurantDetails.isEmpty()) {
+            Toast.makeText(this, "נא למלא את כל השדות", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // הצגת ההודעה על המסך למשתמש
+        Toast.makeText(this, "המסעדה נוספה בהצלחה!", Toast.LENGTH_SHORT).show();
+
+        // הדפסת הערכים לקונסול (Log) לצורך דיבוג
+        System.out.println("Restaurant Name: " + restaurantName);
+        System.out.println("Restaurant Street: " + restaurantStreet);
+        System.out.println("Restaurant Details: " + restaurantDetails);
+        System.out.println("Restaurant Type: " + resType);
+        System.out.println("City: " + city);
+        System.out.println("Is Kosher: " + isKosher);
+
+        // כאן אפשר להוסיף את הקוד לשמירה בבסיס נתונים או פעולה אחרת
+    }
+
+    // פונקציה לפתיחת הגלריה
+    private void openGallery() {
+        // יצירת Intent לבחירת תמונה מהגלריה
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, 1);
+    }
+
+    // פונקציה לפתיחת המצלמה
+    private void openCamera() {
+        // יצירת Intent לצילום תמונה
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 2);
+    }
+
+    // טיפול בתוצאה של הגלריה או המצלמה
     @Override
-    public void onClick(View view) {
-
-        if(view==btnCamera1)
-        {
-
-
-        }
-       if(view==btnGallery1) {
-
-            //Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            //selectImageLauncher.launch(intent);
-        }
-        if(view==btnAddRestaurant1)
-        {
-
-//
-//
-//          //  String stStreet = etRestaurantstreet1.getText().toString();
-//
-//
-//
-//           // if (bitmap != null) {
-//
-//                //  uid ="thisisUid"; //FirebaseAuth.getInstance().getCurrentUser().getUid();
-//
-//                String itemid=myRef.getKey().toString();
-//                imageRef="gs://macroorder-508b4.appspot.com/"+itemid;
-//
-//                Item newItem= new Item(itemid,itemName,type,imageRef);
-//
-//
-//
-//                //  item1.setImageRef("gs://who-needed.appspot.com\n"+item1.getItemKey()+"");
-//                myRef.setValue(newItem);
-//
-//               // HandleImage.LoadImageFile(bitmap, AddRestaurantActivity.this, Itemid);
-//                //startActivity(intent2);
-//
-//                Intent go=new Intent(this,AdminPage.class);
-//                startActivity(go);
-
-        }
-        else {
-            Toast.makeText(AddRestaurantActivity.this, "Please take pic!", Toast.LENGTH_SHORT).show();
-        }
-
-
-        if(view==btnCamera1)
-        {
-
-
-        }
-        if(view==btnGallery1) {
-
-            //Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            //selectImageLauncher.launch(intent);
-        }
-        if(view==btnAddRestaurant1)
-        {
-
-
-
-            //  String stStreet = etRestaurantstreet1.getText().toString();
-
-
-
-            // if (bitmap != null) {
-
-            //  uid ="thisisUid"; //FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-//            String itemid=myRef.getKey().toString();
-//            imageRef="gs://macroorder-508b4.appspot.com/"+itemid;
-
-//            Item newItem= new Item(itemid,itemName,type,imageRef);
-
-
-
-            //  item1.setImageRef("gs://who-needed.appspot.com\n"+item1.getItemKey()+"");
-//            myRef.setValue(newItem);
-
-            // HandleImage.LoadImageFile(bitmap, AddRestaurantActivity.this, Itemid);
-            //startActivity(intent2);
-
-//            Intent go=new Intent(this,AdminPage.class);
-//            startActivity(go);
-
- //       } else {
-//            Toast.makeText(AddRestaurantActivity.this, "Please take pic!", Toast.LENGTH_SHORT).show();
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            // טיפול בתמונה מהגלריה
+            Uri imageUri = data.getData();
+            ivRes.setImageURI(imageUri);
+        } else if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
+            // טיפול בתמונה מהמצלמה
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            ivRes.setImageBitmap(photo);
         }
     }
-
-
 }
 
 

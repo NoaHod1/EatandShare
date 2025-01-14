@@ -12,12 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EatandShare"
         tools:targetApi="31">
-        <activity
-            android:name=".screens.MyService"
-            android:exported="false" />
-        <activity
-            android:name=".screens.AddRestaurant2"
-            android:exported="false" />
+
         <activity
             android:name=".screens.GoSearchPage"
             android:exported="false" />

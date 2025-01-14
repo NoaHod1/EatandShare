@@ -21,4 +21,13 @@
 
     </string-array>
 
+
+    <string-array name="restaurant_types">
+        <item>פסט פוד</item>
+        <item>מסעדה צמחונית</item>
+        <item>מסעדה בשרית</item>
+        <item>מסעדת דגים</item>
+        <item>מסעדת בשרים על האש</item>
+    </string-array>
+
 </resources>

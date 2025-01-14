@@ -23,6 +23,10 @@ public class Restaurant {
         this.domain = domain;
     }
 
+
+    public Restaurant() {
+    }
+
     public String getId() {
         return id;
     }

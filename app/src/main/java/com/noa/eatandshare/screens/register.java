@@ -29,18 +29,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.noa.eatandshare.R;
 import com.noa.eatandshare.models.User;
+import com.noa.eatandshare.services.AuthenticationService;
+import com.noa.eatandshare.services.DatabaseService;
+import com.noa.eatandshare.utils.SharedPreferencesUtil;
 
-public class register extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class register extends AppCompatActivity implements View.OnClickListener {
 
   EditText etFname, etLname, etPhone, etEmail, etPassword;
    String fname,lname,phone,email,password;
    Button btnReg;
-    private FirebaseAuth mAuth;
-    private FirebaseDatabase database;
-    private DatabaseReference myRef;
 
-    String city;
-    Spinner spCity;
+
+    private static final String TAG = "RegisterActivity";
+
+
+    private AuthenticationService authenticationService;
+    private DatabaseService databaseService;
+
 
     public static final String MyPREFERENCES = "MyPrefs" ;
     SharedPreferences sharedpreferences;
@@ -58,12 +63,14 @@ public class register extends AppCompatActivity implements View.OnClickListener,
             return insets;
         });
 
-        initViews();
-        // Write a message to the database
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("Users");
 
-        mAuth = FirebaseAuth.getInstance();
+        /// get the instance of the authentication service
+        authenticationService = AuthenticationService.getInstance();
+        /// get the instance of the database service
+        databaseService = DatabaseService.getInstance();
+
+        initViews();
+
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
 
@@ -83,8 +90,7 @@ public class register extends AppCompatActivity implements View.OnClickListener,
         btnReg=findViewById(R.id.btnReg);
         btnReg.setOnClickListener(this);
 
-        spCity=findViewById(R.id.spCity);
-        spCity.setOnItemSelectedListener(this);
+
 
 
     }
@@ -128,51 +134,76 @@ public class register extends AppCompatActivity implements View.OnClickListener,
 
         if (isValid==true){
 
-            mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d("TAG", "createUserWithEmail:success");
-                                FirebaseUser fireuser = mAuth.getCurrentUser();
-                                User newUser=new User(fireuser.getUid(), fname, lname,city, phone, email,password);
-                                myRef.child(fireuser.getUid()).setValue(newUser);
-                                SharedPreferences.Editor editor = sharedpreferences.edit();
-
-                                editor.putString("email", email);
-                                editor.putString("password", password);
-
-                                editor.commit();
-                                Intent goLog=new Intent(getApplicationContext(), HomePage.class);
-                                startActivity(goLog);
+            /// Register user
+            registerUser(email, password, fname, lname, phone);
 
 
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("TAG", "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(register.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
 
-                            }
-
-                            // ...
-                        }
-                    });
         }
 
 
 
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        city=(String) parent.getItemAtPosition(position);
+
+    /// Register the user
+    private void registerUser(String email, String password, String fName, String lName, String phone) {
+        Log.d(TAG, "registerUser: Registering user...");
+
+        /// call the sign up method of the authentication service
+        authenticationService.signUp(email, password, new AuthenticationService.AuthCallback<String>() {
+
+            @Override
+            public void onCompleted(String uid) {
+                Log.d(TAG, "onCompleted: User registered successfully");
+                /// create a new user object
+                User user = new User();
+                user.setId(uid);
+                user.setEmail(email);
+                user.setPassword(password);
+                user.setFname(fName);
+                user.setLname(lName);
+                user.setPhone(phone);
+
+                /// call the createNewUser method of the database service
+                databaseService.createNewUser(user, new DatabaseService.DatabaseCallback<Void>() {
+
+                    @Override
+                    public void onCompleted(Void object) {
+                        Log.d(TAG, "onCompleted: User registered successfully");
+                        /// save the user to shared preferences
+                        SharedPreferencesUtil.saveUser(register.this, user);
+                        Log.d(TAG, "onCompleted: Redirecting to MainActivity");
+                        /// Redirect to MainActivity and clear back stack to prevent user from going back to register screen
+                        Intent mainIntent = new Intent(register.this, MainActivity.class);
+                        /// clear the back stack (clear history) and start the MainActivity
+                        mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(mainIntent);
+                    }
+
+                    @Override
+                    public void onFailed(Exception e) {
+                        Log.e(TAG, "onFailed: Failed to register user", e);
+                        /// show error message to user
+                        Toast.makeText(register.this, "Failed to register user", Toast.LENGTH_SHORT).show();
+                        /// sign out the user if failed to register
+                        /// this is to prevent the user from being logged in again
+                        authenticationService.signOut();
+                    }
+                });
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Log.e(TAG, "onFailed: Failed to register user", e);
+                /// show error message to user
+                Toast.makeText(register.this, "Failed to register user", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        city=(String) parent.getItemAtPosition(0);
 
-    }
+
 }

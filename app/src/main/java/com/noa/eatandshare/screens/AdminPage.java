@@ -17,10 +17,10 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.noa.eatandshare.R;
 
-public class AdminPage extends AppCompatActivity implements View.OnClickListener{
+public class AdminPage extends AppCompatActivity implements View.OnClickListener {
 
 
-    Button btnGoSearchPage, btnAddRes2, btnGoAfterLogin, btnGoAllOrders;
+    Button btnAddRestaurant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,47 +33,13 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
             return insets;
         });
 
-
-        btnAddRes2 = findViewById(R.id.btnAddRestaurant2);
-        btnGoAllOrders = findViewById(R.id.btnGoAllOrders);
-
-        btnGoSearchPage.setOnClickListener((View.OnClickListener) this);
-
-        btnGoAfterLogin.setOnClickListener((View.OnClickListener) this);
-        btnGoAllOrders.setOnClickListener((View.OnClickListener) this);
-
-        btnAddRes2.setOnClickListener((View.OnClickListener) this);
+        btnAddRestaurant = findViewById(R.id.btnAddRestaurant2);
+        btnAddRestaurant.setOnClickListener(this);
     }
-
 
     @Override
-    public void onClick(View view) {
-        if (view == btnGoSearchPage) {
-            Intent go = new Intent(this, GoSearchPage.class);
-            startActivity(go);
-        }
-        //  if(view==btnGoAddDonationPlace){
-        //     Intent go=new Intent(this, AddDonationPlace.class);
-        //      startActivity(go);
-        // }
-        if (view == btnGoAfterLogin) {
-            Intent go = new Intent(this, AfterLogIn.class);
-            startActivity(go);
-        }
-
-        if (view == btnAddRes2) {
-            Intent go = new Intent(this, AddRestaurantActivity.class);
-            startActivity(go);
-        }
-        if (view == btnGoAllOrders) {
-            Intent go = new Intent(this, GoAllOrders.class);
-            startActivity(go);
-        }
+    public void onClick(View v) {
+        Intent go = new Intent(getApplicationContext(),AddRestaurantActivity.class);
+        startActivity(go);
     }
-
-
-
-
-
-
 }
