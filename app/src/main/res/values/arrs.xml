@@ -3,31 +3,24 @@
 
     <string-array name="cityArr">
         <item>ראשון לציון </item>
-        <item>בת ים </item>
         <item>חולון </item>
         <item>תל אביב </item>
-        <item>רחובות </item>
-        <item>פתח תקווה </item>
-        <item>רמת גן </item>
-        <item>אילת</item>
-        <item>נתיבות </item>
-        <item>רעננה </item>
+        <item> אילת</item>
         <item>הרצליה </item>
-        <item>גבעתיים </item>
-        <item>באר יעקוב </item>
         <item>נס ציונה </item>
-        <item>גלילות </item>
 
 
     </string-array>
 
 
     <string-array name="restaurant_types">
-        <item>פסט פוד</item>
+        <item> סוגי מסעדות </item>
         <item>מסעדה צמחונית</item>
         <item>מסעדה בשרית</item>
         <item>מסעדת דגים</item>
         <item>מסעדת בשרים על האש</item>
+        <item>מסעדה איטלקית </item>
+
     </string-array>
 
 </resources>
