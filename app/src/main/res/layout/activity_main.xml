@@ -74,7 +74,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btnreg1"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
         app:srcCompat="@drawable/pic11"
-        tools:layout_editor_absoluteX="-239dp" />
+        tools:layout_editor_absoluteX="-257dp" />
 
     <ImageView
         android:id="@+id/imageView2"

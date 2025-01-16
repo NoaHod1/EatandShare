@@ -40,11 +40,28 @@ import java.io.IOException;
 
 public class AddRestaurantActivity extends AppCompatActivity {
 
-    private EditText etRestaurantName, etRestaurantstreet, etRestaurantDetails;
+    private EditText etRestaurantName, etRestaurantstreet, etRestaurantDetails,etDomain;
     private Spinner spResType, spCity;
     private Switch swIsKosher;
     private Button btnAddRestaurant, btnGallery, btnCamera;
     private ImageView ivRes;
+
+
+    private static final String TAG = "AddRestaurantActivity";
+
+
+    private DatabaseService databaseService;
+
+    /// Activity result launcher for selecting image from gallery
+    private ActivityResultLauncher<Intent> selectImageLauncher;
+    /// Activity result launcher for capturing image from camera
+    private ActivityResultLauncher<Intent> captureImageLauncher;
+
+
+    // constant to compare
+    // the activity result code
+    int SELECT_PICTURE = 200;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +79,42 @@ public class AddRestaurantActivity extends AppCompatActivity {
         ivRes = findViewById(R.id.ivRes);
         btnGallery = findViewById(R.id.btnGallery);
         btnCamera = findViewById(R.id.btnCamera);
+        etDomain=findViewById(R.id.etDomain);
+
+
+        /// request permission for the camera and storage
+        ImageUtil.requestPermission(this);
+
+        /// get the instance of the database service
+        databaseService = DatabaseService.getInstance();
+
+
+
+
+        /// register the activity result launcher for selecting image from gallery
+        selectImageLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        Uri selectedImage = result.getData().getData();
+                        ivRes.setImageURI(selectedImage);
+                    }
+                });
+
+        /// register the activity result launcher for capturing image from camera
+        captureImageLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        Bitmap bitmap = (Bitmap) result.getData().getExtras().get("data");
+                        ivRes.setImageBitmap(bitmap);
+                    }
+                });
+
+
+
+
+
 
         // יצירת ArrayAdapter עבור סוגי המסעדות
         ArrayAdapter<CharSequence> resTypeAdapter = ArrayAdapter.createFromResource(
@@ -123,7 +176,9 @@ public class AddRestaurantActivity extends AppCompatActivity {
         btnGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openGallery();
+                selectImageFromGallery();
+                return;
+
             }
         });
 
@@ -131,7 +186,11 @@ public class AddRestaurantActivity extends AppCompatActivity {
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openCamera();
+                // capture image from camera
+                Log.d(TAG, "Capture image button clicked");
+                captureImageFromCamera();
+                return;
+
             }
         });
     }
@@ -142,6 +201,8 @@ public class AddRestaurantActivity extends AppCompatActivity {
         String restaurantName = etRestaurantName.getText().toString().trim();
         String restaurantStreet = etRestaurantstreet.getText().toString().trim();
         String restaurantDetails = etRestaurantDetails.getText().toString().trim();
+
+        String domain=etDomain.getText().toString();
 
         // בחירת סוג המסעדה (Spinner)
         String resType = spResType.getSelectedItem().toString();
@@ -158,49 +219,116 @@ public class AddRestaurantActivity extends AppCompatActivity {
             return;
         }
 
-        // הצגת ההודעה על המסך למשתמש
-        Toast.makeText(this, "המסעדה נוספה בהצלחה!", Toast.LENGTH_SHORT).show();
+        String imageBase64 = ImageUtil.convertTo64Base(ivRes);
 
-        // הדפסת הערכים לקונסול (Log) לצורך דיבוג
-        System.out.println("Restaurant Name: " + restaurantName);
-        System.out.println("Restaurant Street: " + restaurantStreet);
-        System.out.println("Restaurant Details: " + restaurantDetails);
-        System.out.println("Restaurant Type: " + resType);
-        System.out.println("City: " + city);
-        System.out.println("Is Kosher: " + isKosher);
 
-        // כאן אפשר להוסיף את הקוד לשמירה בבסיס נתונים או פעולה אחרת
+
+
+        /// generate a new id for the food
+        String id = databaseService.generateRestaurantId();
+
+
+
+
+
+
+            /// create a new food object
+        Restaurant restaurant = new Restaurant(id, restaurantName, city, restaurantStreet, resType, 0,isKosher,0.0,0.0,domain,imageBase64);
+
+        /// save the food to the database and get the result in the callback
+        databaseService.createNewRestaurant(restaurant, new DatabaseService.DatabaseCallback<Void>() {
+            @Override
+            public void onCompleted(Void object) {
+                Log.d(TAG, "Food added successfully");
+                Toast.makeText(AddRestaurantActivity.this, "Food added successfully", Toast.LENGTH_SHORT).show();
+                /// clear the input fields after adding the food for the next food
+                Log.d(TAG, "Clearing input fields");
+
+                // הצגת ההודעה על המסך למשתמש
+               // Toast.makeText(this, "המסעדה נוספה בהצלחה!", Toast.LENGTH_SHORT).show();
+
+                // הדפסת הערכים לקונסול (Log) לצורך דיבוג
+                System.out.println("Restaurant Name: " + restaurantName);
+                System.out.println("Restaurant Street: " + restaurantStreet);
+                System.out.println("Restaurant Details: " + restaurantDetails);
+                System.out.println("Restaurant Type: " + resType);
+                System.out.println("City: " + city);
+                System.out.println("Is Kosher: " + isKosher);
+
+                finish();
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Log.e(TAG, "Failed to add food", e);
+                Toast.makeText(AddRestaurantActivity.this, "Failed to add food", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+
+
     }
 
-    // פונקציה לפתיחת הגלריה
-    private void openGallery() {
-        // יצירת Intent לבחירת תמונה מהגלריה
-        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, 1);
-    }
 
-    // פונקציה לפתיחת המצלמה
-    private void openCamera() {
-        // יצירת Intent לצילום תמונה
-        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, 2);
-    }
+
 
     // טיפול בתוצאה של הגלריה או המצלמה
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+    /// select image from gallery
+    private void selectImageFromGallery() {
+        //   Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        //  selectImageLauncher.launch(intent);
+
+        imageChooser();
+    }
+
+    /// capture image from camera
+    private void captureImageFromCamera() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        captureImageLauncher.launch(takePictureIntent);
+    }
+
+
+
+
+    void imageChooser() {
+
+        // create an instance of the
+        // intent of the type image
+        Intent i = new Intent();
+        i.setType("image/*");
+        i.setAction(Intent.ACTION_GET_CONTENT);
+
+        // pass the constant to compare it
+        // with the returned requestCode
+        startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
+    }
+
+    // this function is triggered when user
+    // selects the image from the imageChooser
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-            // טיפול בתמונה מהגלריה
-            Uri imageUri = data.getData();
-            ivRes.setImageURI(imageUri);
-        } else if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
-            // טיפול בתמונה מהמצלמה
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            ivRes.setImageBitmap(photo);
+
+        if (resultCode == RESULT_OK) {
+
+            // compare the resultCode with the
+            // SELECT_PICTURE constant
+            if (requestCode == SELECT_PICTURE) {
+                // Get the url of the image from data
+                Uri selectedImageUri = data.getData();
+                if (null != selectedImageUri) {
+                    // update the preview image in the layout
+                    ivRes.setImageURI(selectedImageUri);
+                }
+            }
         }
     }
+
 }
+
 
 
 

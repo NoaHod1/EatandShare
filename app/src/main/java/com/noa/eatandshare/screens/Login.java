@@ -78,8 +78,17 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         email = etEmail.getText().toString();
         pass = etPassword.getText().toString();
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+
+        editor.putString("email", email);
+        editor.putString("password", pass);
+
+        editor.commit();
 
         authenticationService.signIn(email, pass, new AuthenticationService.AuthCallback<String>() {
+
+
+
             @Override
             public void onCompleted(String id) {
                 Log.d("TAG", "signInWithEmail:success");

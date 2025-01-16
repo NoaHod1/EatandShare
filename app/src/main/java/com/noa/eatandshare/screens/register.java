@@ -153,6 +153,11 @@ public class register extends AppCompatActivity implements View.OnClickListener 
         /// call the sign up method of the authentication service
         authenticationService.signUp(email, password, new AuthenticationService.AuthCallback<String>() {
 
+
+
+
+
+
             @Override
             public void onCompleted(String uid) {
                 Log.d(TAG, "onCompleted: User registered successfully");

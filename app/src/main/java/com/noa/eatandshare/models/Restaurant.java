@@ -9,6 +9,21 @@ public class Restaurant {
     double rate, sumRating;
 
     protected  String domain;
+    protected  String pic;
+
+    public Restaurant(String id, String name, String city, String street, String type, int numberOfRating, boolean kosher, double rate, double sumRating, String domain, String pic) {
+        this.id = id;
+        this.name = name;
+        this.city = city;
+        this.street = street;
+        this.type = type;
+        this.numberOfRating = numberOfRating;
+        this.kosher = kosher;
+        this.rate = rate;
+        this.sumRating = sumRating;
+        this.domain = domain;
+        this.pic = pic;
+    }
 
     public Restaurant(String id, String name, String city, String street, String type, int numberOfRating, boolean kosher, double rate, double sumRating, String domain) {
         this.id = id;
@@ -105,6 +120,14 @@ public class Restaurant {
 
     public void setDomain(String domain) {
         this.domain = domain;
+    }
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 
     @Override
