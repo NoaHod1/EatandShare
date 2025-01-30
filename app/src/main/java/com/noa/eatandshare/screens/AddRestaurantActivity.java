@@ -231,9 +231,8 @@ public class AddRestaurantActivity extends AppCompatActivity {
 
 
 
-
             /// create a new food object
-        Restaurant restaurant = new Restaurant(id, restaurantName, city, restaurantStreet, resType, 0,isKosher,0.0,0.0,domain,imageBase64);
+        Restaurant restaurant = new Restaurant(id, restaurantName, city, restaurantStreet, resType,restaurantDetails, 0,isKosher,0.0,0.0,domain,imageBase64);
 
         /// save the food to the database and get the result in the callback
         databaseService.createNewRestaurant(restaurant, new DatabaseService.DatabaseCallback<Void>() {
@@ -265,14 +264,7 @@ public class AddRestaurantActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
     }
-
-
-
 
     // טיפול בתוצאה של הגלריה או המצלמה
 

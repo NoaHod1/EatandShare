@@ -2,7 +2,7 @@ package com.noa.eatandshare.models;
 
 public class Restaurant {
 
-    String id, name, city, street, type;
+    String id, name, city, street, type, details;
 
     int numberOfRating;
     boolean kosher;
@@ -11,12 +11,14 @@ public class Restaurant {
     protected  String domain;
     protected  String pic;
 
-    public Restaurant(String id, String name, String city, String street, String type, int numberOfRating, boolean kosher, double rate, double sumRating, String domain, String pic) {
+    public Restaurant(String id, String name, String city, String street, String type, String details, int numberOfRating, boolean kosher, double rate, double sumRating, String domain, String pic) {
+
         this.id = id;
         this.name = name;
         this.city = city;
         this.street = street;
         this.type = type;
+        this.details = details;
         this.numberOfRating = numberOfRating;
         this.kosher = kosher;
         this.rate = rate;
@@ -24,20 +26,6 @@ public class Restaurant {
         this.domain = domain;
         this.pic = pic;
     }
-
-    public Restaurant(String id, String name, String city, String street, String type, int numberOfRating, boolean kosher, double rate, double sumRating, String domain) {
-        this.id = id;
-        this.name = name;
-        this.city = city;
-        this.street = street;
-        this.type = type;
-        this.numberOfRating = numberOfRating;
-        this.kosher = kosher;
-        this.rate = rate;
-        this.sumRating = sumRating;
-        this.domain = domain;
-    }
-
 
     public Restaurant() {
     }
@@ -80,6 +68,14 @@ public class Restaurant {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
     }
 
     public int getNumberOfRating() {
@@ -138,11 +134,15 @@ public class Restaurant {
                 ", city='" + city + '\'' +
                 ", street='" + street + '\'' +
                 ", type='" + type + '\'' +
+                ", details='" + details + '\'' +
                 ", numberOfRating=" + numberOfRating +
                 ", kosher=" + kosher +
                 ", rate=" + rate +
                 ", sumRating=" + sumRating +
                 ", domain='" + domain + '\'' +
+                ", pic='" + pic + '\'' +
                 '}';
     }
 }
+
+
