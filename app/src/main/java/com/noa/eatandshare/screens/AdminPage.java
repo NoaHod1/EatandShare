@@ -39,7 +39,8 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        Intent go = new Intent(getApplicationContext(),AddRestaurantActivity.class);
+
+        Intent go = new Intent(getApplicationContext(),SearchRestaurant.class);
         startActivity(go);
     }
 }
