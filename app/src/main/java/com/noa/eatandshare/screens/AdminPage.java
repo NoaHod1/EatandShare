@@ -20,7 +20,7 @@ import com.noa.eatandshare.R;
 public class AdminPage extends AppCompatActivity implements View.OnClickListener {
 
 
-    Button btnAddRestaurant;
+    Button btnAddRestaurant,btnGoSearchPage,btnGoAfterLoginM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +35,29 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
 
         btnAddRestaurant = findViewById(R.id.btnAddRestaurant2);
         btnAddRestaurant.setOnClickListener(this);
+
+        btnGoSearchPage = findViewById(R.id.btnGoSearchPage);
+        btnGoSearchPage.setOnClickListener(this);
+
+        btnGoAfterLoginM = findViewById(R.id.btnGoAfterLoginM);
+        btnGoAfterLoginM.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
-
-        Intent go = new Intent(getApplicationContext(),SearchRestaurant.class);
-        startActivity(go);
+        if (v == btnAddRestaurant) {
+            Intent go = new Intent(getApplicationContext(), AddRestaurantActivity.class);
+            startActivity(go);
+        }
+        if (v == btnGoSearchPage) {
+            Intent Search = new Intent(getApplicationContext(), SearchRestaurant.class);
+            startActivity(Search);
+        }
+        if (v == btnGoAfterLoginM) {
+            Intent Search = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(Search);
+        }
     }
+
 }
