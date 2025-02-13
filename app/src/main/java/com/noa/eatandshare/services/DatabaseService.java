@@ -265,7 +265,7 @@ public class DatabaseService {
     /// @see Restaurant
     /// @see #getData(String, Class, DatabaseCallback)
     public void getUsers(@NotNull final DatabaseCallback<List<User>> callback) {
-        readData("Users").get().addOnCompleteListener(task -> {
+        readData("users").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e(TAG, "Error getting data", task.getException());
                 callback.onFailed(task.getException());

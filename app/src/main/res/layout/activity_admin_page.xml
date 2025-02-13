@@ -12,10 +12,10 @@
         android:id="@+id/tvAdmin"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="55dp"
-        android:layout_marginBottom="47dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="59dp"
+        android:layout_marginBottom="26dp"
         android:gravity="center"
         android:text="דף מנהל"
         android:textColor="#000000"
@@ -28,26 +28,24 @@
 
     <Button
         android:id="@+id/btnGoSearchPage"
-        android:layout_width="201dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="7dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="12dp"
         android:backgroundTint="#7EAEF6"
         android:text="דף חיפוש מסעדה"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddRestaurant2"
-        app:layout_constraintEnd_toEndOf="@+id/btnAddRestaurant2"
-        app:layout_constraintStart_toStartOf="@+id/btnAddRestaurant2"
+        app:layout_constraintBottom_toTopOf="@+id/btnSearchUsers"
+        app:layout_constraintEnd_toEndOf="@+id/btnGoAfterLoginM"
+        app:layout_constraintStart_toStartOf="@+id/btnGoAllOrders"
         app:layout_constraintTop_toBottomOf="@+id/btnGoAfterLoginM" />
 
     <Button
         android:id="@+id/btnGoAfterLoginM"
-        android:layout_width="213dp"
-        android:layout_height="89dp"
-        android:layout_marginBottom="15dp"
+        android:layout_width="193dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
         android:backgroundTint="#7EAEF6"
         android:text="דף ראשי"
         android:textColor="@color/black"
@@ -60,9 +58,9 @@
 
     <Button
         android:id="@+id/btnAddRestaurant2"
-        android:layout_width="206dp"
-        android:layout_height="92dp"
-        android:layout_marginBottom="18dp"
+        android:layout_width="185dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="85dp"
         android:backgroundTint="#7EAEF6"
         android:text="הוספת מסעדה"
         android:textColor="@color/black"
@@ -70,14 +68,13 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnGoSearchPage" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSearchUsers" />
 
     <Button
         android:id="@+id/btnGoAllOrders"
-        android:layout_width="234dp"
-        android:layout_height="81dp"
+        android:layout_width="204dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="15dp"
         android:backgroundTint="#7EAEF6"
         android:text="כל ההזמנות"
@@ -88,5 +85,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvAdmin" />
+
+    <Button
+        android:id="@+id/btnSearchUsers"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="19dp"
+        android:backgroundTint="#7EAEF6"
+        android:text="חיפוש משתמשים"
+        android:textColor="@color/black"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddRestaurant2"
+        app:layout_constraintEnd_toEndOf="@+id/btnGoSearchPage"
+        app:layout_constraintStart_toStartOf="@+id/btnGoSearchPage"
+        app:layout_constraintTop_toBottomOf="@+id/btnGoSearchPage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
