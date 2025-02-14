@@ -13,9 +13,10 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.noa.eatandshare.R;
 
+
 public class OdotPage extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnBack1;
+    Button BackToHome;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,17 +30,19 @@ public class OdotPage extends AppCompatActivity implements View.OnClickListener 
         initviews();
     }
 
+
     private void initviews() {
-        btnBack1=findViewById(R.id.BackToHome);
-        btnBack1.setOnClickListener(this);
+        BackToHome=findViewById(R.id.BackToHome);
+        BackToHome.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        if (view ==btnBack1){
+        if (view ==BackToHome){
             Intent intent = new Intent(OdotPage.this,MainActivity.class);
             startActivity(intent);
 
         }
+
     }
 }

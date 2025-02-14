@@ -5,56 +5,55 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.register">
+    android:background="#8EC5F4"
+    tools:context=".screens.register"
+
+    >
 
 
     <EditText
         android:id="@+id/etFname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="27dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginBottom="24dp"
         android:ems="10"
         android:hint="First name"
         android:inputType="text"
         app:layout_constraintBottom_toTopOf="@+id/etLname"
-        app:layout_constraintEnd_toEndOf="@+id/etPassword"
-        app:layout_constraintStart_toStartOf="@+id/etPassword"
-        app:layout_constraintTop_toBottomOf="@+id/headLine" />
+        app:layout_constraintStart_toStartOf="@+id/etLname" />
 
     <EditText
         android:id="@+id/etLname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="35dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="236dp"
         android:ems="10"
         android:hint="Last name"
         android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/spCity"
-        app:layout_constraintStart_toStartOf="@+id/etFname"
-        app:layout_constraintTop_toBottomOf="@+id/etFname" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/etPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="65dp"
-        android:layout_marginBottom="37dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
         android:hint="Phone"
         android:inputType="phone"
-        app:layout_constraintBottom_toTopOf="@+id/etEmail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spCity" />
+        app:layout_constraintStart_toStartOf="@+id/etLname"
+        app:layout_constraintTop_toBottomOf="@+id/etLname" />
 
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
+        android:layout_marginTop="22dp"
         android:ems="10"
         android:hint="EmailAddress"
         android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/etPassword"
         app:layout_constraintStart_toStartOf="@+id/etPhone"
         app:layout_constraintTop_toBottomOf="@+id/etPhone" />
 
@@ -63,11 +62,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="3dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginTop="45dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/btnReg"
         app:layout_constraintStart_toStartOf="@+id/etEmail"
         app:layout_constraintTop_toBottomOf="@+id/etEmail" />
 
@@ -75,33 +73,32 @@
         android:id="@+id/btnReg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="58dp"
-        android:hint="register"
+        android:layout_marginBottom="62dp"
+        android:backgroundTint="#7EAEF6"
+        android:hint="הרשמה"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/headLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="71dp"
         android:layout_marginTop="39dp"
-        android:layout_marginBottom="28dp"
-        android:text="הרשמה"
-        app:layout_constraintBottom_toTopOf="@+id/etFname"
-        app:layout_constraintStart_toStartOf="@+id/etFname"
+        android:gravity="center"
+        android:text="דף הרשמה"
+        android:textSize="50dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/spCity"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="47dp"
         android:entries="@array/cityArr"
-        app:layout_constraintBottom_toTopOf="@+id/etPhone"
-        app:layout_constraintEnd_toEndOf="@+id/etLname"
-        app:layout_constraintStart_toStartOf="@+id/etPhone"
-        app:layout_constraintTop_toBottomOf="@+id/etLname" />
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

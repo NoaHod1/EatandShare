@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
         if (view ==btnOdot1){
-            Intent intent = new Intent(MainActivity.this, AddRestaurantActivity.class);
+            Intent intent = new Intent(MainActivity.this, OdotPage.class);
             startActivity(intent);
 
         }
