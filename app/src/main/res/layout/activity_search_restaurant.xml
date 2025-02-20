@@ -8,27 +8,58 @@
     tools:context=".screens.SearchRestaurant">
 
 
+    <!-- EditText for the city search -->
+    <EditText
+        android:id="@+id/etCitySearch"
+        android:layout_width="286dp"
+        android:layout_height="43dp"
+        android:layout_marginBottom="21dp"
+        android:hint="הזן שם עיר"
+        android:inputType="text"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnSearchByCity"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+
+    <!-- Button to trigger city search -->
+    <Button
+        android:id="@+id/btnSearchByCity"
+        android:layout_width="93dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="118dp"
+        android:layout_marginBottom="21dp"
+        android:text="חפש בעיר"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintEnd_toStartOf="@+id/etCitySearch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <!-- RecyclerView to display the list of restaurants -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="398dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="58dp"
+        android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSearchByCity" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="17dp"
-        android:layout_marginBottom="23dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="41dp"
+        android:layout_marginBottom="47dp"
+        android:text="חיפוש מסעדות"
+        app:layout_constraintBottom_toTopOf="@+id/etCitySearch"
+        app:layout_constraintStart_toStartOf="@+id/etCitySearch"
         app:layout_constraintTop_toTopOf="parent" />
 
 

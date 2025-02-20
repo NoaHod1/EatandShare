@@ -2,20 +2,20 @@ package com.noa.eatandshare.models;
 
 public class Restaurant {
 
-    String id, name, city, street, type, details;
+    String id, name, city, street, type, details; // שדה העיר (city) כבר נמצא כאן
 
     int numberOfRating;
     boolean kosher;
     double rate, sumRating;
 
-    protected  String domain;
-    protected  String pic;
+    protected String domain;
+    protected String pic;
 
+    // קונסטרוקטור שמקבל את כל הערכים
     public Restaurant(String id, String name, String city, String street, String type, String details, int numberOfRating, boolean kosher, double rate, double sumRating, String domain, String pic) {
-
         this.id = id;
         this.name = name;
-        this.city = city;
+        this.city = city;  // העיר מתווספת כאן
         this.street = street;
         this.type = type;
         this.details = details;
@@ -27,9 +27,11 @@ public class Restaurant {
         this.pic = pic;
     }
 
+    // קונסטרוקטור ברירת מחדל
     public Restaurant() {
     }
 
+    // Getter and Setter עבור כל שדה
     public String getId() {
         return id;
     }
@@ -47,11 +49,11 @@ public class Restaurant {
     }
 
     public String getCity() {
-        return city;
+        return city;  // כאן אתה מקבל את העיר
     }
 
     public void setCity(String city) {
-        this.city = city;
+        this.city = city;  // כאן אתה מגדיר את העיר
     }
 
     public String getStreet() {
@@ -131,7 +133,7 @@ public class Restaurant {
         return "Restaurant{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", city='" + city + '\'' +
+                ", city='" + city + '\'' +  // כאן מציגים את העיר
                 ", street='" + street + '\'' +
                 ", type='" + type + '\'' +
                 ", details='" + details + '\'' +
@@ -144,5 +146,3 @@ public class Restaurant {
                 '}';
     }
 }
-
-

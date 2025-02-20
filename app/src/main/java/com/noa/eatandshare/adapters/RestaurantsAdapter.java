@@ -26,6 +26,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         this.restaurantList = restaurantList;
     }
 
+
     @Override
     public RestaurantViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // מניחים שמדובר ב-XML בשם item_restaurant.xml

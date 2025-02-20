@@ -1,100 +1,105 @@
 package com.noa.eatandshare.screens;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.noa.eatandshare.R;
 import com.noa.eatandshare.adapters.RestaurantsAdapter;
 import com.noa.eatandshare.models.Restaurant;
 import com.noa.eatandshare.services.DatabaseService;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class SearchRestaurant extends AppCompatActivity {
 
-    /// tag for logging
     private static final String TAG = "ShowRestaurants";
 
     private RecyclerView recyclerView;
     private RestaurantsAdapter restaurantsAdapter;
-    private List<Restaurant> restaurantList=new ArrayList<>();
-
-
-
+    private List<Restaurant> restaurantList = new ArrayList<>();
     private DatabaseService databaseService;
+
+    private EditText etCitySearch;
+    private Button btnSearchByCity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_search_restaurant);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
+        // Initialize UI components
+        etCitySearch = findViewById(R.id.etCitySearch);
+        btnSearchByCity = findViewById(R.id.btnSearchByCity);
 
-        // Initialize RecyclerView
+        // Set up RecyclerView
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this)); // Set the layout manager (linear vertical list)
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Sample data for restaurants
-        restaurantList = new ArrayList<>();
-
-        // Create the adapter and set it to the RecyclerView
         restaurantsAdapter = new RestaurantsAdapter(restaurantList);
         recyclerView.setAdapter(restaurantsAdapter);
 
-
-
-        /// get the instance of the database service
+        // Initialize DatabaseService
         databaseService = DatabaseService.getInstance();
 
+        // Fetch all restaurants from the database initially
+        fetchRestaurants(null);
 
-        /// Adapter for the restaurant recycler view
-        /// @see ArrayAdapter
-        /// @see Restaurant
+        // Set button click listener to search by city
+        btnSearchByCity.setOnClickListener(v -> {
+            String city = etCitySearch.getText().toString().trim();
+            if (!city.isEmpty()) {
+                // Fetch restaurants based on the city entered
+                fetchRestaurants(city);
+            } else {
+                // Show message if no city is entered
+                Toast.makeText(SearchRestaurant.this, "הזן עיר לחיפוש", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
+    private void fetchRestaurants(String city) {
+        // Show a loading message if needed
 
-        /// Adapter for the restaurant spinner
-        /// @see RestaurantSpinnerAdapter
-        /// @see Restaurant
-
-        /// get all the restaurants from the database
-
+        // Fetch restaurants from the database
         databaseService.getRestaurants(new DatabaseService.DatabaseCallback<List<Restaurant>>() {
-
-
-
             @Override
             public void onCompleted(List<Restaurant> object) {
                 Log.d(TAG, "onCompleted: " + object);
                 restaurantList.clear();
-                restaurantList.addAll(object);
-                /// notify the adapter that the data has changed
-                /// this specifies that the data has changed
-                /// and the adapter should update the view
-                /// @see RestaurantSpinnerAdapter#notifyDataSetChanged()
 
+                if (city != null && !city.isEmpty()) {
+                    // Filter restaurants by city
+                    for (Restaurant restaurant : object) {
+                        if (restaurant.getCity().equalsIgnoreCase(city)) {
+                            restaurantList.add(restaurant);
+                        }
+                    }
+                } else {
+                    // Add all restaurants if no city filter is provided
+                    restaurantList.addAll(object);
+                }
 
                 restaurantsAdapter.notifyDataSetChanged();
-
             }
 
             @Override
@@ -102,12 +107,5 @@ public class SearchRestaurant extends AppCompatActivity {
                 Log.e(TAG, "onFailed: ", e);
             }
         });
-
-
     }
-
-
-
-
-
 }
