@@ -1,5 +1,7 @@
 package com.noa.eatandshare.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
@@ -7,12 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.noa.eatandshare.R;
 import com.noa.eatandshare.models.Restaurant;
+import com.noa.eatandshare.screens.RestaurantProfile;
 import com.noa.eatandshare.utils.ImageUtil;
 
 import java.util.List;
@@ -21,10 +25,16 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
     private List<Restaurant> restaurantList;
 
+    Context context;
+
+
     // אתחול עם רשימת מסעדות
-    public RestaurantsAdapter(List<Restaurant> restaurantList) {
+    public RestaurantsAdapter(List<Restaurant> restaurantList, Context context) {
         this.restaurantList = restaurantList;
+        this.context = context;
     }
+
+
 
 
     @Override
@@ -41,6 +51,19 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     public void onBindViewHolder(RestaurantViewHolder holder, int position) {
         Restaurant restaurant = restaurantList.get(position);
         holder.bind(restaurant);
+
+        holder.viewDetailsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent go=new Intent(context, RestaurantProfile.class);
+
+                go.putExtra("Rest", restaurant); // שולח את ה-ID של המוצר
+                context.startActivity(go);
+
+
+            }
+        });
     }
 
     @Override
@@ -60,7 +83,9 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         private TextView restaurantAddress;
         private TextView restaurantPhoneNumber;
         private TextView restaurantDomain;
-        private TextView glutenFreeItems;
+
+        private RatingBar rBar;
+
         private Button viewDetailsButton;
 
         private ImageView ivD;
@@ -74,8 +99,8 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             restaurantPhoneNumber = itemView.findViewById(R.id.txtRestaurantPhoneNumber);
             restaurantDomain = itemView.findViewById(R.id.txtRestaurantDomain);
 
+            rBar=itemView.findViewById(R.id.ratingBar);
 
-            glutenFreeItems = itemView.findViewById(R.id.txtGlutenFreeItems);
             viewDetailsButton = itemView.findViewById(R.id.btnViewDetails);
             ivD = itemView.findViewById(R.id.ivRes);
         }
@@ -88,6 +113,8 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             restaurantPhoneNumber.setText(restaurant.getDomain());
 
             restaurantDomain.setText(restaurant.getDomain());
+           // rBar.setNumStars(5);
+            rBar.setRating(Float.parseFloat(restaurant.getRate()+""));
 
 
             restaurantDomain.setMovementMethod(LinkMovementMethod.getInstance());

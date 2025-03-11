@@ -1,6 +1,9 @@
 package com.noa.eatandshare.models;
 
-public class Restaurant {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Restaurant implements Serializable {
 
     String id, name, city, street, type, details; // שדה העיר (city) כבר נמצא כאן
 

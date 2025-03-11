@@ -47,10 +47,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/tvDetailsProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="26dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="@+id/tvCityResProfile"
         app:layout_constraintTop_toBottomOf="@+id/tvCityResProfile" />
@@ -69,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="36dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="@+id/tvKosherResProfile"
         app:layout_constraintTop_toBottomOf="@+id/tvKosherResProfile" />
@@ -114,7 +114,7 @@
         android:id="@+id/btnSaveResProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="27dp"
+        android:layout_marginEnd="26dp"
         android:layout_marginBottom="6dp"
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
