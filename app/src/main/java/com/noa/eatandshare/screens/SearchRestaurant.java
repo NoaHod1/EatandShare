@@ -55,7 +55,7 @@ public class SearchRestaurant extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        restaurantsAdapter = new RestaurantsAdapter(restaurantList);
+        restaurantsAdapter = new RestaurantsAdapter(restaurantList,SearchRestaurant.this);
         recyclerView.setAdapter(restaurantsAdapter);
 
         // Initialize DatabaseService
