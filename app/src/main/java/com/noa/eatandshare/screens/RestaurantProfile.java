@@ -47,10 +47,13 @@ Restaurant restaurant=null;
             return insets;
         });
 
+        initViews();
+
+
+
 
         takeit=getIntent();
         restaurant= (Restaurant) takeit.getSerializableExtra("Rest");
-        initViews();
 
         setDataFields();
 
@@ -93,8 +96,16 @@ Restaurant restaurant=null;
         rb=findViewById(R.id.ratingBarResProfile);
         btnSave=findViewById(R.id.btnSaveResProfile);
         btnBack=findViewById(R.id.btnBackResProfile);
+        btnBack.setOnClickListener(v -> {
+            Intent intent = new Intent(RestaurantProfile.this, SearchRestaurant.class);
+            startActivity(intent);
+        });
+
         tvDetails=findViewById(R.id.tvDetailsProfile);
 
 
     }
+
+
+
 }

@@ -21,6 +21,7 @@
 
     <!-- כל העיצוב בתוך LinearLayout -->
 
+        <!-- שם המסעדה -->
         <TextView
             android:id="@+id/txtRestaurantName"
             android:layout_width="wrap_content"
@@ -37,9 +38,9 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- תמונת המסעדה -->
 
-        <!-- פרטי המסעדה - טקסטים -->
+
+            <!-- תמונת המסעדה -->
 
             <ImageView
                 android:id="@+id/ivRes"
@@ -55,7 +56,6 @@
             android:layout_height="120dp"
             android:layout_weight="1">
 
-            <!-- שם המסעדה -->
 
             <!-- סוג האוכל -->
             <TextView
@@ -87,17 +87,8 @@
                 android:textColor="@android:color/darker_gray"
                 android:layout_marginTop="4dp"/>
 
-            <!-- מאכלים ללא גלוטן -->
-            <TextView
-                android:id="@+id/txtGlutenFreeItems"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Gluten Free Items"
-                android:textSize="12sp"
-                android:textColor="@android:color/darker_gray"
-                android:layout_marginTop="4dp"/>
 
-            <!-- קישור לאתר -->
+                <!-- קישור לאתר -->
             <TextView
                 android:id="@+id/txtRestaurantDomain"
                 android:layout_width="wrap_content"
@@ -109,15 +100,14 @@
                 android:clickable="true"
                 android:autoLink="web"/>
 
-            <!-- כפתור לצפייה בפרטי המסעדה -->
 
-            <!-- שדה דירוג - כוכבים -->
 
 
         </LinearLayout>
 
         </LinearLayout>
 
+        <!-- כפתור לצפייה בפרטי המסעדה -->
         <Button
             android:id="@+id/btnViewDetails"
             android:layout_width="wrap_content"
@@ -128,6 +118,7 @@
 
             android:textSize="14sp" />
 
+        <!-- שדה דירוג - כוכבים -->
         <RatingBar
             android:id="@+id/ratingBar"
             android:layout_width="wrap_content"

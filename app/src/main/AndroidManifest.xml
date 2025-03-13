@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EatandShare"
         tools:targetApi="31">
+
         <activity
             android:name=".screens.RestaurantProfile"
             android:exported="false" />
@@ -27,9 +28,7 @@
         <activity
             android:name=".screens.GoAllOrders"
             android:exported="false" />
-        <activity
-            android:name=".screens.AfterLogIn"
-            android:exported="false" />
+
         <activity
             android:name=".screens.AdminPage"
             android:exported="false" />
@@ -57,6 +56,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <uses-permission android:name="android.permission.CALL_PHONE"
+            tools:ignore="WrongManifestParent" />
+
     </application>
 
 </manifest>
