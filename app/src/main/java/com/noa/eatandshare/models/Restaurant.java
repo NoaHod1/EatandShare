@@ -13,12 +13,14 @@ public class Restaurant implements Serializable {
 
     protected String domain;
     protected String pic;
+    protected String phone;
 
     // קונסטרוקטור שמקבל את כל הערכים
-    public Restaurant(String id, String name, String city, String street, String type, String details, int numberOfRating, boolean kosher, double rate, double sumRating, String domain, String pic) {
+
+    public Restaurant(String id, String name, String city, String street, String type, String details, int numberOfRating, boolean kosher, double rate, double sumRating, String domain, String pic, String phone) {
         this.id = id;
         this.name = name;
-        this.city = city;  // העיר מתווספת כאן
+        this.city = city;
         this.street = street;
         this.type = type;
         this.details = details;
@@ -28,6 +30,7 @@ public class Restaurant implements Serializable {
         this.sumRating = sumRating;
         this.domain = domain;
         this.pic = pic;
+        this.phone = phone;
     }
 
     // קונסטרוקטור ברירת מחדל
@@ -131,12 +134,20 @@ public class Restaurant implements Serializable {
         this.pic = pic;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     @Override
     public String toString() {
         return "Restaurant{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", city='" + city + '\'' +  // כאן מציגים את העיר
+                ", city='" + city + '\'' +
                 ", street='" + street + '\'' +
                 ", type='" + type + '\'' +
                 ", details='" + details + '\'' +
@@ -146,6 +157,7 @@ public class Restaurant implements Serializable {
                 ", sumRating=" + sumRating +
                 ", domain='" + domain + '\'' +
                 ", pic='" + pic + '\'' +
+                ", phone='" + phone + '\'' +
                 '}';
     }
 }

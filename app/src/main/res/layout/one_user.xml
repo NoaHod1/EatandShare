@@ -10,17 +10,17 @@
     <!-- First Name TextView -->
     <TextView
         android:id="@+id/tvFname"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="113dp"
+        android:layout_height="22dp"
+        android:layout_marginEnd="8dp"
         android:text="שם פרטי"
-        android:textSize="16sp"
         android:textColor="@android:color/black"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/tvLname"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Last Name TextView (Centered) -->
     <TextView
