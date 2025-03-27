@@ -2,11 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -17,10 +18,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EatandShare"
         tools:targetApi="31">
-
-
-
-
+        <activity
+            android:name=".screens.MyFavRes"
+            android:exported="false" />
+        <activity
+            android:name=".screens.AddReview"
+            android:exported="false" />
         <activity
             android:name=".screens.RestaurantProfile"
             android:exported="false" />
@@ -36,7 +39,6 @@
         <activity
             android:name=".screens.GoAllOrders"
             android:exported="false" />
-
         <activity
             android:name=".screens.AdminPage"
             android:exported="false" />
@@ -64,8 +66,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
     </application>
 
 </manifest>

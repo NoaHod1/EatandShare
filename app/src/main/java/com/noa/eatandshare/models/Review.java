@@ -2,19 +2,22 @@ package com.noa.eatandshare.models;
 
 public class Review {
 
+    String id;
+
     Restaurant restaurant;
     User user;
     String date;
     double rate;
 
-    String details;
+    String detai    ls;
 
 
 
     public Review() {
     }
 
-    public Review(Restaurant restaurant, User user, String date, double rate, String details) {
+    public Review(String id, Restaurant restaurant, User user, String date, double rate, String details) {
+        this.id = id;
         this.restaurant = restaurant;
         this.user = user;
         this.date = date;
@@ -62,10 +65,19 @@ public class Review {
         this.details = details;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Review{" +
-                "restaurant=" + restaurant +
+                "id='" + id + '\'' +
+                ", restaurant=" + restaurant +
                 ", user=" + user +
                 ", date='" + date + '\'' +
                 ", rate=" + rate +

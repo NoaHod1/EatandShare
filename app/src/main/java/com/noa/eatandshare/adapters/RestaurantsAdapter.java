@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.noa.eatandshare.R;
 import com.noa.eatandshare.models.Restaurant;
+import com.noa.eatandshare.screens.AddReview;
 import com.noa.eatandshare.screens.RestaurantProfile;
 import com.noa.eatandshare.utils.ImageUtil;
 
@@ -25,7 +26,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
     private List<Restaurant> restaurantList;
 
-    Context context;
+   private Context context;
 
 
     // אתחול עם רשימת מסעדות
@@ -56,6 +57,8 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             @Override
             public void onClick(View v) {
 
+
+
                 Intent go=new Intent(context, RestaurantProfile.class);
 
                 go.putExtra("Rest", restaurant); // שולח את ה-ID של המוצר
@@ -77,7 +80,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         notifyDataSetChanged();
     }
 
-    public static class RestaurantViewHolder extends RecyclerView.ViewHolder {
+    public class RestaurantViewHolder extends RecyclerView.ViewHolder {
         private TextView restaurantName;
         private TextView restaurantCuisine;
         private TextView restaurantAddress;
@@ -103,9 +106,30 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
             viewDetailsButton = itemView.findViewById(R.id.btnViewDetails);
             ivD = itemView.findViewById(R.id.ivRes);
+
+
+            // הוספת לחיצה על כל מוצר כדי להוביל לדף המידע של המוצר
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+
+                    Intent go=new Intent(context, AddReview.class);
+                    Restaurant restaurant = restaurantList.get(getAdapterPosition());
+
+                    go.putExtra("Rest", restaurant); // שולח את ה-ID של המוצר
+                    context.startActivity(go);
+
+                }
+            });
         }
 
         public void bind(Restaurant restaurant) {
+
+
             // קביעת המידע לכל אחד מה-TextViewים
             restaurantName.setText(restaurant.getName());
             restaurantCuisine.setText(restaurant.getType());
