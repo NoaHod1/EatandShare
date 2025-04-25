@@ -5,6 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.GoSearchPage">
+    tools:context=".screens.GoSearchPage"
+    android:background="#8EC5F4"
+    >
 
 </androidx.constraintlayout.widget.ConstraintLayout>

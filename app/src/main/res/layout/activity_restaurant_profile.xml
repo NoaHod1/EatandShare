@@ -5,143 +5,166 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.RestaurantProfile">
+    tools:context=".screens.RestaurantProfile"
+    android:background="#8EC5F4"
+    >
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="13dp"
+        android:layout_marginEnd="176dp"
         android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/tvTypeResProfile"
-        app:layout_constraintStart_toEndOf="@+id/ratingBarResProfile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivResProfile"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvNameResProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="79dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="37dp"
         android:text="TextView"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tvCityResProfile"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/tvCityResProfile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvCityResProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="28dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/ivResProfile"
-        app:layout_constraintStart_toStartOf="@+id/tvDetailsProfile"
-        app:layout_constraintTop_toTopOf="@+id/ivResProfile" />
+        app:layout_constraintBottom_toTopOf="@+id/tvDetailsProfile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvKosherResProfile"
+        app:layout_constraintTop_toBottomOf="@+id/tvNameResProfile" />
 
     <TextView
         android:id="@+id/tvTypeResProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="37dp"
         android:text="TextView"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tvDetailsProfile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvDetailsProfile" />
+        app:layout_constraintBottom_toTopOf="@+id/tvKosherResProfile"
+        app:layout_constraintStart_toStartOf="@+id/tvKosherResProfile"
+        app:layout_constraintTop_toBottomOf="@+id/ivResProfile" />
 
     <TextView
         android:id="@+id/tvDetailsProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="31dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="29dp"
         android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/tvTypeResProfile"
-        app:layout_constraintStart_toEndOf="@+id/ivResProfile"
+        app:layout_constraintBottom_toTopOf="@+id/tvDomainResProfile"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvCityResProfile" />
 
     <TextView
         android:id="@+id/tvKosherResProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="55dp"
+        android:layout_marginBottom="114dp"
         android:text="TextView"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tvDomainResProfile"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/ratingBarResProfile"
+        app:layout_constraintEnd_toStartOf="@+id/tvCityResProfile"
+        app:layout_constraintStart_toEndOf="@+id/ivResProfile"
+        app:layout_constraintTop_toBottomOf="@+id/tvTypeResProfile" />
 
     <TextView
         android:id="@+id/tvDomainResProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="105dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/ratingBarResProfile"
-        app:layout_constraintStart_toStartOf="@+id/tvDetailsProfile" />
+        app:layout_constraintBottom_toTopOf="@+id/lvReviewsResProfile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailsProfile" />
 
     <ImageView
         android:id="@+id/ivResProfile"
-        android:layout_width="0dp"
-        android:layout_height="99dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="94dp"
-        android:layout_marginEnd="100dp"
-        app:layout_constraintEnd_toStartOf="@+id/tvDetailsProfile"
+        android:layout_width="116dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="74dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvTypeResProfile"
+        app:layout_constraintEnd_toStartOf="@+id/tvKosherResProfile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
     <RatingBar
         android:id="@+id/ratingBarResProfile"
-        android:layout_width="237dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="263dp"
-        android:layout_marginBottom="264dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnSaveResProfile"
+        android:layout_width="238dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginBottom="46dp"
+        app:layout_constraintBottom_toTopOf="@+id/lvReviewsResProfile"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvKosherResProfile" />
 
     <ListView
         android:id="@+id/lvReviewsResProfile"
         android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="112dp"
-        android:layout_marginBottom="112dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnResMenu"
+        android:layout_height="0dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginBottom="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnCallToRes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvKosherResProfile">
+        app:layout_constraintTop_toBottomOf="@+id/tvDomainResProfile">
 
     </ListView>
 
     <Button
         android:id="@+id/btnSaveResProfile"
-        android:layout_width="111dp"
-        android:layout_height="53dp"
-        android:layout_marginBottom="76dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="177dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="2dp"
         android:text="שמור מסעדה"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:backgroundTint="#7EAEF6"
+        android:textColor="@color/black"
+
+        app:layout_constraintBottom_toTopOf="@+id/btnBackResProfile"
+        app:layout_constraintEnd_toStartOf="@+id/btnCallToRes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lvReviewsResProfile" />
 
     <Button
         android:id="@+id/btnCallToRes"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="107dp"
+        android:layout_height="53dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="2dp"
         android:text="צור קשר"
-        app:layout_constraintBottom_toBottomOf="@+id/btnSaveResProfile"
-        app:layout_constraintEnd_toEndOf="@+id/btnResMenu"
-        app:layout_constraintStart_toStartOf="@+id/btnResMenu"
-        app:layout_constraintTop_toTopOf="@+id/btnSaveResProfile" />
+        android:backgroundTint="#7EAEF6"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/btnResMenu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnSaveResProfile"
+        app:layout_constraintTop_toBottomOf="@+id/lvReviewsResProfile" />
 
     <Button
         android:id="@+id/btnBackResProfile"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="51dp"
-        android:layout_marginBottom="14dp"
+        android:layout_width="100dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="69dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
         android:text="חזור אחורה"
+        android:backgroundTint="#7EAEF6"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnOrderPlace"
         app:layout_constraintStart_toStartOf="parent"
@@ -151,26 +174,30 @@
         android:id="@+id/btnOrderPlace"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="2dp"
         android:text="הזמן מקום"
-        app:layout_constraintBottom_toBottomOf="@+id/btnBackResProfile"
+        android:backgroundTint="#7EAEF6"
+        android:textColor="@color/black"
+
+        app:layout_constraintBottom_toBottomOf="@+id/btnResMenu"
         app:layout_constraintEnd_toStartOf="@+id/btnResMenu"
         app:layout_constraintStart_toEndOf="@+id/btnBackResProfile"
-        app:layout_constraintTop_toBottomOf="@+id/btnSaveResProfile"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/btnCallToRes" />
 
     <Button
         android:id="@+id/btnResMenu"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="4dp"
+        android:layout_width="109dp"
+        android:layout_height="66dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="12dp"
         android:text="תפריט"
-        app:layout_constraintBottom_toBottomOf="@+id/btnBackResProfile"
+        android:backgroundTint="#7EAEF6"
+        android:textColor="@color/black"
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnOrderPlace"
-        app:layout_constraintTop_toTopOf="@+id/btnOrderPlace" />
+        app:layout_constraintTop_toBottomOf="@+id/btnCallToRes" />
 </androidx.constraintlayout.widget.ConstraintLayout>

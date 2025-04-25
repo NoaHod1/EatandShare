@@ -5,7 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.MyFavRes">
+    tools:context=".screens.MyFavRes"
+    android:background="#8EC5F4"
+    >
 
     <TextView
         android:id="@+id/textView7"

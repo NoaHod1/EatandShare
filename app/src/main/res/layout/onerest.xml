@@ -7,6 +7,8 @@
     android:layout_margin="8dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp"
+    android:background="#8EC5F4"
+
     >
 
 
@@ -112,10 +114,11 @@
             android:id="@+id/btnViewDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_gravity="center"
+            android:layout_marginTop="8dp"
             android:text="View Details"
-
+            android:backgroundTint="#7EAEF6"
+            android:textColor="@color/black"
             android:textSize="14sp" />
 
         <!-- שדה דירוג - כוכבים -->

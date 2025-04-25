@@ -9,7 +9,7 @@ public class Review {
     String date;
     double rate;
 
-    String detai    ls;
+    String details;
 
 
 
