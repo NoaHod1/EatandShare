@@ -139,6 +139,13 @@ public class DatabaseService {
         writeData("users/" + user.getId(), user, callback);
     }
 
+
+
+    public void saveFavoriteRes(@NotNull final Restaurant restaurant,@NotNull final String uid , @Nullable final DatabaseCallback<Void> callback) {
+        writeData("usersFavorite/" + uid+"/"+restaurant.getId(), restaurant, callback);
+    }
+
+
     /// get a user from the database
     /// @param uid the id of the user to get
     /// @param callback the callback to call when the operation is completed

@@ -28,6 +28,8 @@ import com.noa.eatandshare.R;
 import com.noa.eatandshare.adapters.ReviewsAdapter;
 import com.noa.eatandshare.models.Restaurant;
 import com.noa.eatandshare.models.Review;
+import com.noa.eatandshare.services.AuthenticationService;
+import com.noa.eatandshare.services.DatabaseService;
 import com.noa.eatandshare.utils.ImageUtil;
 
 import java.util.ArrayList;
@@ -46,6 +48,11 @@ public class RestaurantProfile extends AppCompatActivity {
     ReviewsAdapter reviewsAdapter;
     ArrayList<Review> reviewArratyList=new ArrayList();
 
+    private AuthenticationService authenticationService;
+    private DatabaseService databaseService;
+
+    String uid;
+
 Intent takeit;
 Restaurant restaurant=null;
     @Override
@@ -58,6 +65,16 @@ Restaurant restaurant=null;
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
+
+
+        /// get the instance of the authentication service
+        authenticationService = AuthenticationService.getInstance();
+        /// get the instance of the database service
+        databaseService = DatabaseService.getInstance();
+
+        uid=authenticationService.getCurrentUserId();
 
         initViews();
 
@@ -107,6 +124,26 @@ Restaurant restaurant=null;
         ivRes=findViewById(R.id.ivResProfile);
         rb=findViewById(R.id.ratingBarResProfile);
         btnSave=findViewById(R.id.btnSaveResProfile);
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                databaseService.saveFavoriteRes(restaurant, uid, new DatabaseService.DatabaseCallback<Void>() {
+                   public @Override
+                    void onCompleted(Void object) {
+                       //Toast.
+
+                    }
+
+                 public    @Override
+                    void onFailed(Exception e) {
+
+                    }
+                });
+
+
+            }
+        });
         btnBack=findViewById(R.id.btnBackResProfile);
         btnBack.setOnClickListener(v -> {
             Intent intent = new Intent(RestaurantProfile.this, SearchRestaurant.class);
