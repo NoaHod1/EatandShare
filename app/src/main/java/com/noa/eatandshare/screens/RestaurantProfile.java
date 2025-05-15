@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class RestaurantProfile extends AppCompatActivity {
+public class RestaurantProfile extends BaseActivity {
     private static final int REQUEST_PHONE_CALL = 1;
 
 

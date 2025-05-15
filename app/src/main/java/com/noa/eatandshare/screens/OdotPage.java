@@ -14,7 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.noa.eatandshare.R;
 
 
-public class OdotPage extends AppCompatActivity implements View.OnClickListener {
+public class OdotPage extends BaseActivity implements View.OnClickListener {
 
     Button BackToHome;
     @Override

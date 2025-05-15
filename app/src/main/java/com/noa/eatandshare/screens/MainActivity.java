@@ -17,7 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.noa.eatandshare.R;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
     Button btnReg,btnLog,btnOdot1;
 
 
@@ -65,29 +65,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
 
-    // תגובה ללחיצה על פריט בתפריט
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.menu_home) {
-            startActivity(new Intent(this, MainActivity.class));
-            return true;
-        } else if (id == R.id.menu_profile) {
-            startActivity(new Intent(this, RestaurantProfile.class)); // שנה למחלקת פרופיל שלך
-            return true;
-        } else if (id == R.id.menu_settings) {
-            Toast.makeText(this, "הגדרות יגיעו בקרוב", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
 }

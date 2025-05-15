@@ -23,7 +23,7 @@ import com.noa.eatandshare.services.DatabaseService;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchRestaurant extends AppCompatActivity {
+public class SearchRestaurant extends BaseActivity {
 
     private static final String TAG = "ShowRestaurants";
 

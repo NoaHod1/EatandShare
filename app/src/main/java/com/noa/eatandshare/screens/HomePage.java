@@ -16,7 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.firebase.auth.FirebaseAuth;
 import com.noa.eatandshare.R;
 
-public class HomePage extends AppCompatActivity {
+public class HomePage extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -38,7 +38,7 @@ import com.noa.eatandshare.utils.ImageUtil;
 import java.io.IOException;
 
 
-public class AddRestaurantActivity extends AppCompatActivity {
+public class AddRestaurantActivity extends BaseActivity {
 
     private EditText etRestaurantName, etRestaurantstreet, etRestaurantDetails,etDomain;
     private Spinner spResType, spCity;

@@ -10,7 +10,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.noa.eatandshare.R;
 
-public class GoSearchPage extends AppCompatActivity {
+public class GoSearchPage extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

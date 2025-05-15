@@ -21,7 +21,7 @@ import com.noa.eatandshare.models.User;
 import com.noa.eatandshare.services.AuthenticationService;
 import com.noa.eatandshare.services.DatabaseService;
 
-public class Login extends AppCompatActivity implements View.OnClickListener {
+public class Login extends BaseActivity implements View.OnClickListener {
 
     EditText etEmail, etPassword;
     Button btnLog;

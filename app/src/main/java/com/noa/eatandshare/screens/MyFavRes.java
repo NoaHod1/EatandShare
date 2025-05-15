@@ -21,7 +21,7 @@ import com.noa.eatandshare.services.DatabaseService;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyFavRes extends AppCompatActivity {
+public class MyFavRes extends BaseActivity {
 
     private RecyclerView recyclerView;
     private RestaurantsAdapter restaurantsAdapter;

@@ -33,7 +33,7 @@ import com.noa.eatandshare.services.AuthenticationService;
 import com.noa.eatandshare.services.DatabaseService;
 import com.noa.eatandshare.utils.SharedPreferencesUtil;
 
-public class register extends AppCompatActivity implements View.OnClickListener {
+public class register extends BaseActivity implements View.OnClickListener {
 
   EditText etFname, etLname, etPhone, etEmail, etPassword;
    String fname,lname,phone,email,password;

@@ -17,7 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.noa.eatandshare.R;
 
-public class AdminPage extends AppCompatActivity implements View.OnClickListener {
+public class AdminPage extends BaseActivity implements View.OnClickListener {
 
 
     Button btnAddRestaurant,btnGoSearchPage,btnGoAfterLoginM,btnSearchUsers;

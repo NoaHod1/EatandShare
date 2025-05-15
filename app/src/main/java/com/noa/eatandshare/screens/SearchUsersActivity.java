@@ -27,7 +27,7 @@ import android.widget.EditText;   // ה-import עבור EditText
 
 
 
-public class SearchUsersActivity extends AppCompatActivity {
+public class SearchUsersActivity extends BaseActivity {
 
     private static final String TAG = "ReadUsers";
     DatabaseService databaseService;
