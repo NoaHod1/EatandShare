@@ -157,7 +157,7 @@ Restaurant restaurant=null;
             @Override
             public void onClick(View v) {
                 // The phone number you want to call
-                String phoneNumber = "tel:1234567890"; // replace with the actual number
+                String phoneNumber = "tel:"+restaurant.getPhone().toString(); // replace with the actual number
 
 
 
