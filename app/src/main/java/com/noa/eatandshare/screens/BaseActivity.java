@@ -29,10 +29,11 @@ public class BaseActivity extends AppCompatActivity {
         } else if (id == R.id.menu_profile) {
             startActivity(new Intent(this, RestaurantProfile.class)); // שנה למחלקת פרופיל שלך
             return true;
-        } else if (id == R.id.menu_settings) {
-            Toast.makeText(this, "הגדרות יגיעו בקרוב", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.menu_search) {
+            startActivity(new Intent(this, SearchRestaurant.class));
             return true;
         }
+
 
         return super.onOptionsItemSelected(item);
     }

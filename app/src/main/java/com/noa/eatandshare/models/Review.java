@@ -9,6 +9,9 @@ public class Review {
     String date;
     double rate;
 
+    int numberRating;
+    double sumRate;
+
     String details;
 
 
@@ -16,12 +19,14 @@ public class Review {
     public Review() {
     }
 
-    public Review(String id, Restaurant restaurant, User user, String date, double rate, String details) {
+    public Review(String id, Restaurant restaurant, User user, String date, double rate, int numberRating, double sumRate, String details) {
         this.id = id;
         this.restaurant = restaurant;
         this.user = user;
         this.date = date;
         this.rate = rate;
+        this.numberRating = numberRating;
+        this.sumRate = sumRate;
         this.details = details;
     }
 
@@ -44,6 +49,11 @@ public class Review {
     public double getRate() {
         return rate;
     }
+
+    public void setRate() {
+        this.rate = this.sumRate/this.numberRating;
+    }
+
 
     public void setRate(double rate) {
         this.rate = rate;
@@ -71,6 +81,23 @@ public class Review {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+
+    public int getNumberRating() {
+        return numberRating;
+    }
+
+    public void setNumberRating(int numberRating) {
+        this.numberRating = numberRating;
+    }
+
+    public double getSumRate() {
+        return sumRate;
+    }
+
+    public void setSumRate(double sumRate) {
+        this.sumRate = sumRate;
     }
 
     @Override

@@ -8,23 +8,6 @@
     android:background="#8EC5F4"
     tools:context=".screens.MainActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="338dp"
-        android:layout_height="264dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="84dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="297dp"
-        android:gravity="center"
-        android:text="Eat \n &amp; \n Share"
-        android:textSize="70dp"
-        app:layout_constraintBottom_toTopOf="@+id/Odot1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/btnLogin1"
         android:layout_width="125dp"
@@ -37,7 +20,6 @@
         app:layout_constraintBottom_toTopOf="@+id/Odot1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnreg1"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
         tools:ignore="OnClick" />
 
     <Button
@@ -45,15 +27,13 @@
         android:layout_width="0dp"
         android:layout_height="58dp"
         android:layout_marginStart="62dp"
-        android:layout_marginTop="46dp"
         android:layout_marginEnd="23dp"
         android:layout_marginBottom="65dp"
         android:backgroundTint="#7EAEF6"
         android:text="הרשמה"
         app:layout_constraintBottom_toBottomOf="@+id/Odot1"
         app:layout_constraintEnd_toStartOf="@+id/btnLogin1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/Odot1"
@@ -64,33 +44,25 @@
         android:text="אודות"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnLogin1"
-        app:layout_constraintStart_toStartOf="@+id/btnLogin1"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="31dp"
-        android:layout_marginEnd="31dp"
-        android:layout_marginBottom="47dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnLogin1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:srcCompat="@drawable/pic11" />
+        app:layout_constraintStart_toStartOf="@+id/btnLogin1" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="126dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="124dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="214dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        android:layout_width="114dp"
+        android:layout_height="106dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/pic22" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="374dp"
+        android:layout_height="661dp"
+        app:srcCompat="@drawable/logo22"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

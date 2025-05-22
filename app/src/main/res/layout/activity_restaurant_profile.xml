@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,54 +9,54 @@
     android:layoutDirection="rtl"
     android:textDirection="rtl">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:layoutDirection="rtl">
+        android:layout_height="match_parent"
+        android:layoutDirection="rtl"
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <!-- בלוק עליון - תמונה + טקסטים בצד ימין -->
         <LinearLayout
             android:id="@+id/topSection"
-            android:layout_width="0dp"
+            android:layout_width="379dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layoutDirection="rtl"
+            android:orientation="horizontal"
             android:textDirection="rtl"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp">
 
             <!-- טקסטים בצד ימין -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="right">
+                android:gravity="right"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tvNameResProfile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="right"
                     android:text="שם המסעדה"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:gravity="right" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvTypeResProfile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="סוג"
-                    android:gravity="right" />
+                    android:gravity="right"
+                    android:text="סוג" />
 
                 <TextView
                     android:id="@+id/tvKosherResProfile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="כשרה"
-                    android:gravity="right" />
+                    android:gravity="right"
+                    android:text="כשרה" />
             </LinearLayout>
 
             <!-- תמונה בצד שמאל -->
@@ -64,41 +65,39 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginStart="16dp"
-                android:scaleType="centerCrop"
                 android:contentDescription="תמונת מסעדה"
+                android:scaleType="centerCrop"
                 android:src="@drawable/ic_launcher_foreground" />
         </LinearLayout>
 
         <!-- שאר הפרטים מתחת -->
+
         <TextView
             android:id="@+id/tvCityResProfile"
-            android:layout_width="0dp"
+            android:layout_width="379dp"
             android:layout_height="wrap_content"
-            android:text="עיר"
             android:gravity="right"
-            app:layout_constraintTop_toBottomOf="@id/topSection"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:text="עיר"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="126dp" />
 
         <TextView
             android:id="@+id/tvDetailsProfile"
-            android:layout_width="0dp"
+            android:layout_width="379dp"
             android:layout_height="wrap_content"
-            android:text="פרטי המסעדה..."
             android:gravity="right"
-            app:layout_constraintTop_toBottomOf="@id/tvCityResProfile"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:text="פרטי המסעדה..."
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="136dp" />
 
         <TextView
             android:id="@+id/tvDomainResProfile"
-            android:layout_width="0dp"
+            android:layout_width="379dp"
             android:layout_height="wrap_content"
-            android:text="תחום"
             android:gravity="right"
-            app:layout_constraintTop_toBottomOf="@id/tvDetailsProfile"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:text="תחום"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="155dp" />
 
         <RatingBar
             android:id="@+id/ratingBarResProfile"
@@ -106,74 +105,50 @@
             android:layout_height="wrap_content"
             android:numStars="5"
             android:stepSize="0.5"
-            app:layout_constraintTop_toBottomOf="@id/tvDomainResProfile"
-            app:layout_constraintStart_toStartOf="parent" />
+            tools:layout_editor_absoluteX="155dp"
+            tools:layout_editor_absoluteY="174dp" />
+
+        <!-- כפתורים -->
 
         <ListView
             android:id="@+id/lvReviewsResProfile"
-            android:layout_width="0dp"
+            android:layout_width="409dp"
             android:layout_height="200dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/ratingBarResProfile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            tools:layout_editor_absoluteY="247dp" />
 
-        <!-- כפתורים -->
         <Button
             android:id="@+id/btnSaveResProfile"
-            android:layout_width="0dp"
+            android:layout_width="379dp"
             android:layout_height="wrap_content"
-            android:text="שמור מסעדה"
             android:backgroundTint="#7EAEF6"
+            android:text="שמור מסעדה"
             android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/lvReviewsResProfile"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="448dp" />
 
         <Button
             android:id="@+id/btnCallToRes"
-            android:layout_width="0dp"
+            android:layout_width="379dp"
             android:layout_height="wrap_content"
+            android:backgroundTint="#7EAEF6"
             android:text="צור קשר"
-            android:backgroundTint="#7EAEF6"
             android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/btnSaveResProfile"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="496dp" />
 
-        <Button
-            android:id="@+id/btnResMenu"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="תפריט"
-            android:backgroundTint="#7EAEF6"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/btnCallToRes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <Button
-            android:id="@+id/btnOrderPlace"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="הזמן מקום"
-            android:backgroundTint="#7EAEF6"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/btnResMenu"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
             android:id="@+id/btnBackResProfile"
-            android:layout_width="0dp"
+            android:layout_width="379dp"
             android:layout_height="wrap_content"
-            android:text="חזור אחורה"
             android:backgroundTint="#7EAEF6"
+            android:text="חזור אחורה"
             android:textColor="@color/black"
-            android:layout_marginBottom="24dp"
-            app:layout_constraintTop_toBottomOf="@id/btnOrderPlace"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="640dp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </ScrollView>

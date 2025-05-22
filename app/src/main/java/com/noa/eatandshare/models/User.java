@@ -18,6 +18,17 @@ public class User {
 
     }
 
+    public User(User user) {
+        this.id = user.id;
+        this.fname = user.fname;
+        this.lname = user.lname;
+        this.phone = user.phone;
+        this.email = user.email;
+
+
+    }
+
+
 
     public String getId() {
         return id;

@@ -72,7 +72,7 @@ public class DatabaseService {
     /// @param callback the callback to call when the operation is completed
     /// @return void
     /// @see DatabaseCallback
-    private void writeData(@NotNull final String path, @NotNull final Object data, final @Nullable DatabaseCallback<Void> callback) {
+    private void writeData(@NotNull final String path, @NotNull final Object data, final @NotNull DatabaseCallback<Void> callback) {
         databaseReference.child(path).setValue(data).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 if (callback == null) return;
@@ -230,7 +230,7 @@ public class DatabaseService {
     /// generate a new id for a new cart in the database
     /// @return a new id for the cart
     /// @see #generateNewId(String)
-    /// @see Cart
+    /// @see
     public String generateCartId() {
         return generateNewId("carts");
     }
@@ -281,6 +281,8 @@ public class DatabaseService {
             List<User> users = new ArrayList<>();
             task.getResult().getChildren().forEach(dataSnapshot -> {
                 User user = dataSnapshot.getValue(User.class);
+
+                user=new User(user);
                 Log.d(TAG, "Got user: " + user);
                 users.add(user);
             });
