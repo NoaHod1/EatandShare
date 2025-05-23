@@ -31,7 +31,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
 
 
 
-    Button btnGoEditUser;
+    Button btnGoEditUser,btnClosePage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +42,12 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         tvLastName = findViewById(R.id.tvLName);
         tvPhone = findViewById(R.id.tvPhone);
         tvEmail = findViewById(R.id.tvEml);
+
         btnGoEditUser=findViewById(R.id.btnGoToEditUser);
         btnGoEditUser.setOnClickListener(this);
+
+        btnClosePage=findViewById(R.id.btnClose);
+        btnClosePage.setOnClickListener(this);
 
 
         uid= AuthenticationService.getInstance().getCurrentUserId();
@@ -99,8 +103,11 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         if(v==btnGoEditUser){
             Intent go=new Intent(UserProfile.this,EditUser.class);
             startActivity(go);
+        }
 
-
+        if(v==btnClosePage){
+            Intent go=new Intent(UserProfile.this,MainActivity.class);
+            startActivity(go);
         }
 
     }
