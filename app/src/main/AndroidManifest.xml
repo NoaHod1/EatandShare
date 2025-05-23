@@ -19,6 +19,12 @@
         android:theme="@style/Theme.EatandShare"
         tools:targetApi="31">
         <activity
+            android:name=".screens.EditUser"
+            android:exported="false" />
+        <activity
+            android:name=".screens.UserProfile"
+            android:exported="false" />
+        <activity
             android:name=".screens.MyFavRes"
             android:exported="false" />
         <activity

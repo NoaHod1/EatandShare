@@ -5,11 +5,12 @@
         android:title="דף הבית"
         android:showAsAction="never" />
     <item
-        android:id="@+id/menu_profile"
-        android:title="פרופיל"
+        android:id="@+id/menu_userProfile"
+        android:title="פרופיל משתמש"
         android:showAsAction="never" />
     <item
         android:id="@+id/menu_search"
         android:title="חיפוש מסעדה"
         android:showAsAction="never" />
+
 </menu>

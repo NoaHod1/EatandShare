@@ -3,7 +3,6 @@ package com.noa.eatandshare.screens;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,8 +25,8 @@ public class BaseActivity extends AppCompatActivity {
         if (id == R.id.menu_home) {
             startActivity(new Intent(this, MainActivity.class));
             return true;
-        } else if (id == R.id.menu_profile) {
-            startActivity(new Intent(this, RestaurantProfile.class)); // שנה למחלקת פרופיל שלך
+        } else if (id == R.id.menu_userProfile) {
+            startActivity(new Intent(this, UserProfile.class));
             return true;
         } else if (id == R.id.menu_search) {
             startActivity(new Intent(this, SearchRestaurant.class));

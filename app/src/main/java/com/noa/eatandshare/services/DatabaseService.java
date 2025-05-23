@@ -140,6 +140,12 @@ public class DatabaseService {
     }
 
 
+    public void updateUser(@NotNull final User user, @Nullable final DatabaseCallback<Void> callback) {
+        writeData("users/" + user.getId(), user, callback);
+    }
+
+
+
 
     public void saveFavoriteRes(@NotNull final Restaurant restaurant,@NotNull final String uid , @Nullable final DatabaseCallback<Void> callback) {
         writeData("usersFavorite/" + uid+"/"+restaurant.getId(), restaurant, callback);
