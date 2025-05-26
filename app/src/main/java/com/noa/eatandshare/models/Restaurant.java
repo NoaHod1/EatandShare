@@ -15,7 +15,7 @@ public class Restaurant implements Serializable {
     protected String pic;
     protected String phone;
 
-    // קונסטרוקטור שמקבל את כל הערכים
+
 
     public Restaurant(String id, String name, String city, String street, String type, String details, int numberOfRating, boolean kosher, double rate, double sumRating, String domain, String pic, String phone) {
         this.id = id;
