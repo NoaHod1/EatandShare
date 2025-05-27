@@ -5,6 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#8EC5F4"
+
     tools:context=".screens.EditUser">
 
     <Button
@@ -13,8 +15,8 @@
         android:layout_height="0dp"
         android:layout_marginBottom="203dp"
         android:text="שמור"
-        android:textColor="#FFFFFF"
         android:textSize="20dp"
+        android:backgroundTint="#7EAEF6"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
