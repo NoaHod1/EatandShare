@@ -12,25 +12,25 @@
         android:id="@+id/btnGoToSearchRes"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="69dp"
-        android:layout_marginEnd="69dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginEnd="68dp"
         android:layout_marginBottom="11dp"
         android:backgroundTint="#7EAEF6"
         android:text="מעבר לחיפוש המסעדות"
         android:textColor="@color/black"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btnGoMyCart"
+        app:layout_constraintBottom_toTopOf="@+id/btnGoMyFav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <Button
-        android:id="@+id/btnGoMyCart"
+        android:id="@+id/btnGoMyFav"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="69dp"
-        android:layout_marginEnd="69dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginEnd="68dp"
         android:layout_marginBottom="19dp"
         android:backgroundTint="#7EAEF6"
         android:text="המסעדות השמורות שלי "
@@ -39,7 +39,6 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/btnGoPersonalArea"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnGoToSearchRes" />
 
@@ -47,8 +46,8 @@
         android:id="@+id/btnGoPersonalArea"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="71dp"
-        android:layout_marginEnd="71dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp"
         android:layout_marginBottom="31dp"
         android:backgroundTint="#7EAEF6"
         android:text="לאיזור האישי"
@@ -58,19 +57,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnGoMyCart" />
+        app:layout_constraintTop_toBottomOf="@+id/btnGoMyFav" />
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="412dp"
-        android:layout_height="226dp"
-        android:layout_marginStart="4dp"
+        android:layout_width="402dp"
+        android:layout_height="245dp"
         android:layout_marginTop="3dp"
-        android:layout_marginEnd="4dp"
         android:layout_marginBottom="281dp"
         app:layout_constraintBottom_toTopOf="@+id/btnGoToSearchRes"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/pic3" />

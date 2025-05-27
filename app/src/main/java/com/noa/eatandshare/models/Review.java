@@ -2,16 +2,12 @@ package com.noa.eatandshare.models;
 
 public class Review {
 
-    String id;
 
-    Restaurant restaurant;
-    User user;
+    String id;
+    String restaurantId;
+    String userID;
     String date;
     double rate;
-
-    int numberRating;
-    double sumRate;
-
     String details;
 
 
@@ -19,23 +15,37 @@ public class Review {
     public Review() {
     }
 
-    public Review(String id, Restaurant restaurant, User user, String date, double rate, int numberRating, double sumRate, String details) {
+    public Review(String id, String restaurantId, String userID, String date, double rate, String details) {
         this.id = id;
-        this.restaurant = restaurant;
-        this.user = user;
+        this.restaurantId = restaurantId;
+        this.userID = userID;
         this.date = date;
         this.rate = rate;
-        this.numberRating = numberRating;
-        this.sumRate = sumRate;
         this.details = details;
     }
 
-    public User getUser() {
-        return user;
+    public String getId() {
+        return id;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(String restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public String getDate() {
@@ -50,11 +60,6 @@ public class Review {
         return rate;
     }
 
-    public void setRate() {
-        this.rate = this.sumRate/this.numberRating;
-    }
-
-
     public void setRate(double rate) {
         this.rate = rate;
     }
@@ -63,49 +68,16 @@ public class Review {
         return details;
     }
 
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
-    }
-
     public void setDetails(String details) {
         this.details = details;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-
-    public int getNumberRating() {
-        return numberRating;
-    }
-
-    public void setNumberRating(int numberRating) {
-        this.numberRating = numberRating;
-    }
-
-    public double getSumRate() {
-        return sumRate;
-    }
-
-    public void setSumRate(double sumRate) {
-        this.sumRate = sumRate;
     }
 
     @Override
     public String toString() {
         return "Review{" +
                 "id='" + id + '\'' +
-                ", restaurant=" + restaurant +
-                ", user=" + user +
+                ", restaurantId='" + restaurantId + '\'' +
+                ", userID='" + userID + '\'' +
                 ", date='" + date + '\'' +
                 ", rate=" + rate +
                 ", details='" + details + '\'' +

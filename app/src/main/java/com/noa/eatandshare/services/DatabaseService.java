@@ -2,11 +2,17 @@ package com.noa.eatandshare.services;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.noa.eatandshare.models.Restaurant;
+import com.noa.eatandshare.models.Review;
 import com.noa.eatandshare.models.User;
 
 import org.jetbrains.annotations.NotNull;
@@ -144,12 +150,119 @@ public class DatabaseService {
         writeData("users/" + user.getId(), user, callback);
     }
 
+    public String generateReviewId() {
+        return generateNewId("reviews");
+    }
+
+    public void saveReview(@NotNull final Review review, @Nullable final DatabaseCallback<Void> callback) {
+        writeData("reviews/" + review.getId(), review, new DatabaseCallback<Void>() {
+            @Override
+            public void onCompleted(Void v) {
+                readData("restaurants"+ review.getRestaurantId()).runTransaction(new Transaction.Handler() {
+                    @NonNull
+                    @Override
+                    public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                        Restaurant restaurant = currentData.getValue(Restaurant.class);
+
+                        if (restaurant == null) {
+                            return Transaction.success(currentData);
+                        }
+
+                        restaurant.setSumRating(review.getRate());
+                        restaurant.setNumberOfRating();
+                        restaurant.setRate( restaurant.getRate());
+
+                        currentData.setValue(restaurant);
+                        return Transaction.success(currentData);
+                    }
+
+                    @Override
+                    public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
+                        if (error != null) {
+                            callback.onFailed(error.toException());
+                            return;
+                        }
+                        callback.onCompleted(null);
+                    }
+                });
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                callback.onFailed(e);
+            }
+        });
+    }
+
+    public void getUserReviews( @NotNull final String uid , @NotNull final DatabaseCallback<List<Review>> callback) {
+        readData("usersReviews").child(uid).get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e(TAG, "Error getting data", task.getException());
+                callback.onFailed(task.getException());
+                return;
+            }
+            List<Review> reviewList = new ArrayList<>();
+            task.getResult().getChildren().forEach(dataSnapshot -> {
+                Review review = dataSnapshot.getValue(Review.class);
+                Log.d(TAG, "Got restaurant: " + review);
+                reviewList.add(review);
+            });
+
+            callback.onCompleted(reviewList);
+        });
+    }
+
+    public void getRestReviews( @NotNull final String rid , @NotNull final DatabaseCallback<List<Review>> callback) {
+        readData("restReviews/"+rid)
+                .get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e(TAG, "Error getting data", task.getException());
+                callback.onFailed(task.getException());
+                return;
+            }
+            List<Review> reviewList = new ArrayList<>();
+            task.getResult().getChildren().forEach(dataSnapshot -> {
+                Review review = dataSnapshot.getValue(Review.class);
+                Log.d(TAG, "Got restaurant: " + review);
+                reviewList.add(review);
+            });
+
+            callback.onCompleted(reviewList);
+        });
+    }
+
+
+
+
+
 
 
 
     public void saveFavoriteRes(@NotNull final Restaurant restaurant,@NotNull final String uid , @Nullable final DatabaseCallback<Void> callback) {
         writeData("usersFavorite/" + uid+"/"+restaurant.getId(), restaurant, callback);
     }
+
+
+    public void getUserFavorite( @NotNull final String uid , @NotNull final DatabaseCallback<List<Restaurant>> callback) {
+        readData("usersFavorite").child(uid).get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e(TAG, "Error getting data", task.getException());
+                callback.onFailed(task.getException());
+                return;
+            }
+            List<Restaurant> restaurants = new ArrayList<>();
+            task.getResult().getChildren().forEach(dataSnapshot -> {
+                Restaurant restaurant = dataSnapshot.getValue(Restaurant.class);
+                Log.d(TAG, "Got restaurant: " + restaurant);
+                restaurants.add(restaurant);
+            });
+
+            callback.onCompleted(restaurants);
+        });
+    }
+
+
+
 
 
     /// get a user from the database
@@ -177,17 +290,11 @@ public class DatabaseService {
         writeData("restaurants/" + restaurant.getId(), restaurant, callback);
     }
 
-    /// create a new cart in the database
-    /// @param cart the cart object to create
-    /// @param callback the callback to call when the operation is completed
-    ///               the callback will receive void
-    ///              if the operation fails, the callback will receive an exception
-    /// @return void
-    /// @see DatabaseCallback
-    /// @see Cart
- //   public void createNewCart(@NotNull final Cart cart, @Nullable final DatabaseCallback<Void> callback) {
- //       writeData("carts/" + cart.getId(), cart, callback);
- //   }
+
+    public void updateNewRestaurant(@NotNull final Restaurant restaurant, @Nullable final DatabaseCallback<Void> callback) {
+        writeData("restaurants/" + restaurant.getId(), restaurant, callback);
+    }
+
 
 
     /// get a user from the database
@@ -213,18 +320,6 @@ public class DatabaseService {
         getData("restaurants/" + restaurantId, Restaurant.class, callback);
     }
 
-    /// get a cart from the database
-    /// @param cartId the id of the cart to get
-    /// @param callback the callback to call when the operation is completed
-    ///                the callback will receive the cart object
-    ///               if the operation fails, the callback will receive an exception
-    /// @return void
-    /// @see DatabaseCallback
-    /// @see Cart
- //   public void getCart(@NotNull final String cartId, @NotNull final DatabaseCallback<Cart> callback) {
- //       getData("carts/" + cartId, Cart.class, callback);
- //   }
-
     /// generate a new id for a new restaurant in the database
     /// @return a new id for the restaurant
     /// @see #generateNewId(String)
@@ -233,13 +328,7 @@ public class DatabaseService {
         return generateNewId("restaurants");
     }
 
-    /// generate a new id for a new cart in the database
-    /// @return a new id for the cart
-    /// @see #generateNewId(String)
-    /// @see
-    public String generateCartId() {
-        return generateNewId("carts");
-    }
+
 
     /// get all the restaurants from the database
     /// @param callback the callback to call when the operation is completed

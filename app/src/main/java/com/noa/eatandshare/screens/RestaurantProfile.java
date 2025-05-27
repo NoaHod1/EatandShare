@@ -23,11 +23,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 
-
 import com.noa.eatandshare.R;
 import com.noa.eatandshare.adapters.ReviewsAdapter;
 import com.noa.eatandshare.models.Restaurant;
 import com.noa.eatandshare.models.Review;
+import com.noa.eatandshare.models.User;
 import com.noa.eatandshare.services.AuthenticationService;
 import com.noa.eatandshare.services.DatabaseService;
 import com.noa.eatandshare.utils.ImageUtil;
@@ -35,6 +35,7 @@ import com.noa.eatandshare.utils.ImageUtil;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class RestaurantProfile extends BaseActivity {
     private static final int REQUEST_PHONE_CALL = 1;
@@ -43,18 +44,21 @@ public class RestaurantProfile extends BaseActivity {
     TextView tvResName, tvType, tvKosher, tvCity, tvDomain, tvDetails;
     ImageView ivRes;
     RatingBar rb;
-    Button btnAdd, btnSave, btnBack,btnCallToRes;
+    Button btnAdd, btnSave, btnBack, btnCallToRes;
     ListView lvReviews;
     ReviewsAdapter reviewsAdapter;
-    ArrayList<Review> reviewArratyList=new ArrayList();
+    ArrayList<Review> reviewArratyList = new ArrayList();
+    List<Restaurant> restaurants = new ArrayList<>();
+    List<User> users = new ArrayList<>();
 
     private AuthenticationService authenticationService;
     private DatabaseService databaseService;
 
     String uid;
 
-Intent takeit;
-Restaurant restaurant=null;
+    Intent takeit;
+    Restaurant restaurant = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,22 +71,18 @@ Restaurant restaurant=null;
         });
 
 
-
-
         /// get the instance of the authentication service
         authenticationService = AuthenticationService.getInstance();
         /// get the instance of the database service
         databaseService = DatabaseService.getInstance();
 
-        uid=authenticationService.getCurrentUserId();
+        uid = authenticationService.getCurrentUserId();
 
         initViews();
 
 
-
-
-        takeit=getIntent();
-        restaurant= (Restaurant) takeit.getSerializableExtra("Rest");
+        takeit = getIntent();
+        restaurant = (Restaurant) takeit.getSerializableExtra("Rest");
 
         setDataFields();
 
@@ -90,19 +90,20 @@ Restaurant restaurant=null;
 
     private void setDataFields() {
 
-        if(restaurant!=null){
+        if (restaurant != null) {
+
 
             tvCity.setText(restaurant.getCity());
             tvDomain.setText(restaurant.getDomain());
-           // tvKosher.setText(restaurant.get());
+            // tvKosher.setText(restaurant.get());
             tvType.setText(restaurant.getType());
             tvResName.setText(restaurant.getName());
 
             tvDetails.setText(restaurant.getDetails());
 
-            rb.setRating(Float.parseFloat(restaurant.getRate()+""));
-            if(restaurant.isKosher())
-                tvKosher.setText("כשרה");
+            rb.setRating((float) restaurant.getRate());
+            rb.setClickable(false);
+            if (restaurant.isKosher()) tvKosher.setText("כשרה");
             else tvKosher.setText("לא כשרה");
 
             if (restaurant.getPic() != null) {
@@ -110,33 +111,80 @@ Restaurant restaurant=null;
                 ivRes.setImageBitmap(bitmap);
             }
 
+            reviewsAdapter = new ReviewsAdapter(RestaurantProfile.this, reviewArratyList, restaurants, users);
+
+            lvReviews.setAdapter(reviewsAdapter);
+
+            databaseService.getRestReviews(restaurant.getId(), new DatabaseService.DatabaseCallback<List<Review>>() {
+                @Override
+                public void onCompleted(List<Review> object) {
+                    reviewArratyList.clear();
+                    reviewArratyList.addAll(object);
+                    reviewsAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onFailed(Exception e) {
+
+                }
+            });
+
+            databaseService.getUsers(new DatabaseService.DatabaseCallback<List<User>>() {
+
+                @Override
+                public void onCompleted(List<User> objects) {
+                    users.clear();
+                    users.addAll(objects);
+                    reviewsAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onFailed(Exception e) {
+
+                }
+            });
+
+            databaseService.getRestaurants(new DatabaseService.DatabaseCallback<List<Restaurant>>() {
+                @Override
+                public void onCompleted(List<Restaurant> objects) {
+                    restaurants.clear();
+                    restaurants.addAll(objects);
+                    reviewsAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onFailed(Exception e) {
+
+                }
+            });
+
         }
     }
 
-    private void initViews()
+    private void initViews() {
 
-    {
-        tvResName=findViewById(R.id.tvNameResProfile);
-        tvType=findViewById(R.id.tvTypeResProfile);
-        tvKosher=findViewById(R.id.tvKosherResProfile);
-        tvCity=findViewById(R.id.tvCityResProfile);
-        tvDomain=findViewById(R.id.tvDomainResProfile);
-        ivRes=findViewById(R.id.ivResProfile);
-        rb=findViewById(R.id.ratingBarResProfile);
-        btnSave=findViewById(R.id.btnSaveResProfile);
+        lvReviews = findViewById(R.id.lvReviewsResProfile);
+        tvResName = findViewById(R.id.tvNameResProfile);
+        tvType = findViewById(R.id.tvTypeResProfile);
+        tvKosher = findViewById(R.id.tvKosherResProfile);
+        tvCity = findViewById(R.id.tvCityResProfile);
+        tvDomain = findViewById(R.id.tvDomainResProfile);
+        ivRes = findViewById(R.id.ivResProfile);
+        rb = findViewById(R.id.ratingBarResProfile);
+
+        rb.setEnabled(true);
+        btnSave = findViewById(R.id.btnSaveResProfile);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 databaseService.saveFavoriteRes(restaurant, uid, new DatabaseService.DatabaseCallback<Void>() {
-                   public @Override
-                    void onCompleted(Void object) {
-                       //Toast.
+                    public @Override void onCompleted(Void object) {
+                        //Toast.
 
                     }
 
-                 public    @Override
-                    void onFailed(Exception e) {
+                    public @Override void onFailed(Exception e) {
 
                     }
                 });
@@ -144,22 +192,20 @@ Restaurant restaurant=null;
 
             }
         });
-        btnBack=findViewById(R.id.btnBackResProfile);
+        btnBack = findViewById(R.id.btnBackResProfile);
         btnBack.setOnClickListener(v -> {
             Intent intent = new Intent(RestaurantProfile.this, SearchRestaurant.class);
             startActivity(intent);
         });
 
-        tvDetails=findViewById(R.id.tvDetailsProfile);
+        tvDetails = findViewById(R.id.tvDetailsProfile);
 
-        btnCallToRes=findViewById(R.id.btnCallToRes);
+        btnCallToRes = findViewById(R.id.btnCallToRes);
         btnCallToRes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // The phone number you want to call
-                String phoneNumber = "tel:"+restaurant.getPhone().toString(); // replace with the actual number
-
-
+                String phoneNumber = "tel:" + restaurant.getPhone().toString(); // replace with the actual number
 
 
                 // Create an intent to open the dialer
@@ -175,31 +221,42 @@ Restaurant restaurant=null;
 
         });
 
-}
+        btnAdd = findViewById(R.id.btnAddReview);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(RestaurantProfile.this, AddReview.class);
+                intent.putExtra("Rest", restaurant); // שולח את ה-ID של המוצר
+
+                startActivity(intent);
+
+            }
+        });
+
+    }
 
 
-
-
-@Override
-public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    if (requestCode == REQUEST_PHONE_CALL) {
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            // Permission granted, make the call
-            String phoneNumber = "tel:1234567890"; // replace with the actual number
-            makeCall(phoneNumber);
-        } else {
-            // Permission denied, show a message
-            Toast.makeText(this, "Permission denied to make phone calls", Toast.LENGTH_SHORT).show();
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_PHONE_CALL) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, make the call
+                String phoneNumber = "tel:1234567890"; // replace with the actual number
+                makeCall(phoneNumber);
+            } else {
+                // Permission denied, show a message
+                Toast.makeText(this, "Permission denied to make phone calls", Toast.LENGTH_SHORT).show();
+            }
         }
     }
-}
 
-private void makeCall(String phoneNumber) {
-    Intent callIntent = new Intent(Intent.ACTION_CALL);
-    callIntent.setData(Uri.parse(phoneNumber));
-    startActivity(callIntent);
-}
+    private void makeCall(String phoneNumber) {
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse(phoneNumber));
+        startActivity(callIntent);
+    }
 
 
 }

@@ -1,6 +1,5 @@
 package com.noa.eatandshare.models;
 
-import java.io.Serial;
 import java.io.Serializable;
 
 public class Restaurant implements Serializable {
@@ -9,7 +8,8 @@ public class Restaurant implements Serializable {
 
     int numberOfRating;
     boolean kosher;
-    double rate, sumRating;
+    double rate;
+     double sumRating;
 
     protected String domain;
     protected String pic;
@@ -35,6 +35,10 @@ public class Restaurant implements Serializable {
 
     // קונסטרוקטור ברירת מחדל
     public Restaurant() {
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 
     // Getter and Setter עבור כל שדה
@@ -93,7 +97,9 @@ public class Restaurant implements Serializable {
     public void setNumberOfRating(int numberOfRating) {
         this.numberOfRating = numberOfRating;
     }
-
+    public void setNumberOfRating() {
+        this.numberOfRating++ ;
+    }
     public boolean isKosher() {
         return kosher;
     }
@@ -103,20 +109,24 @@ public class Restaurant implements Serializable {
     }
 
     public double getRate() {
-        return rate;
+     return    (this.sumRating/this.numberOfRating);
+
     }
 
-    public void setRate(double rate) {
-        this.rate = rate;
-    }
 
+    public void setRate() {
+        this.rate =  (this.sumRating/this.numberOfRating);
+    }
     public double getSumRating() {
         return sumRating;
     }
 
-    public void setSumRating(double sumRating) {
-        this.sumRating = sumRating;
+
+    public void setSumRating(double newRate) {
+        this.sumRating = this.sumRating + newRate;
     }
+
+
 
     public String getDomain() {
         return domain;

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.noa.eatandshare.R;
 import com.noa.eatandshare.adapters.RestaurantsAdapter;
 import com.noa.eatandshare.models.Restaurant;
+import com.noa.eatandshare.services.AuthenticationService;
 import com.noa.eatandshare.services.DatabaseService;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class MyFavRes extends BaseActivity {
     private RestaurantsAdapter restaurantsAdapter;
     private List<Restaurant> restaurantList = new ArrayList<>();
     private DatabaseService databaseService;
+    String uid ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,8 @@ public class MyFavRes extends BaseActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+      uid= AuthenticationService.getInstance().getCurrentUserId();
         // Set up RecyclerView
         recyclerView = findViewById(R.id.rcFavRestaurant);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -59,7 +63,7 @@ public class MyFavRes extends BaseActivity {
         // Show a loading message if needed
 
         // Fetch restaurants from the database
-        databaseService.getRestaurants(new DatabaseService.DatabaseCallback<List<Restaurant>>() {
+        databaseService.getUserFavorite(uid,new DatabaseService.DatabaseCallback<List<Restaurant>>() {
             @Override
             public void onCompleted(List<Restaurant> object) {
                 Log.d("TAG", "onCompleted: " + object);

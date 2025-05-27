@@ -13,11 +13,13 @@
         android:id="@+id/tvTitle1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="62dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="26dp"
         android:text="פרופיל משתמש"
-        android:textSize="30dp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="50dp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,72 +27,70 @@
         android:id="@+id/tvFName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="175dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="50dp"
         android:text="שם פרטי"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tvLName"
+        app:layout_constraintEnd_toEndOf="@+id/tvLName" />
+
+    <TextView
+        android:id="@+id/tvLName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="241dp"
+        android:layout_marginEnd="86dp"
+        android:text="שם משפחה"
         android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvLName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="57dp"
-        android:layout_marginEnd="36dp"
-        android:text="שם משפחה"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFName" />
-
-    <TextView
         android:id="@+id/tvPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginTop="56dp"
         android:text="טלפון"
         android:textSize="15dp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tvLName"
         app:layout_constraintTop_toBottomOf="@+id/tvLName" />
 
     <TextView
         android:id="@+id/tvEml"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="3dp"
         android:text="אימייל"
         android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/tvPhone"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tvFName"
         app:layout_constraintTop_toBottomOf="@+id/tvPhone" />
 
     <Button
         android:id="@+id/btnClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
+        android:layout_marginEnd="6dp"
+        android:backgroundTint="#7EAEF6"
         android:text="סגור עמוד"
-        app:layout_constraintBottom_toBottomOf="@+id/btnGoToEditUser"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnGoToEditUser"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnGoToEditUser"
+        app:layout_constraintEnd_toStartOf="@+id/btnGoToEditUser"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnGoToEditUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="124dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="85dp"
+        android:backgroundTint="#7EAEF6"
         android:text="עריכה"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnClose" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

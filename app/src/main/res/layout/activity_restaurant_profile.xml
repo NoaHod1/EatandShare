@@ -112,8 +112,8 @@
 
         <ListView
             android:id="@+id/lvReviewsResProfile"
-            android:layout_width="409dp"
-            android:layout_height="200dp"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -129,6 +129,7 @@
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="448dp" />
 
+
         <Button
             android:id="@+id/btnCallToRes"
             android:layout_width="379dp"
@@ -139,7 +140,15 @@
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="496dp" />
 
-
+        <Button
+            android:id="@+id/btnAddReview"
+            android:layout_width="379dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#7EAEF6"
+            android:text="הוסף ביקורת"
+            android:textColor="@color/black"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="640dp" />
         <Button
             android:id="@+id/btnBackResProfile"
             android:layout_width="379dp"
@@ -149,6 +158,7 @@
             android:textColor="@color/black"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="640dp" />
+
 
     </LinearLayout>
 </ScrollView>

@@ -7,22 +7,24 @@
     android:background="#8EC5F4"
     tools:context=".screens.SearchUsersActivity">
 
+    <!-- שדה חיפוש -->
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="16dp"
-        android:text="משתמשים"
+        android:layout_marginStart="4dp"
+
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="10dp"
+        android:text=" חיפוש משתמשים"
         android:textColor="@android:color/black"
-        android:textSize="20sp"
+        android:textSize="50sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/searchEditText"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- שדה חיפוש -->
     <EditText
         android:id="@+id/searchEditText"
         android:layout_width="0dp"
@@ -47,5 +49,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/searchEditText"
+        tools:listitem="@layout/one_user" />
 </androidx.constraintlayout.widget.ConstraintLayout>

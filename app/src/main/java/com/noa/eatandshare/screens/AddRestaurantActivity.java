@@ -232,7 +232,7 @@ public class AddRestaurantActivity extends BaseActivity {
 
 
             /// create a new food object
-        Restaurant restaurant = new Restaurant(id, restaurantName, city, restaurantStreet, resType,restaurantDetails, 0,isKosher,0.0,0.0,domain,imageBase64,"0521234567");
+        Restaurant restaurant = new Restaurant(id, restaurantName, city, restaurantStreet, resType,restaurantDetails, 0,isKosher, 0.0F, 0.0F,domain,imageBase64,"0521234567");
 
         /// save the food to the database and get the result in the callback
         databaseService.createNewRestaurant(restaurant, new DatabaseService.DatabaseCallback<Void>() {

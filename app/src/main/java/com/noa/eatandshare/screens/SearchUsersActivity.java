@@ -6,7 +6,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -21,8 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import android.text.TextWatcher;  // ה-import עבור TextWatcher
-import android.text.Editable;     // ה-import עבור Editable
+// ה-import עבור TextWatcher
+// ה-import עבור Editable
 import android.widget.EditText;   // ה-import עבור EditText
 
 
@@ -77,7 +76,7 @@ public class SearchUsersActivity extends BaseActivity {
         userList = new ArrayList<>();
         filteredUserList = new ArrayList<>();
 
-        adapter = new UserAdapter(filteredUserList);
+        adapter = new UserAdapter(this, filteredUserList);
         rcUsers.setAdapter(adapter);
 
         // הוספת TextWatcher לשדה החיפוש

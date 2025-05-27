@@ -1,5 +1,6 @@
 package com.noa.eatandshare.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -21,9 +23,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     /// @see User
 
     private final List<User> userList;
+    private final Context context;
 
-    public UserAdapter(List<User> userList) {
+    public UserAdapter(Context context, List<User> userList) {
         this.userList = userList;
+        this.context = context;
     }
 
     /// create a view holder for the adapter
@@ -55,6 +59,25 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.tvFname.setText(user.getFname());
         holder.tvLname.setText(user.getLname());
         holder.tvPhone.setText(user.getPhone());
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                new AlertDialog.Builder(context)
+                    .setTitle("מחיקת משתמש")
+                    .setMessage("אתה בטוח שאתה רוצה למחוק את המשתמש הזה?")
+                    .setPositiveButton("אישור", (dialog, which) -> {
+                        // פעולה כשלוחצים על אישור
+                        dialog.dismiss();
+                    })
+                    .setNegativeButton("ביטול", (dialog, which) -> {
+                        // פעולה כשלוחצים על ביטול
+                        dialog.dismiss();
+                    })
+                    .show();
+                return false;
+            }
+        });
 
     }
 

@@ -18,6 +18,17 @@ public class User {
 
     }
 
+
+    public User(String id, String fname, String lname, String phone, String email) {
+        this.id = id;
+        this.fname = fname;
+        this.lname = lname;
+        this.phone = phone;
+        this.email = email;
+
+
+    }
+
     public User(User user) {
         this.id = user.id;
         this.fname = user.fname;
