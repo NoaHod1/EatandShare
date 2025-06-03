@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -38,6 +39,8 @@ public class EditRes extends AppCompatActivity {
     private Button btnEditRestaurant, btnGallery, btnCamera;
     private ImageView ivRes;
 
+    TextView tvCity;
+
 
     private static final String TAG = "AddRestaurantActivity";
 
@@ -56,6 +59,8 @@ public class EditRes extends AppCompatActivity {
     private Intent takeit;
     private Restaurant restaurant = null;
     private EditText etPhone;
+    private TextView tvResType;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +80,8 @@ public class EditRes extends AppCompatActivity {
         btnCamera = findViewById(R.id.btnCameraE2);
         etDomain = findViewById(R.id.etDomainE2);
         etPhone = findViewById(R.id.etPhoneE2);
+        tvCity=findViewById(R.id.tvCityE2);
+        tvResType=findViewById(R.id.tvResTypeE2);
 
 
         /// request permission for the camera and storage
@@ -135,6 +142,8 @@ public class EditRes extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // פעולה כשנבחרת אפשרות חדשה בסוג המסעדה
                 String selectedType = spResType.getSelectedItem().toString();
+                if( position>0)
+                         tvResType.setText(selectedType);
                 Toast.makeText(EditRes.this, "בחרת סוג: " + selectedType, Toast.LENGTH_SHORT).show();
             }
 
@@ -150,6 +159,7 @@ public class EditRes extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // פעולה כשנבחרת עיר
                 String selectedCity = spCity.getSelectedItem().toString();
+                tvCity.setText(selectedCity);
                 Toast.makeText(EditRes.this, "בחרת עיר: " + selectedCity, Toast.LENGTH_SHORT).show();
             }
 
@@ -195,8 +205,9 @@ public class EditRes extends AppCompatActivity {
 
         if (restaurant != null) {
 
+        tvResType.setText(restaurant.getType());
 
-            //   et.setText(restaurant.getCity());
+            tvCity.setText(restaurant.getCity());
           etDomain.setText(restaurant.getDomain()+"");
             // tvKosher.setText(restaurant.get());
             //  et.setText(restaurant.getType());
@@ -205,8 +216,8 @@ public class EditRes extends AppCompatActivity {
             etRestaurantDetails.setText(restaurant.getDetails());
 
 
-//        if (restaurant.isKosher()) tvKosher.setText("כשרה");
-//        else tvKosher.setText("לא כשרה");
+        if (restaurant.isKosher()) swIsKosher.setText("כשרה");
+        else swIsKosher.setText("לא כשרה");
 
             if (restaurant.getPic() != null) {
                 Bitmap bitmap = ImageUtil.convertFrom64base(restaurant.getPic());
@@ -227,10 +238,10 @@ public class EditRes extends AppCompatActivity {
         String domain = etDomain.getText().toString();
 
         // בחירת סוג המסעדה (Spinner)
-        String resType = spResType.getSelectedItem().toString();
+        String resType = tvResType.getText().toString();
 
         // בחירת עיר (Spinner)
-        String city = spCity.getSelectedItem().toString();
+        String city = tvCity.getText().toString();
 
         // ערך של ה-Switch כשר
         boolean isKosher = swIsKosher.isChecked();
