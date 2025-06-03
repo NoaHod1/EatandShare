@@ -17,6 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.noa.eatandshare.R;
 import com.noa.eatandshare.models.Restaurant;
 import com.noa.eatandshare.screens.AddReview;
+import com.noa.eatandshare.screens.AdminPage;
+import com.noa.eatandshare.screens.EditRes;
+import com.noa.eatandshare.screens.Login;
 import com.noa.eatandshare.screens.RestaurantProfile;
 import com.noa.eatandshare.utils.ImageUtil;
 
@@ -59,10 +62,27 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
 
 
-                Intent go=new Intent(context, RestaurantProfile.class);
 
-                go.putExtra("Rest", restaurant); // שולח את ה-ID של המוצר
-                context.startActivity(go);
+
+                    if(Login.isAdmin) {
+
+                        Intent goEdit = new Intent(context, EditRes.class);
+
+                        goEdit.putExtra("Rest", restaurant); // שולח   המוצר
+                        context.startActivity(goEdit);
+                    }
+
+
+
+
+                else {
+
+
+                        Intent go = new Intent(context, RestaurantProfile.class);
+                        go.putExtra("Rest", restaurant); // שולח   המוצר
+                        context.startActivity(go);
+
+                    }
 
 
             }

@@ -19,6 +19,9 @@
         android:theme="@style/Theme.EatandShare"
         tools:targetApi="31">
         <activity
+            android:name=".screens.EditRes"
+            android:exported="false" />
+        <activity
             android:name=".EditRes"
             android:exported="false" />
         <activity

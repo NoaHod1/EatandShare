@@ -9,7 +9,7 @@
     tools:context=".screens.AddRestaurantActivity">
 
 
-    +
+
 
     <TextView
         android:id="@+id/etTitelRes"

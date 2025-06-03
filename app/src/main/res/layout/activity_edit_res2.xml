@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#8EC5F4"
+    tools:context=".screens.EditRes"
+
+    >
+
+
+    <TextView
+        android:id="@+id/etTitelResE2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="37dp"
+        android:layout_marginBottom="421dp"
+        android:text="עריכת מסעדה"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="50dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btnGalleryE2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etRestaurantNameE2"
+        android:layout_width="240dp"
+        android:layout_height="66dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="23dp"
+        android:ems="10"
+        android:hint="שם המסעדה"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/etRestaurantstreetE2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/swIsKosherE2"
+        app:layout_constraintTop_toBottomOf="@+id/etTitelResE2" />
+
+    <Spinner
+        android:id="@+id/spResTypeE2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="231dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="26dp"
+        app:layout_constraintBottom_toTopOf="@+id/spCityE2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/etRestaurantstreetE2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/swIsKosherE2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="37dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="17dp"
+        android:text="כשר"
+        app:layout_constraintBottom_toBottomOf="@+id/etRestaurantNameE2"
+        app:layout_constraintEnd_toStartOf="@+id/etRestaurantNameE2"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/spCityE2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="234dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnCameraE2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/etPhoneE2"
+        app:layout_constraintTop_toBottomOf="@+id/spResTypeE2" />
+
+    <EditText
+        android:id="@+id/etRestaurantstreetE2"
+        android:layout_width="162dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="18dp"
+        android:ems="10"
+        android:hint="כתובת המסעדה"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/etPhoneE2"
+        app:layout_constraintEnd_toStartOf="@+id/spResTypeE2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etRestaurantNameE2" />
+
+    <EditText
+        android:id="@+id/etRestaurantDetailsE2"
+        android:layout_width="333dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="19dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="פרטי המסעדה"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/etDomainE2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPhoneE2" />
+
+    <ImageView
+        android:id="@+id/ivResE2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="137dp"
+        android:layout_marginBottom="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnGalleryE2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etDomainE2"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/btnGalleryE2"
+        android:layout_width="92dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="162dp"
+        android:backgroundTint="#7EAEF6"
+        android:text="גלריה"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivResE2"
+        app:layout_constraintTop_toBottomOf="@+id/etTitelResE2" />
+
+    <Button
+        android:id="@+id/btnCameraE2"
+        android:layout_width="109dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="31dp"
+        android:backgroundTint="#7EAEF6"
+        android:text="צלם תמונה"
+        app:layout_constraintBottom_toTopOf="@+id/btnEditRestaurantE2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spCityE2" />
+
+    <Button
+        android:id="@+id/btnEditRestaurantE2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#7EAEF6"
+        android:text="עדכון שינויים"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivResE2"
+        app:layout_constraintTop_toBottomOf="@+id/btnCameraE2" />
+
+    <EditText
+        android:id="@+id/etDomainE2"
+        android:layout_width="335dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginEnd="37dp"
+        android:layout_marginBottom="15dp"
+        android:ems="10"
+        android:hint="קישור לאתר"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/ivResE2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etRestaurantDetailsE2" />
+
+    <EditText
+        android:id="@+id/etPhoneE2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="37dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="22dp"
+        android:ems="10"
+        android:inputType="phone"
+        app:layout_constraintBottom_toTopOf="@+id/etRestaurantDetailsE2"
+        app:layout_constraintEnd_toStartOf="@+id/spCityE2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etRestaurantstreetE2" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
