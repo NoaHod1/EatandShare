@@ -129,6 +129,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
             android:isIndicator="false"
+            android:allowClickWhenDisabled="false"
+
             android:numStars="5"
             android:rating="0"
             android:stepSize="0.5" />

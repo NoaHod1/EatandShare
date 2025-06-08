@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.noa.eatandshare.R;
+import com.noa.eatandshare.services.AuthenticationService;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -32,6 +33,14 @@ public class BaseActivity extends AppCompatActivity {
             startActivity(new Intent(this, SearchRestaurant.class));
             return true;
         }
+        else if (id == R.id.menu_logOut) {
+            AuthenticationService.getInstance().signOut();
+            startActivity(new Intent(this, MainActivity.class));
+
+            return true;
+        }
+
+
 
 
         return super.onOptionsItemSelected(item);

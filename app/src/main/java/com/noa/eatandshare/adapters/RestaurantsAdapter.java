@@ -123,6 +123,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             restaurantDomain = itemView.findViewById(R.id.txtRestaurantDomain);
 
             rBar=itemView.findViewById(R.id.ratingBar);
+            rBar.setEnabled(false);
 
             viewDetailsButton = itemView.findViewById(R.id.btnViewDetails);
             ivD = itemView.findViewById(R.id.ivRes);

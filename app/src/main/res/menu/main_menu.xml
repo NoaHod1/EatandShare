@@ -13,4 +13,9 @@
         android:title="חיפוש מסעדה"
         android:showAsAction="never" />
 
+    <item
+        android:id="@+id/menu_logOut"
+        android:title="התנתקות"
+        android:showAsAction="never" />
+
 </menu>

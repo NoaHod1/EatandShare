@@ -13,7 +13,7 @@ public class SharedPreferencesUtil {
 
     /// The name of the shared preferences file
     /// @see Context#getSharedPreferences(String, int)
-    private static final String PREF_NAME = "com.example.testapp.PREFERENCE_FILE_KEY";
+    private static final String PREF_NAME = "com.noa.eatandshare.PREFERENCE_FILE_KEY";
 
     /// Save a string to shared preferences
     /// @param context The context to use
@@ -129,7 +129,10 @@ public class SharedPreferencesUtil {
         String fName = sharedPreferences.getString("fName", "");
         String lName = sharedPreferences.getString("lName", "");
         String phone = sharedPreferences.getString("phone", "");
-        return new User(uid, email, password, fName, lName, phone);
+
+
+
+            return new User(uid, fName, lName, phone, email, password);
     }
 
     /// Sign out the user by removing user data from shared preferences

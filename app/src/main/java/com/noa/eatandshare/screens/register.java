@@ -47,8 +47,6 @@ public class register extends BaseActivity implements View.OnClickListener {
     private DatabaseService databaseService;
 
 
-    public static final String MyPREFERENCES = "MyPrefs" ;
-    SharedPreferences sharedpreferences;
 
 
 
@@ -71,7 +69,7 @@ public class register extends BaseActivity implements View.OnClickListener {
 
         initViews();
 
-        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
 
 
     }

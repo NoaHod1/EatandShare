@@ -155,43 +155,7 @@ public class DatabaseService {
     }
 
     public void saveReview(@NotNull final Review review, @Nullable final DatabaseCallback<Void> callback) {
-        writeData("reviews/" + review.getId(), review, new DatabaseCallback<Void>() {
-            @Override
-            public void onCompleted(Void v) {
-                readData("restaurants"+ review.getRestaurantId()).runTransaction(new Transaction.Handler() {
-                    @NonNull
-                    @Override
-                    public Transaction.Result doTransaction(@NonNull MutableData currentData) {
-                        Restaurant restaurant = currentData.getValue(Restaurant.class);
-
-                        if (restaurant == null) {
-                            return Transaction.success(currentData);
-                        }
-
-                        restaurant.setSumRating(review.getRate());
-                        restaurant.setNumberOfRating();
-                        restaurant.setRate( restaurant.getRate());
-
-                        currentData.setValue(restaurant);
-                        return Transaction.success(currentData);
-                    }
-
-                    @Override
-                    public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
-                        if (error != null) {
-                            callback.onFailed(error.toException());
-                            return;
-                        }
-                        callback.onCompleted(null);
-                    }
-                });
-            }
-
-            @Override
-            public void onFailed(Exception e) {
-                callback.onFailed(e);
-            }
-        });
+        writeData("reviews/" + review.getId(), review,callback) ;
     }
 
     public void getUserReviews( @NotNull final String uid , @NotNull final DatabaseCallback<List<Review>> callback) {
@@ -212,8 +176,8 @@ public class DatabaseService {
         });
     }
 
-    public void getRestReviews( @NotNull final String rid , @NotNull final DatabaseCallback<List<Review>> callback) {
-        readData("restReviews/"+rid)
+    public void getRestReviews( @NotNull final String resid , @NotNull final DatabaseCallback<List<Review>> callback) {
+        readData("reviews/")
                 .get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e(TAG, "Error getting data", task.getException());
@@ -221,10 +185,14 @@ public class DatabaseService {
                 return;
             }
             List<Review> reviewList = new ArrayList<>();
+
+
             task.getResult().getChildren().forEach(dataSnapshot -> {
                 Review review = dataSnapshot.getValue(Review.class);
                 Log.d(TAG, "Got restaurant: " + review);
-                reviewList.add(review);
+
+                if(resid.equals(review.getRestaurantId()))
+                             reviewList.add(review);
             });
 
             callback.onCompleted(reviewList);

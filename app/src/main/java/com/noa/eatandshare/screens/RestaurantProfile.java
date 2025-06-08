@@ -129,34 +129,8 @@ public class RestaurantProfile extends BaseActivity {
                 }
             });
 
-            databaseService.getUsers(new DatabaseService.DatabaseCallback<List<User>>() {
 
-                @Override
-                public void onCompleted(List<User> objects) {
-                    users.clear();
-                    users.addAll(objects);
-                    reviewsAdapter.notifyDataSetChanged();
-                }
 
-                @Override
-                public void onFailed(Exception e) {
-
-                }
-            });
-
-            databaseService.getRestaurants(new DatabaseService.DatabaseCallback<List<Restaurant>>() {
-                @Override
-                public void onCompleted(List<Restaurant> objects) {
-                    restaurants.clear();
-                    restaurants.addAll(objects);
-                    reviewsAdapter.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onFailed(Exception e) {
-
-                }
-            });
 
         }
     }
