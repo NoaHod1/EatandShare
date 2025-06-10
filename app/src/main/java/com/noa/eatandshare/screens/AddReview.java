@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -68,6 +67,7 @@ public class AddReview extends BaseActivity {
                 user=object;
                 user=new User(user);
 
+
             }
 
             @Override
@@ -93,6 +93,16 @@ public class AddReview extends BaseActivity {
         btnAddReview=findViewById(R.id.btnAddREV);
         btnBack=findViewById(R.id.btnBack);
 
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddReview.this, SearchRestaurant.class);
+                startActivity(intent);
+            }
+        });
+
+
         btnAddReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,11 +116,13 @@ public class AddReview extends BaseActivity {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 String formattedDateTime = now.format(formatter);
 
+
                 Review newReview=new Review(reviewId, restaurant.getId(), user.getId(), formattedDateTime , rate, stReview);
 
                 databaseService.saveReview(newReview, new DatabaseService.DatabaseCallback<Void>() {
                     @Override
                     public void onCompleted(Void object) {
+
 
                     }
 

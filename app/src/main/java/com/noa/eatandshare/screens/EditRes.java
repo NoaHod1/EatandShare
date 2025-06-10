@@ -21,9 +21,6 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.noa.eatandshare.R;
 import com.noa.eatandshare.models.Restaurant;
@@ -294,6 +291,7 @@ public class EditRes extends AppCompatActivity {
                 System.out.println("Is Kosher: " + isKosher);
 
                 finish();
+
             }
 
             @Override

@@ -83,7 +83,7 @@ public void retrieveData() {
     databaseService.getUser(uid, new DatabaseService.DatabaseCallback<User>() {
 
         @Override
-        public   void onCompleted(User object) {
+        public void onCompleted(User object) {
             user=object;
 
 
@@ -99,6 +99,7 @@ public void retrieveData() {
 
 
             }
+
 
         }
 
@@ -124,6 +125,7 @@ public void onClick(View v) {
         databaseService.updateUser(user, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void object) {
+
 
             }
 

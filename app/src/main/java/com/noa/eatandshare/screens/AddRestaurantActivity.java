@@ -1,8 +1,5 @@
 package com.noa.eatandshare.screens;
 
-import static android.opengl.ETC1.isValid;
-
-import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -14,28 +11,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.google.firebase.Firebase;
 import com.noa.eatandshare.R;
 import com.noa.eatandshare.models.Restaurant;
 import com.noa.eatandshare.services.DatabaseService;
 import com.noa.eatandshare.utils.ImageUtil;
-
-import java.io.IOException;
 
 
 public class AddRestaurantActivity extends BaseActivity {
@@ -255,6 +242,7 @@ public class AddRestaurantActivity extends BaseActivity {
                 System.out.println("Is Kosher: " + isKosher);
 
                 finish();
+
             }
 
             @Override

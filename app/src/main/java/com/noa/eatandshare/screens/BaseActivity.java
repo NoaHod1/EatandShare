@@ -39,6 +39,12 @@ public class BaseActivity extends AppCompatActivity {
 
             return true;
         }
+        else if (id == R.id.menu_MyFavRes) {
+
+            startActivity(new Intent(this, MyFavRes.class));
+
+            return true;
+        }
 
 
 

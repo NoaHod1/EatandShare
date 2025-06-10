@@ -1,8 +1,6 @@
 package com.noa.eatandshare.screens;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +9,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -112,6 +109,7 @@ public class Login extends BaseActivity implements View.OnClickListener {
                             Intent go = new Intent(getApplicationContext(), HomePage.class);
                             startActivity(go);
                         }
+
 
                     }
 

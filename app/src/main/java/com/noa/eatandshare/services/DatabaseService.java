@@ -2,15 +2,10 @@ package com.noa.eatandshare.services;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.MutableData;
-import com.google.firebase.database.Transaction;
 import com.noa.eatandshare.models.Restaurant;
 import com.noa.eatandshare.models.Review;
 import com.noa.eatandshare.models.User;
@@ -37,6 +32,8 @@ public class DatabaseService {
     /// @see DatabaseCallback#onFailed(Exception)
     public interface DatabaseCallback<T> {
         /// called when the operation is completed successfully
+        ///
+        /// @return
         void onCompleted(T object);
 
         /// called when the operation fails with an exception
@@ -207,11 +204,13 @@ public class DatabaseService {
 
 
     public void saveFavoriteRes(@NotNull final Restaurant restaurant,@NotNull final String uid , @Nullable final DatabaseCallback<Void> callback) {
-        writeData("usersFavorite/" + uid+"/"+restaurant.getId(), restaurant, callback);
+        writeData("usersFavorite/" + uid+"/"+restaurant.getId()+"/", restaurant, callback);
     }
 
 
     public void getUserFavorite( @NotNull final String uid , @NotNull final DatabaseCallback<List<Restaurant>> callback) {
+
+
         readData("usersFavorite").child(uid).get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e(TAG, "Error getting data", task.getException());

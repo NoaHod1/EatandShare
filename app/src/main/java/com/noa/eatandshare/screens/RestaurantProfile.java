@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,9 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -33,8 +29,6 @@ import com.noa.eatandshare.services.DatabaseService;
 import com.noa.eatandshare.utils.ImageUtil;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class RestaurantProfile extends BaseActivity {
@@ -47,9 +41,8 @@ public class RestaurantProfile extends BaseActivity {
     Button btnAdd, btnSave, btnBack, btnCallToRes;
     ListView lvReviews;
     ReviewsAdapter reviewsAdapter;
-    ArrayList<Review> reviewArratyList = new ArrayList();
-    List<Restaurant> restaurants = new ArrayList<>();
-    List<User> users = new ArrayList<>();
+    ArrayList<Review> reviewArratyList = new ArrayList<>();
+
 
     private AuthenticationService authenticationService;
     private DatabaseService databaseService;
@@ -111,20 +104,26 @@ public class RestaurantProfile extends BaseActivity {
                 ivRes.setImageBitmap(bitmap);
             }
 
-            reviewsAdapter = new ReviewsAdapter(RestaurantProfile.this, reviewArratyList, restaurants, users);
+            reviewsAdapter = new ReviewsAdapter(RestaurantProfile.this, reviewArratyList);
 
             lvReviews.setAdapter(reviewsAdapter);
 
             databaseService.getRestReviews(restaurant.getId(), new DatabaseService.DatabaseCallback<List<Review>>() {
                 @Override
                 public void onCompleted(List<Review> object) {
-                    reviewArratyList.clear();
-                    reviewArratyList.addAll(object);
-                    reviewsAdapter.notifyDataSetChanged();
+
+                    if(object!=null) {
+                        reviewArratyList.clear();
+                        reviewArratyList.addAll(object);
+                        reviewsAdapter.notifyDataSetChanged();
+                    }
+
                 }
 
                 @Override
                 public void onFailed(Exception e) {
+
+                    reviewsAdapter.notifyDataSetChanged();
 
                 }
             });
@@ -155,6 +154,7 @@ public class RestaurantProfile extends BaseActivity {
                 databaseService.saveFavoriteRes(restaurant, uid, new DatabaseService.DatabaseCallback<Void>() {
                     public @Override void onCompleted(Void object) {
                         //Toast.
+
 
                     }
 

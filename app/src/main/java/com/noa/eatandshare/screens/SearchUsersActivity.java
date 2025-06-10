@@ -59,6 +59,7 @@ public class SearchUsersActivity extends BaseActivity {
                 filteredUserList.clear();
                 filteredUserList.addAll(object);
                 adapter.notifyDataSetChanged();
+
             }
 
             @Override

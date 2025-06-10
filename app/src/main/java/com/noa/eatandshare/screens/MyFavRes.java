@@ -2,11 +2,8 @@ package com.noa.eatandshare.screens;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -53,17 +50,19 @@ public class MyFavRes extends BaseActivity {
         databaseService = DatabaseService.getInstance();
 
         // Fetch all restaurants from the database initially
-        fetchRestaurants();
 
+        if(uid!=null) {
+            fetchRestaurants(uid);
+        }
         // Set button click listener to search by city
 
     }
 
-    private void fetchRestaurants() {
+    private void fetchRestaurants(String  uid2) {
         // Show a loading message if needed
 
         // Fetch restaurants from the database
-        databaseService.getUserFavorite(uid,new DatabaseService.DatabaseCallback<List<Restaurant>>() {
+        databaseService.getUserFavorite(uid2,new DatabaseService.DatabaseCallback<List<Restaurant>>() {
             @Override
             public void onCompleted(List<Restaurant> object) {
                 Log.d("TAG", "onCompleted: " + object);
@@ -75,6 +74,7 @@ public class MyFavRes extends BaseActivity {
 
 
                 restaurantsAdapter.notifyDataSetChanged();
+
             }
 
             @Override

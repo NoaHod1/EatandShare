@@ -95,10 +95,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     }
 
     // עדכון רשימת המסעדות
-    public void setRestaurantList(List<Restaurant> restaurantList) {
-        this.restaurantList = restaurantList;
-        notifyDataSetChanged();
-    }
 
     public class RestaurantViewHolder extends RecyclerView.ViewHolder {
         private TextView restaurantName;
