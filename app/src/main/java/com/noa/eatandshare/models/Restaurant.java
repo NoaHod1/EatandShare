@@ -109,12 +109,16 @@ public class Restaurant implements Serializable {
     }
 
     public double getRate() {
-     return    (this.sumRating/this.numberOfRating);
+
+        if(this.sumRating>0&& this.getNumberOfRating()>0)
+            return    (this.sumRating/this.numberOfRating);
+        else return 0.0;
 
     }
 
 
-    public void setRate() {
+
+    public void setNewRate() {
         this.rate =  (this.sumRating/this.numberOfRating);
     }
     public double getSumRating() {
@@ -122,11 +126,13 @@ public class Restaurant implements Serializable {
     }
 
 
-    public void setSumRating(double newRate) {
+    public void setSumRating2(double newRate) {
         this.sumRating = this.sumRating + newRate;
     }
 
-
+    public void setSumRating(double sumRating) {
+        this.sumRating = sumRating;
+    }
 
     public String getDomain() {
         return domain;

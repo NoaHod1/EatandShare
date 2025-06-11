@@ -5,15 +5,16 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#8EC5F4"
     tools:context=".screens.Splash">
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imageView5"
         android:layout_width="247dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="158dp"
-        android:layout_marginEnd="59dp"
+        android:layout_height="314dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginEnd="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo22" />
+        app:srcCompat="@drawable/pic22" />
 </androidx.constraintlayout.widget.ConstraintLayout>

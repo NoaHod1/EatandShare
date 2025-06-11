@@ -258,7 +258,7 @@ public class DatabaseService {
     }
 
 
-    public void updateNewRestaurant(@NotNull final Restaurant restaurant, @Nullable final DatabaseCallback<Void> callback) {
+    public void updateRestaurant(@NotNull final Restaurant restaurant, @Nullable final DatabaseCallback<Void> callback) {
         writeData("restaurants/" + restaurant.getId(), restaurant, callback);
     }
 

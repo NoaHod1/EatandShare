@@ -271,7 +271,7 @@ public class EditRes extends AppCompatActivity {
         restaurant = new Restaurant(id, restaurantName, city, restaurantStreet, resType, restaurantDetails, 0, isKosher, 0.0F, 0.0F, domain, imageBase64, "0521234567");
 
         /// save the food to the database and get the result in the callback
-        databaseService.updateNewRestaurant(restaurant, new DatabaseService.DatabaseCallback<Void>() {
+        databaseService.updateRestaurant(restaurant, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void object) {
                 Log.d(TAG, "Food added successfully");

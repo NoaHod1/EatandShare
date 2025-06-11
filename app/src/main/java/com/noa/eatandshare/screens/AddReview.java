@@ -51,6 +51,8 @@ public class AddReview extends BaseActivity {
 
 
 
+
+
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
          formattedDateTime = now.format(formatter);
@@ -123,6 +125,9 @@ public class AddReview extends BaseActivity {
                     @Override
                     public void onCompleted(Void object) {
 
+                        Intent intent = new Intent(AddReview.this, SearchRestaurant.class);
+                        startActivity(intent);
+
 
                     }
 
@@ -130,6 +135,27 @@ public class AddReview extends BaseActivity {
                     public void onFailed(Exception e) {
 
                     }
+                });
+
+                restaurant.setNumberOfRating();
+                restaurant.setSumRating2(rate);
+
+                restaurant.setRate(restaurant.getRate());
+
+                databaseService.updateRestaurant(restaurant, new DatabaseService.DatabaseCallback<Void>() {
+                    @Override
+                   public void onCompleted(Void object) {
+
+
+
+                    }
+
+                    @Override
+                    public void onFailed(Exception e) {
+
+                    }
+
+
                 });
 
             }

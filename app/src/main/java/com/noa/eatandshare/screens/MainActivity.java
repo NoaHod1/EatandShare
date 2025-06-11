@@ -17,7 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.noa.eatandshare.R;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button btnReg,btnLog,btnOdot1;
 
 

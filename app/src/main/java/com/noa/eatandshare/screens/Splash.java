@@ -31,7 +31,7 @@ public class Splash extends AppCompatActivity {
             return insets;
         });
 
-iv=findViewById(R.id.imageView4);
+iv=findViewById(R.id.imageView5);
 
 
 

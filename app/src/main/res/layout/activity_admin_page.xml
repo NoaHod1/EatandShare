@@ -8,14 +8,15 @@
     android:background="#8EC5F4"
     tools:context=".screens.AdminPage">
 
+
     <TextView
         android:id="@+id/tvAdmin"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="59dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="59dp"
-        android:layout_marginBottom="63dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="53dp"
+        android:layout_marginEnd="55dp"
+        android:layout_marginBottom="52dp"
         android:gravity="center"
         android:text="דף מנהל"
         android:textColor="#000000"
@@ -28,9 +29,9 @@
 
     <Button
         android:id="@+id/btnGoSearchPage"
-        android:layout_width="199dp"
+        android:layout_width="203dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="21dp"
+        android:layout_marginBottom="29dp"
         android:backgroundTint="#7EAEF6"
         android:text="דף חיפוש מסעדה"
         android:textColor="@color/black"
@@ -43,9 +44,9 @@
 
     <Button
         android:id="@+id/btnGoAfterLoginM"
-        android:layout_width="193dp"
+        android:layout_width="199dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="19dp"
         android:backgroundTint="#7EAEF6"
         android:text="דף ראשי"
         android:textColor="@color/black"
@@ -56,27 +57,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvAdmin" />
 
-
     <Button
         android:id="@+id/btnAddRestaurant2"
-        android:layout_width="185dp"
+        android:layout_width="197dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="19dp"
+        android:layout_marginBottom="152dp"
         android:backgroundTint="#7EAEF6"
         android:text="הוספת מסעדה"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSearchUsers" />
 
     <Button
         android:id="@+id/btnSearchUsers"
-        android:layout_width="195dp"
+        android:layout_width="201dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="23dp"
+        android:layout_marginBottom="27dp"
         android:backgroundTint="#7EAEF6"
         android:text="חיפוש משתמשים"
         android:textColor="@color/black"
@@ -86,22 +86,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnGoSearchPage" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="184dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="#7EAEF6"
-        android:text="עריכת מסעדה"
-        android:textColor="@color/black"
-        android:textSize="19sp"
-
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddRestaurant2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

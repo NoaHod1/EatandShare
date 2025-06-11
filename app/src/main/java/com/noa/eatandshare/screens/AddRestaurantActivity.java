@@ -27,35 +27,36 @@ import com.noa.eatandshare.utils.ImageUtil;
 
 public class AddRestaurantActivity extends BaseActivity {
 
+
+    // הגדרת שדות הקלט, תפריטים נפתחים, כפתורים ותמונה במסך
     private EditText etRestaurantName, etRestaurantstreet, etRestaurantDetails,etDomain;
     private Spinner spResType, spCity;
     private Switch swIsKosher;
     private Button btnAddRestaurant, btnGallery, btnCamera;
     private ImageView ivRes;
 
-
+    // משתנה קבוע עבור לוגים (מעקב בקונסול)
     private static final String TAG = "AddRestaurantActivity";
 
-
+    // מופע של שירות מסד הנתונים
     private DatabaseService databaseService;
 
-    /// Activity result launcher for selecting image from gallery
+    // כלים שמאפשרים להפעיל פעולות ולקבל תוצאה חזרה - בחירת תמונה מהגלריה או צילום מהמצלמה
     private ActivityResultLauncher<Intent> selectImageLauncher;
-    /// Activity result launcher for capturing image from camera
     private ActivityResultLauncher<Intent> captureImageLauncher;
 
 
-    // constant to compare
-    // the activity result code
+    // מזהה קבוע להשוואה כשבוחרים תמונה מהגלריה
     int SELECT_PICTURE = 200;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // מזהה קבוע להשוואה כשבוחרים תמונה מהגלריה
         setContentView(R.layout.activity_add_restaurant);
 
-        // אתחול כל אחד מהאלמנטים ב-UI
+        // קישור של כל רכיב במסך למשתנה בקוד//אתחול
         etRestaurantName = findViewById(R.id.etRestaurantName);
         etRestaurantstreet = findViewById(R.id.etRestaurantstreet);
         etRestaurantDetails = findViewById(R.id.etRestaurantDetails);
@@ -69,32 +70,32 @@ public class AddRestaurantActivity extends BaseActivity {
         etDomain=findViewById(R.id.etDomain);
 
 
-        /// request permission for the camera and storage
+        // בקשת הרשאות לגישה למצלמה ולקבצים במכשיר
         ImageUtil.requestPermission(this);
 
-        /// get the instance of the database service
+        // קבלת מופע של שירות בסיס הנתונים
         databaseService = DatabaseService.getInstance();
 
 
 
 
-        /// register the activity result launcher for selecting image from gallery
+        // הגדרת הפעולה כשנבחרת תמונה מהגלריה
         selectImageLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                         Uri selectedImage = result.getData().getData();
-                        ivRes.setImageURI(selectedImage);
+                        ivRes.setImageURI(selectedImage);  // הצגת התמונה במסך
                     }
                 });
 
-        /// register the activity result launcher for capturing image from camera
+        // הגדרת הפעולה כשמצלמים תמונה עם המצלמה
         captureImageLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                         Bitmap bitmap = (Bitmap) result.getData().getExtras().get("data");
-                        ivRes.setImageBitmap(bitmap);
+                        ivRes.setImageBitmap(bitmap);  // הצגת התמונה במסך
                     }
                 });
 
@@ -102,7 +103,7 @@ public class AddRestaurantActivity extends BaseActivity {
 
 
 
-
+        // בניית רשימת סוגי מסעדות לספינר
         // יצירת ArrayAdapter עבור סוגי המסעדות
         ArrayAdapter<CharSequence> resTypeAdapter = ArrayAdapter.createFromResource(
                 this,
@@ -112,6 +113,7 @@ public class AddRestaurantActivity extends BaseActivity {
         resTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spResType.setAdapter(resTypeAdapter);
 
+        // בניית רשימת ערים לספינר
         // יצירת ArrayAdapter עבור הערים
         ArrayAdapter<CharSequence> cityAdapter = ArrayAdapter.createFromResource(
                 this,
@@ -121,6 +123,7 @@ public class AddRestaurantActivity extends BaseActivity {
         cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spCity.setAdapter(cityAdapter);
 
+        // האזנה לבחירת סוג מסעדה
         // פעולה כשנבחר סוג המסעדה
         spResType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -133,6 +136,7 @@ public class AddRestaurantActivity extends BaseActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 // פעולה כשאין בחירה
+                // לא קרה כלום אם לא נבחר
             }
         });
 
@@ -148,9 +152,11 @@ public class AddRestaurantActivity extends BaseActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 // פעולה כשאין בחירה
+                // לא קרה כלום אם לא נבחר
             }
         });
 
+        //בעת לחיצה על "הוסף מסעדה " – לקרוא לפונקציה addRestaurant
         // פעולה כשנלחץ כפתור "הוספת מסעדה"
         btnAddRestaurant.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,23 +188,25 @@ public class AddRestaurantActivity extends BaseActivity {
         });
     }
 
+    // פונקציה שמוסיפה מסעדה למסד הנתונים
     // פונקציה להוספת מסעדה
     private void addRestaurant() {
-        // קריאת נתונים מהשדות
-        String restaurantName = etRestaurantName.getText().toString().trim();
-        String restaurantStreet = etRestaurantstreet.getText().toString().trim();
-        String restaurantDetails = etRestaurantDetails.getText().toString().trim();
+        // שליפת הנתונים מהשדות
+        String restaurantName = etRestaurantName.getText().toString().trim()+"";
+        String restaurantStreet = etRestaurantstreet.getText().toString().trim()+"";
+        String restaurantDetails = etRestaurantDetails.getText().toString().trim()+"";
 
-        String domain=etDomain.getText().toString();
+        String domain=etDomain.getText().toString()+"";
 
         // בחירת סוג המסעדה (Spinner)
-        String resType = spResType.getSelectedItem().toString();
+        String resType = spResType.getSelectedItem().toString()+"";
 
         // בחירת עיר (Spinner)
-        String city = spCity.getSelectedItem().toString();
+        String city = spCity.getSelectedItem().toString()+"";
 
         // ערך של ה-Switch כשר
         boolean isKosher = swIsKosher.isChecked();
+
 
         // אם יש נתונים חסרים, הצג הודעת שגיאה
         if (restaurantName.isEmpty() || restaurantStreet.isEmpty() || restaurantDetails.isEmpty()) {
@@ -206,22 +214,21 @@ public class AddRestaurantActivity extends BaseActivity {
             return;
         }
 
+        // המרת התמונה לבסיס64 לשמירה במסד הנתונים
         String imageBase64 = ImageUtil.convertTo64Base(ivRes);
 
 
 
 
-        /// generate a new id for the food
+        // יצירת מזהה ייחודי למסעדה
         String id = databaseService.generateRestaurantId();
 
 
 
-
-
-            /// create a new food object
+        // יצירת אובייקט של מסעדה עם כל המידע
         Restaurant restaurant = new Restaurant(id, restaurantName, city, restaurantStreet, resType,restaurantDetails, 0,isKosher, 0.0F, 0.0F,domain,imageBase64,"0521234567");
 
-        /// save the food to the database and get the result in the callback
+        // שליחה למסד הנתונים
         databaseService.createNewRestaurant(restaurant, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void object) {
@@ -241,7 +248,7 @@ public class AddRestaurantActivity extends BaseActivity {
                 System.out.println("City: " + city);
                 System.out.println("Is Kosher: " + isKosher);
 
-                finish();
+                finish(); // סיום הפעילות – חזרה למסך הקודם
 
             }
 
@@ -254,18 +261,18 @@ public class AddRestaurantActivity extends BaseActivity {
 
     }
 
-    // טיפול בתוצאה של הגלריה או המצלמה
 
 
+    // פתיחת בורר תמונה
     /// select image from gallery
     private void selectImageFromGallery() {
         //   Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         //  selectImageLauncher.launch(intent);
 
-        imageChooser();
+        imageChooser(); // פונקציה שפותחת את הגלריה
     }
 
-    /// capture image from camera
+    // פתיחת מצלמה
     private void captureImageFromCamera() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         captureImageLauncher.launch(takePictureIntent);
@@ -273,34 +280,44 @@ public class AddRestaurantActivity extends BaseActivity {
 
 
 
+// פונקציה לפתיחת בורר התמונות (הגלריה)
 
     void imageChooser() {
 
-        // create an instance of the
-        // intent of the type image
+        // יצירת אינטנט חדש - זהו "בקשה" למערכת לבצע פעולה (כאן: לבחור תמונה)
+
         Intent i = new Intent();
+
+        // הגדרת סוג התוכן שהאינטנט יתמוך בו - כאן: רק תמונות
         i.setType("image/*");
+
+        // פעולה שמאפשרת לבחור תוכן (תמונה) מהמכשיר
         i.setAction(Intent.ACTION_GET_CONTENT);
 
-        // pass the constant to compare it
-        // with the returned requestCode
+        // הפעלת הפעולה ובקשה שהמשתמש יבחר תמונה, עם טקסט שמוצג לו לבחירה
         startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
+        // SELECT_PICTURE הוא מספר מזהה שנשתמש בו כדי לדעת איזה פעולה חזרה אלינו בתוצאה
+
     }
 
     // this function is triggered when user
     // selects the image from the imageChooser
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // קריאה לגרסת האב של הפונקציה כדי לשמור על פונקציונליות בסיסית
+
         super.onActivityResult(requestCode, resultCode, data);
 
+        // בדיקה שהתוצאה הייתה תקינה (שהמשתמש באמת בחר משהו ולא ביטל)
         if (resultCode == RESULT_OK) {
 
-            // compare the resultCode with the
-            // SELECT_PICTURE constant
+            // בדיקה אם הקוד שחזר הוא זה של בחירת תמונה מהגלריה
             if (requestCode == SELECT_PICTURE) {
-                // Get the url of the image from data
+                // שליפת כתובת ה-URI של התמונה מתוך הנתונים שהתקבלו
                 Uri selectedImageUri = data.getData();
+
+                // אם יש URI תקף (כלומר המשתמש באמת בחר תמונה)
                 if (null != selectedImageUri) {
-                    // update the preview image in the layout
+                    // הצגת התמונה בתיבת התמונה במסך (ivRes)
                     ivRes.setImageURI(selectedImageUri);
                 }
             }
