@@ -17,30 +17,37 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.noa.eatandshare.R;
 
+
+// הגדרת מסך בשם AdminPage שיורש מ־BaseActivity (ולא ישירות מ־AppCompatActivity)
+// ומיישם את הממשק View.OnClickListener (כלומר יודע לטפל בלחיצות על רכיבים)
+
 public class AdminPage extends BaseActivity implements View.OnClickListener {
 
-
+    // משתנים עבור כל אחד מהכפתורים במסך
     Button btnAddRestaurant,btnGoSearchPage,btnGoAfterLoginM,btnSearchUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_admin_page);
+        super.onCreate(savedInstanceState);  // מפעיל את הפונקציה onCreate שב־BaseActivity
+
+        EdgeToEdge.enable(this); // מאפשר לעיצוב להתפרס עד שולי המסך
+        setContentView(R.layout.activity_admin_page);  // קובע שהעיצוב של המסך יהיה לפי הקובץ activity_admin_page.xml
+
+        // מאזין שמוודא שכל הרכיבים על המסך יסתדרו יפה לפי השוליים של המכשיר
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        btnAddRestaurant = findViewById(R.id.btnAddRestaurant2);
+        // מחפש את הכפתור במסך ומחבר אותו למשתנה בקוד
+        btnAddRestaurant = findViewById(R.id.btnAddRestaurant2); // כשילחצו עליו – יעבור ל־onClick
         btnAddRestaurant.setOnClickListener(this);
 
         btnGoSearchPage = findViewById(R.id.btnGoSearchPage);
         btnGoSearchPage.setOnClickListener(this);
 
-        btnGoAfterLoginM = findViewById(R.id.btnGoAfterLoginM);
-        btnGoAfterLoginM.setOnClickListener(this);
+
 
         btnSearchUsers = findViewById(R.id.btnSearchUsers);
         btnSearchUsers.setOnClickListener(this);
@@ -49,9 +56,10 @@ public class AdminPage extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v == btnAddRestaurant) {
-            Intent go = new Intent(getApplicationContext(), AddRestaurantActivity.class);
-            startActivity(go);
+        if (v == btnAddRestaurant) {          // אם לחצו על כפתור הוספת מסעדה
+
+            Intent go = new Intent(getApplicationContext(), AddRestaurantActivity.class);  // מעבר למסך AddRestaurantActivity
+            startActivity(go); // מפעיל את המסך
         }
         if (v == btnGoSearchPage) {
             Intent Search = new Intent(getApplicationContext(), SearchRestaurant.class);
@@ -68,4 +76,7 @@ public class AdminPage extends BaseActivity implements View.OnClickListener {
         }
     }
 
+
+    // הקוד הזה מגדיר מסך מנהל (AdminPage) שיש בו 4 כפתורים.
+    //כל כפתור מוביל למסך אחר: הוספת מסעדה, חיפוש מסעדות, דף ראשי, או חיפוש משתמשים.
 }

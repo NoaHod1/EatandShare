@@ -25,11 +25,15 @@ import com.noa.eatandshare.utils.ImageUtil;
 
 import java.util.List;
 
+//מחלקה זו אחראית להציג רשימת מסעדות בתוך RecyclerView.
+// כל מסעדה מוצגת בפריט עיצובי מוגדר (layout) עם מידע כמו:
+// שם, סוג אוכל, כתובת, טלפון, תחום, דירוג, תמונה, וכפתור לצפייה בפרטים.
+
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.RestaurantViewHolder> {
 
     private List<Restaurant> restaurantList;
 
-   private Context context;
+    private Context context;
 
 
     // אתחול עם רשימת מסעדות
@@ -38,9 +42,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         this.context = context;
     }
 
-
-
-
+    // יוצרת תצוגת פריט עבור כל מסעדה ומחזירה ViewHolder
     @Override
     public RestaurantViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // מניחים שמדובר ב-XML בשם item_restaurant.xml
@@ -51,6 +53,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         return new RestaurantViewHolder(view);
     }
 
+    // קושרת את המידע של המסעדה לתוך ViewHolder
     @Override
     public void onBindViewHolder(RestaurantViewHolder holder, int position) {
         Restaurant restaurant = restaurantList.get(position);
@@ -61,40 +64,35 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             public void onClick(View v) {
 
 
+                if (Login.isAdmin) {      // אם המשתמש הוא אדמין – פותח מסך עריכת מסעדה
+
+
+                    Intent goEdit = new Intent(context, EditRes.class);
+
+                    goEdit.putExtra("Rest", restaurant); // שולח   המוצר
+                    context.startActivity(goEdit);
+                } else {                 // אם המשתמש רגיל – פותח את פרופיל המסעדה
 
 
 
-                    if(Login.isAdmin) {
+                    Intent go = new Intent(context, RestaurantProfile.class);
+                    go.putExtra("Rest", restaurant); // שולח   המוצר
+                    context.startActivity(go);
 
-                        Intent goEdit = new Intent(context, EditRes.class);
-
-                        goEdit.putExtra("Rest", restaurant); // שולח   המוצר
-                        context.startActivity(goEdit);
-                    }
-
-
-
-
-                else {
-
-
-                        Intent go = new Intent(context, RestaurantProfile.class);
-                        go.putExtra("Rest", restaurant); // שולח   המוצר
-                        context.startActivity(go);
-
-                    }
+                }
 
 
             }
         });
     }
-
+    // מחזיר את מספר המסעדות להצגה
     @Override
     public int getItemCount() {
         return restaurantList.size();
     }
 
-    // עדכון רשימת המסעדות
+
+    // מחלקה פנימית שמייצגת את תצוגת פריט מסעדה בתוך הרשימה
 
     public class RestaurantViewHolder extends RecyclerView.ViewHolder {
         private TextView restaurantName;
@@ -118,7 +116,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             restaurantPhoneNumber = itemView.findViewById(R.id.txtRestaurantPhoneNumber);
             restaurantDomain = itemView.findViewById(R.id.txtRestaurantDomain);
 
-            rBar=itemView.findViewById(R.id.ratingBar);
+            rBar = itemView.findViewById(R.id.ratingBar);
             rBar.setEnabled(false);
 
             viewDetailsButton = itemView.findViewById(R.id.btnViewDetails);
@@ -133,8 +131,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                 public void onClick(View v) {
 
 
-
-                    Intent go=new Intent(context, AddReview.class);
+                    Intent go = new Intent(context, AddReview.class);
                     Restaurant restaurant = restaurantList.get(getAdapterPosition());
 
                     go.putExtra("Rest", restaurant); // שולח את ה-ID של המוצר
@@ -144,6 +141,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             });
         }
 
+        // פונקציה שמצמידה את נתוני המסעדה לשדות התצוגה
         public void bind(Restaurant restaurant) {
 
 
@@ -151,11 +149,11 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             restaurantName.setText(restaurant.getName());
             restaurantCuisine.setText(restaurant.getType());
             restaurantAddress.setText(restaurant.getStreet() + " " + restaurant.getCity());
-            restaurantPhoneNumber.setText(restaurant.getDomain());
+            restaurantPhoneNumber.setText(restaurant.getPhone());
 
             restaurantDomain.setText(restaurant.getDomain());
-           // rBar.setNumStars(5);
-            rBar.setRating(Float.parseFloat(restaurant.getRate()+""));
+            // rBar.setNumStars(5);
+            rBar.setRating(Float.parseFloat(restaurant.getRate() + ""));
 
 
             restaurantDomain.setMovementMethod(LinkMovementMethod.getInstance());

@@ -18,9 +18,6 @@
         android:orientation="vertical"
         >
 
-
-
-
     <!-- כל העיצוב בתוך LinearLayout -->
 
         <!-- שם המסעדה -->
@@ -91,16 +88,16 @@
 
 
                 <!-- קישור לאתר -->
-            <TextView
-                android:id="@+id/txtRestaurantDomain"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Website"
-                android:textSize="12sp"
-                android:textColor="@android:color/holo_blue_dark"
-                android:layout_marginTop="4dp"
+                <TextView
+                    android:id="@+id/txtRestaurantDomain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:autoLink="web"
+                    android:text="Website"
+                    android:textColor="@android:color/holo_blue_dark"
 
-                android:autoLink="web"/>
+                    android:textSize="12sp" />
 
 
 

@@ -100,8 +100,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         }
 
         if(v==btnClosePage){
-            Intent go=new Intent(UserProfile.this,MainActivity.class);
-            startActivity(go);
+           finish();
         }
 
     }

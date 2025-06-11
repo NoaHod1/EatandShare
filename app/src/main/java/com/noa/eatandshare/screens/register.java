@@ -21,6 +21,11 @@ import com.noa.eatandshare.services.AuthenticationService;
 import com.noa.eatandshare.services.DatabaseService;
 import com.noa.eatandshare.utils.SharedPreferencesUtil;
 
+
+//דף זה אחראי לרישום משתמש חדש לאפליקציה.
+// המשתמש ממלא פרטים (שם, טלפון, אימייל, סיסמה), ולאחר אימות תקינות – נשלחת בקשת רישום לחשבון ולמסד הנתונים.
+
+
 public class register extends BaseActivity implements View.OnClickListener {
 
   EditText etFname, etLname, etPhone, etEmail, etPassword;
@@ -90,7 +95,7 @@ public class register extends BaseActivity implements View.OnClickListener {
         email=etEmail.getText().toString();
         password=etPassword.getText().toString();
 
-        //check if registration is valid
+        // בדיקות תקינות בסיסיות לפני רישום
         Boolean isValid=true;
         if (fname.length()<2){
             Toast.makeText(register.this,"שם פרטי קצר מדי", Toast.LENGTH_LONG).show();
@@ -118,9 +123,9 @@ public class register extends BaseActivity implements View.OnClickListener {
             isValid = false;
         }
 
-        if (isValid==true){
 
-            /// Register user
+        // אם כל הבדיקות תקינות - ממשיכים לרישום\
+        if (isValid==true){
             registerUser(email, password, fname, lname, phone);
 
 
@@ -132,22 +137,18 @@ public class register extends BaseActivity implements View.OnClickListener {
     }
 
 
-    /// Register the user
+    // פונקציה לרישום המשתמש בפועל
     private void registerUser(String email, String password, String fName, String lName, String phone) {
         Log.d(TAG, "registerUser: Registering user...");
 
-        /// call the sign up method of the authentication service
+        // שלב 1: יצירת חשבון משתמש (ב-Firebase Auth)
         authenticationService.signUp(email, password, new AuthenticationService.AuthCallback<String>() {
-
-
-
-
 
 
             @Override
             public void onCompleted(String uid) {
                 Log.d(TAG, "onCompleted: User registered successfully");
-                /// create a new user object
+                // שלב 2: יצירת אובייקט משתמש
                 User user = new User();
                 user.setId(uid);
                 user.setEmail(email);
@@ -156,13 +157,13 @@ public class register extends BaseActivity implements View.OnClickListener {
                 user.setLname(lName);
                 user.setPhone(phone);
 
-                /// call the createNewUser method of the database service
+                // שלב 3: שמירת המשתמש במסד הנתונים
                 databaseService.createNewUser(user, new DatabaseService.DatabaseCallback<Void>() {
 
                     @Override
                     public void onCompleted(Void object) {
                         Log.d(TAG, "onCompleted: User registered successfully");
-                        /// save the user to shared preferences
+                        // שמירה באחסון מקומי (SharedPreferences)
                         SharedPreferencesUtil.saveUser(register.this, user);
                         Log.d(TAG, "onCompleted: Redirecting to MainActivity");
                         /// Redirect to MainActivity and clear back stack to prevent user from going back to register screen

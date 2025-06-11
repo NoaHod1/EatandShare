@@ -19,10 +19,14 @@ import com.noa.eatandshare.services.DatabaseService;
 import java.util.ArrayList;
 import java.util.List;
 
+// דף זה מציג למשתמש את רשימת המסעדות האהובות עליו
+//המסעדות מוצגות ברשימה גלילה (RecyclerView), כאשר הנתונים מגיעים מה־Database לפי המשתמש שמחובר.
+
 public class MyFavRes extends BaseActivity {
 
     private RecyclerView recyclerView;
     private RestaurantsAdapter restaurantsAdapter;
+    // רשימת המסעדות שמוצגת
     private List<Restaurant> restaurantList = new ArrayList<>();
     private DatabaseService databaseService;
     String uid ;
@@ -39,29 +43,28 @@ public class MyFavRes extends BaseActivity {
         });
 
       uid= AuthenticationService.getInstance().getCurrentUserId();
-        // Set up RecyclerView
+        // אתחול של רכיב הרשימה במסך
         recyclerView = findViewById(R.id.rcFavRestaurant);
+        // קביעת סידור של הרשימה – שורות אחת אחרי השנייה (רשימה אנכית)
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         restaurantsAdapter = new RestaurantsAdapter(restaurantList,MyFavRes.this);
         recyclerView.setAdapter(restaurantsAdapter);
 
-        // Initialize DatabaseService
         databaseService = DatabaseService.getInstance();
 
-        // Fetch all restaurants from the database initially
+        // אם יש משתמש מחובר – נביא את רשימת המועדפים שלו
 
         if(uid!=null) {
             fetchRestaurants(uid);
         }
-        // Set button click listener to search by city
 
     }
 
-    private void fetchRestaurants(String  uid2) {
-        // Show a loading message if needed
+    // פעולה שמביאה את המסעדות המועדפות של המשתמש מהמסד
 
-        // Fetch restaurants from the database
+    private void fetchRestaurants(String  uid2) {
+        // קריאה למסד נתונים – מביא את המסעדות לפי מזהה המשתמש
         databaseService.getUserFavorite(uid2,new DatabaseService.DatabaseCallback<List<Restaurant>>() {
             @Override
             public void onCompleted(List<Restaurant> object) {

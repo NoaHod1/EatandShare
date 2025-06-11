@@ -31,6 +31,8 @@ import com.noa.eatandshare.utils.ImageUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 public class RestaurantProfile extends BaseActivity {
     private static final int REQUEST_PHONE_CALL = 1;
 
@@ -40,6 +42,7 @@ public class RestaurantProfile extends BaseActivity {
     RatingBar rb;
     Button btnAdd, btnSave, btnBack, btnCallToRes;
     ListView lvReviews;
+    // מתאם לרשימת הביקורות
     ReviewsAdapter reviewsAdapter;
     ArrayList<Review> reviewArratyList = new ArrayList<>();
 
@@ -80,7 +83,7 @@ public class RestaurantProfile extends BaseActivity {
         setDataFields();
 
     }
-
+    // פונקציה שמכניסה את נתוני המסעדה לשדות במסך
     private void setDataFields() {
 
         if (restaurant != null) {
@@ -108,6 +111,7 @@ public class RestaurantProfile extends BaseActivity {
 
             lvReviews.setAdapter(reviewsAdapter);
 
+            // הבאת ביקורות מהמסד נתונים
             databaseService.getRestReviews(restaurant.getId(), new DatabaseService.DatabaseCallback<List<Review>>() {
                 @Override
                 public void onCompleted(List<Review> object) {

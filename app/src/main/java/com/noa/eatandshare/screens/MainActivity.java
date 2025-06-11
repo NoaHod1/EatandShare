@@ -17,6 +17,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.noa.eatandshare.R;
 
+// מחלקת MainActivity היא הדף הראשי של האפליקציה
+// היא גם "מקשיבה" ללחיצות על כפתורים (implements View.OnClickListener)
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button btnReg,btnLog,btnOdot1;
 
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
+//זהו הדף הראשי של האפליקציה – הדף הראשון שהמשתמש רואה כשהוא פותח את האפליקציה.
+// שמכאן אפשר לעבור להרשמה להתחברות ולקרוא על האודות
 
 }

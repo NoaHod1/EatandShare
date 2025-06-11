@@ -14,6 +14,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.noa.eatandshare.R;
+//מסך פתיחה (Splash Screen) שמוצג עם אנימציה למשך 5 שניות כשאפליקציה נפתחת
 
 public class Splash extends AppCompatActivity {
 
@@ -31,37 +32,39 @@ public class Splash extends AppCompatActivity {
             return insets;
         });
 
-iv=findViewById(R.id.imageView5);
+        iv = findViewById(R.id.imageView5);
 
+        // יצירת ת'רד עצמאי שיריץ את האנימציה והמעבר
 
-
-        Thread myThread= new Thread(){
+        Thread myThread = new Thread() {
 
             @Override
             public void run() {
 
-                try { synchronized (this){
+                try {
+                    synchronized (this) {
 
 
-                    Animation myAnim= AnimationUtils.loadAnimation(Splash.this, R.anim.myanim) ;
+                        Animation myAnim = AnimationUtils.loadAnimation(Splash.this, R.anim.myanim);
 
-                    iv.startAnimation(myAnim);
+                        iv.startAnimation(myAnim);
 
-                    wait(5000);
-                }
+                        // השהייה של 5 שניות לפני מעבר
+                        wait(5000);
+                    }
 
-                }
-                catch (InterruptedException e){
+                } catch (InterruptedException e) {
 
                 }
                 finish();
 
-                Intent go =new Intent(Splash.this, MainActivity.class);
+                Intent go = new Intent(Splash.this, MainActivity.class);
                 startActivity(go);
 
             }
         };
 
+        // הפעלת הת'רד
         myThread.start();
 
     }

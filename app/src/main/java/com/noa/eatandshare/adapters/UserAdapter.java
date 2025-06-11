@@ -17,12 +17,16 @@ import com.noa.eatandshare.models.User;
 
 import java.util.List;
 
+//UserAdapter הוא Adapter ל-RecyclerView להצגת רשימת משתמשים.
+
+//כל שורה מציגה את הפרטים הבסיסיים של המשתמש (שם פרטי, שם משפחה, טלפון).
+//כאשר לוחצים ארוך  על השורה זה מחיקת משתמש.
+//ViewHolder הוא מחלקה פנימית שמחזיקה הפניות ל־TextView כדי לשפר ביצועים במיחזור התצוגות.
+
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
-    /// list of users
-    /// @see User
 
-    private final List<User> userList;
+    private final List<User> userList;  // רשימת המשתמשים להצגה
     private final Context context;
 
     public UserAdapter(Context context, List<User> userList) {
@@ -30,25 +34,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         this.context = context;
     }
 
-    /// create a view holder for the adapter
-    /// @param parent the parent view group
-    /// @param viewType the type of the view
-    /// @return the view holder
-    /// @see ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        /// inflate the item_selected_user layout
-        /// @see R.layout.item_selected_user
+
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.one_user, parent, false);
         return new ViewHolder(view);
     }
 
-
-    /// bind the view holder with the data
-    /// @param holder the view holder
-    /// @param position the position of the item in the list
-    /// @see ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
@@ -56,6 +49,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         User user = userList.get(position);
         if (user == null) return;
 
+        // מציג את שם הפרטי, שם המשפחה והטלפון בשדות המתאימים
         holder.tvFname.setText(user.getFname());
         holder.tvLname.setText(user.getLname());
         holder.tvPhone.setText(user.getPhone());
@@ -81,15 +75,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     }
 
-    /// get the number of items in the list
-    /// @return the number of items in the list
     @Override
     public int getItemCount() {
         return userList.size();
     }
 
-    /// View holder for the users adapter
-    /// @see RecyclerView.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView tvFname;
         public final TextView tvLname;

@@ -33,6 +33,8 @@ public class SearchRestaurant extends BaseActivity {
     private EditText etCitySearch;
     private Button btnSearchByCity;
 
+    //מאפשר למשתמש לצפות בכל המסעדות הקיימות באפליקציה או לסנן אותן לפי עיר.
+    //הנתונים נשלפים ממסד הנתונים ומוצגים בתוך RecyclerView.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,40 +47,33 @@ public class SearchRestaurant extends BaseActivity {
             return insets;
         });
 
-        // Initialize UI components
         etCitySearch = findViewById(R.id.etCitySearch);
         btnSearchByCity = findViewById(R.id.btnSearchByCity);
 
-        // Set up RecyclerView
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         restaurantsAdapter = new RestaurantsAdapter(restaurantList,SearchRestaurant.this);
         recyclerView.setAdapter(restaurantsAdapter);
 
-        // Initialize DatabaseService
         databaseService = DatabaseService.getInstance();
 
-        // Fetch all restaurants from the database initially
         fetchRestaurants(null);
 
-        // Set button click listener to search by city
+        // האזנה ללחיצה על כפתור חיפוש לפי עיר
         btnSearchByCity.setOnClickListener(v -> {
             String city = etCitySearch.getText().toString().trim();
             if (!city.isEmpty()) {
-                // Fetch restaurants based on the city entered
+                // חיפוש מסעדות לפי עיר
                 fetchRestaurants(city);
             } else {
-                // Show message if no city is entered
                 Toast.makeText(SearchRestaurant.this, "הזן עיר לחיפוש", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void fetchRestaurants(String city) {
-        // Show a loading message if needed
 
-        // Fetch restaurants from the database
         databaseService.getRestaurants(new DatabaseService.DatabaseCallback<List<Restaurant>>() {
             @Override
             public void onCompleted(List<Restaurant> object) {
@@ -86,14 +81,13 @@ public class SearchRestaurant extends BaseActivity {
                 restaurantList.clear();
 
                 if (city != null && !city.isEmpty()) {
-                    // Filter restaurants by city
+                    // סינון מסעדות לפי עיר
                     for (Restaurant restaurant : object) {
                         if (restaurant.getCity().equalsIgnoreCase(city)) {
                             restaurantList.add(restaurant);
                         }
                     }
                 } else {
-                    // Add all restaurants if no city filter is provided
                     restaurantList.addAll(object);
                 }
 

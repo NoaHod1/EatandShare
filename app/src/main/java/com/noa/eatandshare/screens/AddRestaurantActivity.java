@@ -266,8 +266,7 @@ public class AddRestaurantActivity extends BaseActivity {
     // פתיחת בורר תמונה
     /// select image from gallery
     private void selectImageFromGallery() {
-        //   Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        //  selectImageLauncher.launch(intent);
+
 
         imageChooser(); // פונקציה שפותחת את הגלריה
     }
@@ -284,11 +283,10 @@ public class AddRestaurantActivity extends BaseActivity {
 
     void imageChooser() {
 
-        // יצירת אינטנט חדש - זהו "בקשה" למערכת לבצע פעולה (כאן: לבחור תמונה)
-
+//יצירת אינטנט לצורך בחירת תמונה מהגלרי ה
         Intent i = new Intent();
 
-        // הגדרת סוג התוכן שהאינטנט יתמוך בו - כאן: רק תמונות
+        // הגדרת סוג התוכן שהאינטנט יתמוך בו- תמונות
         i.setType("image/*");
 
         // פעולה שמאפשרת לבחור תוכן (תמונה) מהמכשיר
@@ -300,8 +298,6 @@ public class AddRestaurantActivity extends BaseActivity {
 
     }
 
-    // this function is triggered when user
-    // selects the image from the imageChooser
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // קריאה לגרסת האב של הפונקציה כדי לשמור על פונקציונליות בסיסית
 

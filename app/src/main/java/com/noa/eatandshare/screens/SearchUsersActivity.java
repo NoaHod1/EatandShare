@@ -25,6 +25,8 @@ import java.util.stream.Collectors;
 import android.widget.EditText;   // ה-import עבור EditText
 
 
+//מציג רשימת משתמשים שנשמרו במסד הנתונים, ומאפשר חיפוש לפי שם פרטי בזמן אמת (במהירות, תוך כדי הקלדה).
+//הרשימה מוצגת בתוך RecyclerView בעזרת מתאם (UserAdapter).
 
 public class SearchUsersActivity extends BaseActivity {
 
@@ -54,10 +56,14 @@ public class SearchUsersActivity extends BaseActivity {
             @Override
             public void onCompleted(List<User> object) {
                 Log.d(TAG, "onCompleted: " + object);
+                // עדכון הרשימות המקומיות
                 userList.clear();
                 userList.addAll(object);
+
                 filteredUserList.clear();
                 filteredUserList.addAll(object);
+
+                // רענון התצוגה
                 adapter.notifyDataSetChanged();
 
             }

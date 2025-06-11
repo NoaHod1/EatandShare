@@ -18,6 +18,10 @@ import com.noa.eatandshare.models.User;
 import com.noa.eatandshare.services.AuthenticationService;
 import com.noa.eatandshare.services.DatabaseService;
 
+
+//הגדרת המחלקה
+//מסך לעריכת פרטי משתמש.
+//המחלקה "מקשיבה" ללחיצות כפתורים – בזכות implements View.OnClickListener.
 public class EditUser extends AppCompatActivity implements View.OnClickListener {
 
     EditText etUserFnamec, etUserLnamec, etUserPhonec, etUserAddressc;
@@ -30,12 +34,12 @@ public class EditUser extends AppCompatActivity implements View.OnClickListener 
     DatabaseService databaseService;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_edit_user);
+        super.onCreate(savedInstanceState);  // חובה כדי להפעיל את מה שמובנה באמא של המסך(מאיפה שהוא יורש)
+        EdgeToEdge.enable(this); // שהמסך יתפרס עד הקצה
+        setContentView(R.layout.activity_edit_user); // מחבר את המסך הזה לקובץ העיצוב שלו (XML)
+        // דואג שכל הרכיבים במסך יתיישרו בהתאם למסך המכשיר
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -50,31 +54,20 @@ public class EditUser extends AppCompatActivity implements View.OnClickListener 
     etUserPhonec = findViewById(R.id.etUserPhonec);
 
 
-    retrieveData();
+    retrieveData();  // קוראת לפונקציה שמביאה את הפרטים של המשתמש מהמסד
 
     btnSave =  findViewById(R.id.btnSave);
 
         btnSave.setOnClickListener(this);
-
-
-
-
-
-
-
 
     }
 
 
 
 
-
-
-
-
 public void retrieveData() {
 
-    uid= AuthenticationService.getInstance().getCurrentUserId();
+    uid= AuthenticationService.getInstance().getCurrentUserId();   // מקבלים את מזהה המשתמש המחובר כרגע
     databaseService=DatabaseService.getInstance();
 
 
@@ -84,18 +77,15 @@ public void retrieveData() {
 
         @Override
         public void onCompleted(User object) {
-            user=object;
+            user=object;  // שומרים את האובייקט שקיבלנו
 
 
-            if(user!=null){
+            if(user!=null){ // אם המשתמש באמת קיים
 
-                etUserFnamec.setText( user.getFname());
-                etUserLnamec.setText(  user.getLname());
-                etUserPhonec.setText( user.getPhone());
-                tvUserMailc.setText( user.getEmail());
-
-
-
+                etUserFnamec.setText(user.getFname()); // מציגים את השם הפרטי
+                etUserLnamec.setText(user.getLname()); // שם משפחה
+                etUserPhonec.setText(user.getPhone()); // טלפון
+                tvUserMailc.setText(user.getEmail());  // מייל (אי אפשר לערוך)
 
 
             }
@@ -106,40 +96,31 @@ public void retrieveData() {
         @Override
         public void onFailed(Exception e) {
 
-
-
         }
     });
 
 }
 @Override
-public void onClick(View v) {
+public void onClick(View v) { //מה קורה כשלוחצים על כפתור שמירה
     if (v == btnSave) {
 
-
-
-        user.setFname(etUserFnamec.getText().toString());
-        user.setLname(etUserLnamec.getText().toString());
-        user.setPhone(etUserPhonec.getText().toString());
+        user.setFname(etUserFnamec.getText().toString()); // עדכון שם פרטי
+        user.setLname(etUserLnamec.getText().toString()); // עדכון שם משפחה
+        user.setPhone(etUserPhonec.getText().toString()); // עדכון טלפון
 
         databaseService.updateUser(user, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void object) {
 
-
             }
 
             @Override
             public void onFailed(Exception e) {
-
             }
         });
 
 
-
-
-
-         Intent intent = new Intent(EditUser.this, MainActivity.class);
+         Intent intent = new Intent(EditUser.this, MainActivity.class); // הכנה למעבר למסך הראשי
         startActivity(intent);
     }
 

@@ -15,14 +15,13 @@ import com.noa.eatandshare.services.DatabaseService;
 
 import java.util.List;
 
-public class ReviewsAdapter <P> extends ArrayAdapter<Review> {
+public class ReviewsAdapter<P> extends ArrayAdapter<Review> {
     Context context;
     List<Review> reviews;
     User user;
 
 
-
-    public ReviewsAdapter(Context context, List<Review> reviews ) {
+    public ReviewsAdapter(Context context, List<Review> reviews) {
         super(context, 0, 0, reviews);
 
         this.context = context;
@@ -43,46 +42,28 @@ public class ReviewsAdapter <P> extends ArrayAdapter<Review> {
         TextView tvRate = view.findViewById(R.id.tvUserRateReview);
         TextView tvUserName = view.findViewById(R.id.tvUserNameReview);
 
+        // מקבלים את הביקורת המתאימה למיקום הנוכחי ברשימה
+
         Review temp = reviews.get(position);
-
-//        Restaurant restaurant = null;
-//        for (Restaurant restaurant1 : restaurants) {
-//            if (restaurant1.getId() == temp.getRestaurantId()) {
-//                restaurant = restaurant1;
-//                break;
-//            }
-//        }
-//        User user = null;
-//        for (User user1 : this.users) {
-//            if (user1.getId() == temp.getUserID()) {
-//                user = user1;
-//                break;
-//            }
-//        }
-//        if (user == null || restaurant == null) {
-//            return view;
-//        }
-
 
         tvDetails.setText(temp.getDetails() + "");
         tvDate.setText(temp.getDate() + "");
         tvRate.setText(temp.getRate() + "");
 
 
-
-
         DatabaseService databaseService;
 
         databaseService = DatabaseService.getInstance();
 
+        // טוענים את פרטי המשתמש לפי מזהה המשתמש בביקורת
 
         databaseService.getUser(temp.getUserID(), new DatabaseService.DatabaseCallback<User>() {
 
             @Override
             public void onCompleted(User user2) {
 
-                user =user2;
-            if(user!=null) {
+                user = user2;
+                if (user != null) {
 
                     tvUserName.setText((user.getFname()));
                 }
@@ -90,14 +71,10 @@ public class ReviewsAdapter <P> extends ArrayAdapter<Review> {
             }
 
 
-
-
             @Override
-            public    void onFailed(Exception e) {
+            public void onFailed(Exception e) {
 
             }
-
-
 
 
         });
@@ -105,7 +82,6 @@ public class ReviewsAdapter <P> extends ArrayAdapter<Review> {
 
         return view;
     }
-
 
 
 }
