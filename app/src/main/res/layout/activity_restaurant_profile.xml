@@ -96,6 +96,7 @@
             android:layout_height="wrap_content"
             android:gravity="right"
             android:text="תחום"
+            android:autoLink="web"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="155dp" />
 

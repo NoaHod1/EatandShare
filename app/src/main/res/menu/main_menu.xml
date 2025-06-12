@@ -14,10 +14,6 @@
         android:showAsAction="never" />
 
     <item
-        android:id="@+id/menu_MyFavRes"
-        android:title="המסעדות השמורות שלי"
-        android:showAsAction="never" />
-    <item
         android:id="@+id/menu_logOut"
         android:title="התנתקות"
         android:showAsAction="never" />

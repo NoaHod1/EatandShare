@@ -120,7 +120,7 @@ public void onClick(View v) { //מה קורה כשלוחצים על כפתור �
         });
 
 
-         Intent intent = new Intent(EditUser.this, MainActivity.class); // הכנה למעבר למסך הראשי
+         Intent intent = new Intent(EditUser.this, HomePage.class); // הכנה למעבר למסך הראשי
         startActivity(intent);
     }
 

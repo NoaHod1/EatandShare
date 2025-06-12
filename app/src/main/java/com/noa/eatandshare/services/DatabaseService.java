@@ -15,25 +15,19 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/// a service to interact with the Firebase Realtime Database.
-/// this class is a singleton, use getInstance() to get an instance of this class
-/// @see #getInstance()
-/// @see FirebaseDatabase
+//מחלקת שירות (singleton) שמנהלת פעולות מול Firebase Realtime Database.
+// דרכה מבצעים קריאה, כתיבה, עדכון ומחיקה של משתמשים, מסעדות, ביקורות, ומועדפים.
 public class DatabaseService {
 
     /// tag for logging
-    /// @see Log
+    // תגית ללוגים
     private static final String TAG = "DatabaseService";
 
     /// callback interface for database operations
-    /// @param <T> the type of the object to return
-    /// @see DatabaseCallback#onCompleted(Object)
-    /// @see DatabaseCallback#onFailed(Exception)
+
     public interface DatabaseCallback<T> {
         /// called when the operation is completed successfully
-        ///
-        /// @return
+
         void onCompleted(T object);
 
         /// called when the operation fails with an exception
@@ -41,24 +35,20 @@ public class DatabaseService {
     }
 
     /// the instance of this class
-    /// @see #getInstance()
     private static DatabaseService instance;
 
     /// the reference to the database
-    /// @see DatabaseReference
-    /// @see FirebaseDatabase#getReference()
     private final DatabaseReference databaseReference;
 
     /// use getInstance() to get an instance of this class
-    /// @see DatabaseService#getInstance()
     private DatabaseService() {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
     }
 
     /// get an instance of this class
-    /// @return an instance of this class
-    /// @see DatabaseService
+    /// return an instance of this class
+    //  מחזיר מופע יחיד של המחלקה
     public static DatabaseService getInstance() {
         if (instance == null) {
             instance = new DatabaseService();
@@ -67,14 +57,7 @@ public class DatabaseService {
     }
 
 
-    // private generic methods to write and read data from the database
-
     /// write data to the database at a specific path
-    /// @param path the path to write the data to
-    /// @param data the data to write (can be any object, but must be serializable, i.e. must have a default constructor and all fields must have getters and setters)
-    /// @param callback the callback to call when the operation is completed
-    /// @return void
-    /// @see DatabaseCallback
     private void writeData(@NotNull final String path, @NotNull final Object data, final @NotNull DatabaseCallback<Void> callback) {
         databaseReference.child(path).setValue(data).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -88,9 +71,7 @@ public class DatabaseService {
     }
 
     /// read data from the database at a specific path
-    /// @param path the path to read the data from
-    /// @return a DatabaseReference object to read the data from
-    /// @see DatabaseReference
+
 
     private DatabaseReference readData(@NotNull final String path) {
         return databaseReference.child(path);
@@ -98,12 +79,7 @@ public class DatabaseService {
 
 
     /// get data from the database at a specific path
-    /// @param path the path to get the data from
-    /// @param clazz the class of the object to return
-    /// @param callback the callback to call when the operation is completed
-    /// @return void
-    /// @see DatabaseCallback
-    /// @see Class
+    // מבצע שליפה של נתונים במסלול נתון וממפה אותם לסוג מסוים
     private <T> void getData(@NotNull final String path, @NotNull final Class<T> clazz, @NotNull final DatabaseCallback<T> callback) {
         readData(path).get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
@@ -116,11 +92,22 @@ public class DatabaseService {
         });
     }
 
+    //מוחק נתונים במסלול נתון במסד הנתונים
+    private void removeData(@NotNull final String path, final @NotNull DatabaseCallback<Void> callback) {
+        databaseReference.child(path).removeValue().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                if (callback == null) return;
+                callback.onCompleted(task.getResult());
+            } else {
+                if (callback == null) return;
+                callback.onFailed(task.getException());
+            }
+        });
+    }
+
     /// generate a new id for a new object in the database
-    /// @param path the path to generate the id for
-    /// @return a new id for the object
-    /// @see String
-    /// @see DatabaseReference#push()
+    /// מייצר מזהה חדש וייחודי במסלול נתון במסד הנתונים
+
 
     private String generateNewId(@NotNull final String path) {
         return databaseReference.child(path).push().getKey();
@@ -131,13 +118,7 @@ public class DatabaseService {
     // public methods to interact with the database
 
     /// create a new user in the database
-    /// @param user the user object to create
-    /// @param callback the callback to call when the operation is completed
-    ///              the callback will receive void
-    ///            if the operation fails, the callback will receive an exception
-    /// @return void
-    /// @see DatabaseCallback
-    /// @see User
+
     public void createNewUser(@NotNull final User user, @Nullable final DatabaseCallback<Void> callback) {
         writeData("users/" + user.getId(), user, callback);
     }
@@ -147,15 +128,20 @@ public class DatabaseService {
         writeData("users/" + user.getId(), user, callback);
     }
 
+  //  מייצר מזהה חדש לביקורת במסד הנתונים ב "reviews"
     public String generateReviewId() {
         return generateNewId("reviews");
     }
 
+  // שומר ביקורת חדשה או מעדכן ביקורת קיימת ב "reviews/{reviewId}".
+
     public void saveReview(@NotNull final Review review, @Nullable final DatabaseCallback<Void> callback) {
-        writeData("reviews/" + review.getId(), review,callback) ;
+        writeData("reviews/" + review.getId(), review, callback);
     }
 
-    public void getUserReviews( @NotNull final String uid , @NotNull final DatabaseCallback<List<Review>> callback) {
+    //* מביא את כל הביקורות של משתמש מסוים לפי מזהה המשתמש.
+    //     * הנתונים נשמרים תחת "usersReviews/{uid}".
+    public void getUserReviews(@NotNull final String uid, @NotNull final DatabaseCallback<List<Review>> callback) {
         readData("usersReviews").child(uid).get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e(TAG, "Error getting data", task.getException());
@@ -173,42 +159,37 @@ public class DatabaseService {
         });
     }
 
-    public void getRestReviews( @NotNull final String resid , @NotNull final DatabaseCallback<List<Review>> callback) {
+    //     * מביא את כל הביקורות של מסעדה לפי מזהה המסעדה.
+    public void getRestReviews(@NotNull final String resid, @NotNull final DatabaseCallback<List<Review>> callback) {
         readData("reviews/")
                 .get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.e(TAG, "Error getting data", task.getException());
-                callback.onFailed(task.getException());
-                return;
-            }
-            List<Review> reviewList = new ArrayList<>();
+                    if (!task.isSuccessful()) {
+                        Log.e(TAG, "Error getting data", task.getException());
+                        callback.onFailed(task.getException());
+                        return;
+                    }
+                    List<Review> reviewList = new ArrayList<>();
 
 
-            task.getResult().getChildren().forEach(dataSnapshot -> {
-                Review review = dataSnapshot.getValue(Review.class);
-                Log.d(TAG, "Got restaurant: " + review);
+                    task.getResult().getChildren().forEach(dataSnapshot -> {
+                        Review review = dataSnapshot.getValue(Review.class);
+                        Log.d(TAG, "Got restaurant: " + review);
 
-                if(resid.equals(review.getRestaurantId()))
-                             reviewList.add(review);
-            });
+                        if (resid.equals(review.getRestaurantId()))
+                            reviewList.add(review);
+                    });
 
-            callback.onCompleted(reviewList);
-        });
+                    callback.onCompleted(reviewList);
+                });
+    }
+
+    //מוסיף מסעדה לרשימת המועדפים של משתמש
+    public void saveFavoriteRes(@NotNull final Restaurant restaurant, @NotNull final String uid, @Nullable final DatabaseCallback<Void> callback) {
+        writeData("usersFavorite/" + uid + "/" + restaurant.getId() + "/", restaurant, callback);
     }
 
 
-
-
-
-
-
-
-    public void saveFavoriteRes(@NotNull final Restaurant restaurant,@NotNull final String uid , @Nullable final DatabaseCallback<Void> callback) {
-        writeData("usersFavorite/" + uid+"/"+restaurant.getId()+"/", restaurant, callback);
-    }
-
-
-    public void getUserFavorite( @NotNull final String uid , @NotNull final DatabaseCallback<List<Restaurant>> callback) {
+    public void getUserFavorite(@NotNull final String uid, @NotNull final DatabaseCallback<List<Restaurant>> callback) {
 
 
         readData("usersFavorite").child(uid).get().addOnCompleteListener(task -> {
@@ -228,84 +209,46 @@ public class DatabaseService {
         });
     }
 
-
-
-
-
-    /// get a user from the database
-    /// @param uid the id of the user to get
-    /// @param callback the callback to call when the operation is completed
-    ///               the callback will receive the user object
-    ///             if the operation fails, the callback will receive an exception
-    /// @return void
-    /// @see DatabaseCallback
-    /// @see User
+//מביא משתמש לפי מזהה
     public void getUser(@NotNull final String uid, @NotNull final DatabaseCallback<User> callback) {
         getData("users/" + uid, User.class, callback);
     }
 
 
+    public void delUser(User user, @NotNull final DatabaseCallback<Void> callback) {
+
+        writeData("oldUsers/" + user.getId() + "/", user, callback);
+
+        removeData("users/" + user.getId(), callback);
+    }
+
     /// create a new restaurant in the database
-    /// @param restaurant the restaurant object to create
-    /// @param callback the callback to call when the operation is completed
-    ///              the callback will receive void
-    ///             if the operation fails, the callback will receive an exception
-    /// @return void
-    /// @see DatabaseCallback
-    /// @see Restaurant
+
     public void createNewRestaurant(@NotNull final Restaurant restaurant, @Nullable final DatabaseCallback<Void> callback) {
         writeData("restaurants/" + restaurant.getId(), restaurant, callback);
     }
 
 
+    //מעדכן מסעדה קיימת במסד הנתונים
     public void updateRestaurant(@NotNull final Restaurant restaurant, @Nullable final DatabaseCallback<Void> callback) {
         writeData("restaurants/" + restaurant.getId(), restaurant, callback);
     }
 
-
-
-    /// get a user from the database
-    /// @param uid the id of the user to get
-    /// @param callback the callback to call when the operation is completed
-    ///               the callback will receive the user object
-    ///             if the operation fails, the callback will receive an exception
-    /// @return void
-    /// @see DatabaseCallback
-    /// @see User
-  
-
-
     /// get a restaurant from the database
-    /// @param restaurantId the id of the restaurant to get
-    /// @param callback the callback to call when the operation is completed
-    ///               the callback will receive the restaurant object
-    ///              if the operation fails, the callback will receive an exception
-    /// @return void
-    /// @see DatabaseCallback
-    /// @see Restaurant
+
     public void getRestaurant(@NotNull final String restaurantId, @NotNull final DatabaseCallback<Restaurant> callback) {
         getData("restaurants/" + restaurantId, Restaurant.class, callback);
     }
 
     /// generate a new id for a new restaurant in the database
-    /// @return a new id for the restaurant
-    /// @see #generateNewId(String)
-    /// @see Restaurant
+//מייצר מזהה חדש למסעדה
     public String generateRestaurantId() {
         return generateNewId("restaurants");
     }
 
 
-
     /// get all the restaurants from the database
-    /// @param callback the callback to call when the operation is completed
-    ///              the callback will receive a list of restaurant objects
-    ///            if the operation fails, the callback will receive an exception
-    /// @return void
-    /// @see DatabaseCallback
-    /// @see List
-    /// @see Restaurant
-    /// @see #getData(String, Class, DatabaseCallback)
+// מביא את כל המסעדות
     public void getRestaurants(@NotNull final DatabaseCallback<List<Restaurant>> callback) {
         readData("restaurants").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
@@ -325,14 +268,7 @@ public class DatabaseService {
     }
 
     /// get all the users from the database
-    /// @param callback the callback to call when the operation is completed
-    ///              the callback will receive a list of restaurant objects
-    ///            if the operation fails, the callback will receive an exception
-    /// @return void
-    /// @see DatabaseCallback
-    /// @see List
-    /// @see Restaurant
-    /// @see #getData(String, Class, DatabaseCallback)
+
     public void getUsers(@NotNull final DatabaseCallback<List<User>> callback) {
         readData("users").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
@@ -344,7 +280,7 @@ public class DatabaseService {
             task.getResult().getChildren().forEach(dataSnapshot -> {
                 User user = dataSnapshot.getValue(User.class);
 
-                user=new User(user);
+                user = new User(user);
                 Log.d(TAG, "Got user: " + user);
                 users.add(user);
             });

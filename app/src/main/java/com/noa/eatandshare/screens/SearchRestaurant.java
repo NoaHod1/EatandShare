@@ -73,8 +73,8 @@ public class SearchRestaurant extends BaseActivity {
     }
 
     private void fetchRestaurants(String city) {
-
         databaseService.getRestaurants(new DatabaseService.DatabaseCallback<List<Restaurant>>() {
+
             @Override
             public void onCompleted(List<Restaurant> object) {
                 Log.d(TAG, "onCompleted: " + object);

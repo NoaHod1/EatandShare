@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.noa.eatandshare.R;
 import com.noa.eatandshare.models.User;
+import com.noa.eatandshare.services.DatabaseService;
 
 import java.util.List;
 
@@ -45,7 +46,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-
         User user = userList.get(position);
         if (user == null) return;
 
@@ -63,6 +63,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                     .setPositiveButton("אישור", (dialog, which) -> {
                         // פעולה כשלוחצים על אישור
                         dialog.dismiss();
+
+
+                    removeUser(user);
+                    notifyDataSetChanged();
+
+
+
                     })
                     .setNegativeButton("ביטול", (dialog, which) -> {
                         // פעולה כשלוחצים על ביטול
@@ -72,6 +79,27 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                 return false;
             }
         });
+
+    }
+
+    private void removeUser(User user) {
+        DatabaseService databaseService;
+        databaseService=DatabaseService.getInstance();
+
+
+        databaseService.delUser(user, new DatabaseService.DatabaseCallback<Void>() {
+            @Override
+            public void onCompleted(Void object) {
+                notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+
+            }
+        });
+
 
     }
 

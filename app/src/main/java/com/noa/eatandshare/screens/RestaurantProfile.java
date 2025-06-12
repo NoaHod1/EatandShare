@@ -67,9 +67,7 @@ public class RestaurantProfile extends BaseActivity {
         });
 
 
-        /// get the instance of the authentication service
         authenticationService = AuthenticationService.getInstance();
-        /// get the instance of the database service
         databaseService = DatabaseService.getInstance();
 
         uid = authenticationService.getCurrentUserId();
